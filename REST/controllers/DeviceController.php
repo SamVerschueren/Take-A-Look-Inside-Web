@@ -32,8 +32,4 @@ class DeviceController extends Controller {
         
     }     
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 9a889887863cd1f29e71051e347ffa69af85cd66
 ?>

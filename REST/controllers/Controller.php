@@ -71,7 +71,7 @@ abstract class Controller {
             }
         }
         
-        echo $result;
+        return $result;
     }
 }
 ?>
