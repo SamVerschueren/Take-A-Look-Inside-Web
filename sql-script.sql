@@ -1,6 +1,14 @@
 # MySQL Script #
 ################
 
+# Movie(_movieID_, movie, dateTime)
+# Location(_locationID_, longitude, latitude)
+# Category(_categoryID_, name)
+# Building(_buildingID_, name, picture, infoLink, description, openingHours, mustSee, seen, movieID, locationID, categoryID)
+#   FK movieID REFERENCES Movie.movieID ON DELETE RESTRICT
+#   FK locationID REFERENCES Location.locationID ON DELETE RESTRICT
+#   FK categoryID REFERENCES Category.categoryID ON DELETE SET NULL
+
 CREATE DATABASE TakeALookInside;
 
 USE TakeALookInside;
@@ -40,5 +48,5 @@ CREATE TABLE Building (
     PRIMARY KEY(buildingID),
     FOREIGN KEY(movieID) REFERENCES Movie(movieID) ON DELETE RESTRICT,
     FOREIGN KEY(locationID) REFERENCES Location(locationID) ON DELETE RESTRICT,
-    FOREIGN KEY(categoryID) REFERENCES Category(categoryID) ON DELETE RESTRICT
+    FOREIGN KEY(categoryID) REFERENCES Category(categoryID) ON DELETE SET NULL
 );
