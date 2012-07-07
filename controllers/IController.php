@@ -2,7 +2,7 @@
 /**
  * Interface that tells which methods that should be implemented.
  *
- * @package TakeALookInside
+ * @package TakeALookInside/controllers
  * @author Sam Verschueren  <sam@irail.be>
  */
 interface IController {

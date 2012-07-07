@@ -2,6 +2,7 @@
 require_once('exceptions/ClassNotFoundException.php');
 require_once('exceptions/NotFoundException.php');
 require_once('controllers/RController.php');
+require_once('controllers/CUDController.php');
 
 /**
  * Process request and bind it to the right Controller.
