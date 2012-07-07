@@ -1,14 +1,19 @@
 <?php
-/**
- * It will accept a request and refer it to the right Controller.
- *
- * @package TakeALookInside
- * @copyright (C) 2012 by iRail vzw/asbl
- * @author Sam Verschueren  <sam@irail.be>
- */
-
 require_once('includes/Router.php');
 
+/*
+ * Create the Router instance and add the routing directions.
+ * 
+ * Regex rules based on The-Datatank project
+ */
 $router = new Router();
-$router->handleRoute();
+$router->addRoute('(?P<resource>[^/.]+)/?(?P<parameters>[^.]+)\.(?P<format>[^?]+).*', 'RController');
+$router->addRoute('(?P<resource>[^/.]+)/?(?P<parameters>[^?.]+)[^.]*', 'CUDController');
+
+try {
+    $router->processRequest();
+}
+catch(Exception $ex) {
+    echo $ex;
+}
 ?>
