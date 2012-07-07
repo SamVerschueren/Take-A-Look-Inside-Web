@@ -1,6 +1,7 @@
 <?php
-include_once('exceptions/ClassNotFoundException.php');
-include_once('exceptions/NotFoundException.php');
+require_once('exceptions/ClassNotFoundException.php');
+require_once('exceptions/NotFoundException.php');
+require_once('controllers/RController.php');
 
 /**
  * Process request and bind it to the right Controller.
@@ -23,7 +24,7 @@ class Router {
     }
     
     /**
-     * Handles the HTTP Request and binds the url to the right controller.
+     * Handles the HTTP Request and binds the url to the right controller. Method based upon TDT project.
      */
     public function processRequest() {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
