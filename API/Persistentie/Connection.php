@@ -1,6 +1,6 @@
 <?php
 /**
- * Connects to database
+ * Database connection
  * @author Sam Verschueren
  */
 class Connectie {
@@ -16,7 +16,7 @@ class Connectie {
         $this->db = mysql_connect(self::DATABASE_HOST, self::DATABASE_USER, self::DATABASE_PASSWORD);
         
         if(!$this->db) {
-        	throw new Exception("Kon geen verbinding maken met de database.");	
+        	throw new Exception("Kan geen verbinding maken met de database.");	
         }
         
         mysql_select_db(self::DATABASE_NAME, $this->db);
