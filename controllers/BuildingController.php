@@ -25,7 +25,10 @@ class BuildingController extends Controller {
             throw new InvalidArgumentException('URL parameters are not valid');
         }
         
-        $reader->execute($parameters);
+        $resource = 'Building';
+        $restrictions = parent::splitParameters($parameters['parameters']);
+        
+        $reader->execute($resource, $restrictions);
     }
 }
 ?>
