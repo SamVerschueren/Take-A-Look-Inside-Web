@@ -3,6 +3,7 @@ require_once('Reader.php');
 require_once('persistence/Connection.php');
 require_once('Config.php');
 require_once('exceptions/MalformedURLException.php');
+require_once('exceptions/SQLException.php');
 
 class SQLReader implements Reader {
     
@@ -22,7 +23,10 @@ class SQLReader implements Reader {
         $connection->connect(Config::$DB_HOST, Config::$DB_USER, Config::$DB_PASSWORD);
         $connection->selectDatabase(Config::$DB);
         
-        
+        $resultset = mysql_query($sql);
+        if(!$resultset) {
+            throw new SQLException('SQL could not be executed.');
+        }
     }
 }
 ?>
