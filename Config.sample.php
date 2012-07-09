@@ -1,4 +1,10 @@
 <?php
+/**
+ * Rename this file to Config.php and fill in the variables to fit your need.
+ * 
+ * @package TakeALookInside
+ * @author Sam Verschueren  <sam@irail.be>
+ */
 class Config {
     // Database variables
     public static $DB = 'db';

@@ -1,6 +1,6 @@
 <?php
 interface Reader {
     function isValid($parameters);
-    function read($parameters);
+    function execute($sql);
 }
 ?>

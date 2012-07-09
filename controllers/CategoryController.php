@@ -1,6 +1,7 @@
 <?php
 require_once('Controller.php');
-require_once('/models/SQLReader.php');
+require_once('models/SQLReader.php');
+require_once('models/ReaderFactory.php');
 
 /**
  * The Controller that handles the Category
