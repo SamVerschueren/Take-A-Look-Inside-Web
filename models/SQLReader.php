@@ -52,7 +52,7 @@ class SQLReader implements Reader {
             }
         }
         
-        $sql = 'SELECT * FROM ' . mysql_real_escape_string($resource) . ' ';
+        $sql = 'SELECT * FROM ' . $resource . ' ';
         $sql .= $where;
         
         $resultset = mysql_query($sql);

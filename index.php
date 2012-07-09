@@ -9,9 +9,6 @@ require_once('includes/Router.php');
 $router = new Router();
 $router->addRoute('(?P<resource>[^/.]+)/?(?P<parameters>[^.]*)\.(?P<format>[^?]+).*', '{resource}Controller');
 
-/*$router->addRoute('(?P<resource>[^/.]+)/?(?P<id>[^.]*)\.(?P<format>[^?]+).*', 'RController');
-$router->addRoute('(?P<resource>[^/.]+)/?(?P<id>[^?.]*)[^.]*', 'CUDController');*/
-
 try {
     $router->processRequest();
 }
