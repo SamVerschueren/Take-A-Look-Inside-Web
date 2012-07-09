@@ -1,6 +1,7 @@
 <?php
 require_once('IController.php');
 require_once('exceptions/runtime/UnsupportedOperationException.php');
+require_once('persistence/PersistenceController.php');
 
 /**
  * Controller that handles the GET request (cRud = READ).
@@ -9,6 +10,12 @@ require_once('exceptions/runtime/UnsupportedOperationException.php');
  * @author Sam Verschueren  <sam@irail.be>
  */
 class RController implements IController {
+    
+    private $persistenceController;
+    
+    public function __construct() {
+        $this->persistenceController = PersistenceController::getInstance();
+    }
     
     /**
      * Can not create a representation.
@@ -21,10 +28,12 @@ class RController implements IController {
      * The only thing that you can do on a representation.
      */
     public function get($parameters) {
-        echo 'Resource: ' . $parameters['resource'] . '<br />';
-        echo 'Parameters: ' . $parameters['parameters'] . '<br />';
-        echo 'Format: ' . $parameters['format'] . '<br />';
-        print_r($_GET);
+        $resource = $parameters['resource'];
+        
+        $get = $_GET;
+        $get['parameters'] = $parameters['parameters'];
+        
+        $this->persistenceController->$resource($get);
     }
     
     /**

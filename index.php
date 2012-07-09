@@ -7,8 +7,8 @@ require_once('includes/Router.php');
  * Regex rules based on The-Datatank project
  */
 $router = new Router();
-$router->addRoute('(?P<resource>[^/.]+)/?(?P<parameters>[^.]+)\.(?P<format>[^?]+).*', 'RController');
-$router->addRoute('(?P<resource>[^/.]+)/?(?P<parameters>[^?.]+)[^.]*', 'CUDController');
+$router->addRoute('(?P<resource>[^/.]+)/?(?P<parameters>[^.]*)\.(?P<format>[^?]+).*', 'RController');
+$router->addRoute('(?P<resource>[^/.]+)/?(?P<parameters>[^?.]*)[^.]*', 'CUDController');
 
 try {
     $router->processRequest();
