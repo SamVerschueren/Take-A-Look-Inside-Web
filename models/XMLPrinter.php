@@ -1,8 +1,9 @@
 <?php
+# NOT WORKING
 include_once('IPrinter.php');
 
 /**
- * Implementation of a printer that prints in the JSON format.
+ * Implementation of a printer that prints in the XML format.
  *
  * @package TakeALookInside/models
  * @author Sam Verschueren  <sam@irail.be>
@@ -10,14 +11,18 @@ include_once('IPrinter.php');
 class XMLPrinter implements IPrinter{
     
     /**
-     * Print in JSON.
+     * Print in XML.
      *
      * @param   toPrint     $toPrint    The query object to print in XML.
      */
     public function doPrint(array $toPrint) {
-        header('Content-type: application/xml');
+        header('Content-type: text/xml');
         
-        print_r($toPrint);
+        echo '<?xml version="1.0" ?>';
+        echo '<error>';
+        echo '  <message>Not supported yet</message>';
+        echo '</error>';
+
     }
 }
 ?>
