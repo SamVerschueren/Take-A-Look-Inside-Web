@@ -33,5 +33,24 @@ abstract class Controller {
     public function delete($parameters) {
         throw new UnsupportedOperationException("Deleteing is unsupported.");
     }
+    
+    /**
+     * 
+     */
+    public function splitParameters($parameters) {
+        $result = $_GET;
+        
+        $split = explode('/', $parameters);
+        
+        if($parameters!='') {
+            for($i=0; $i<count($split); $i++) {
+                $result[$split[$i]] = $split[$i+1];
+           
+                $i++;
+            }
+        }
+        
+        return $result;
+    }
 }
 ?>

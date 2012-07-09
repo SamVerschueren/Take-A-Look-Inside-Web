@@ -26,9 +26,21 @@ class CategoryController extends Controller {
             throw new InvalidArgumentException('URL parameters are not valid');
         }
         
-        $sql = 'SELECT * FROM Category';
+        $where = '';
         
+        foreach(parent::splitParameters($parameters['parameters']) as $key => $value) {
+            if($key != 'dataFormat') {
+                if($where == '') {
+                    $where = 'WHERE ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';
+                }
+                else {
+                    $where .= ' AND ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';
+                }
+            }
+        }
         
+        $sql = 'SELECT * FROM Category ';
+        $sql .= $where;
         
         $reader->execute($sql);
     }
