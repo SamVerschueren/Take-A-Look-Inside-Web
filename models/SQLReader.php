@@ -33,18 +33,49 @@ class SQLReader implements Reader {
      * 
      * @param sql           $sql            The sql-string that should be executed.
      */
-    public function execute($sql) {
+    public function execute($resource, $restrictions) {
         // Connect to the database
         $connection = new Connection();
         $connection->connect(Config::$DB_HOST, Config::$DB_USER, Config::$DB_PASSWORD);
         $connection->selectDatabase(Config::$DB);
         
+        $where = '';
+        
+        foreach($restrictions as $key => $value) {
+            if($key != 'dataFormat') {
+                if($where == '') {
+                    $where = 'WHERE ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';
+                }
+                else {
+                    $where .= ' AND ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';
+                }
+            }
+        }
+        
+        $sql = 'SELECT * FROM ' . mysql_real_escape_string($resource) . ' ';
+        $sql .= $where;
+        
         $resultset = mysql_query($sql);
+        
         if(!$resultset) {
             throw new SQLException('SQL could not be executed.');
         }
         
-        return $resultset;
+        return $this->resultsetToArray($resource, $resultset);
+    }
+
+    /**
+     * Converting a resultset to an array.
+     * 
+     * @param resultset $resultset  The resultset that should be converted.
+     */
+    private function resultsetToArray($resource, $resultset) {
+        $rows = array();
+        while($r = mysql_fetch_assoc($resultset)) {
+            $rows[$resource][] = $r;
+        }
+        
+        return $rows;
     }
 }
 ?>

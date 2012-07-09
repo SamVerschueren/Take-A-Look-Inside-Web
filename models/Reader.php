@@ -19,6 +19,6 @@ interface Reader {
      * 
      * @param sql           $sql            The sql-string that should be executed.
      */
-    function execute($sql);
+    function execute($resource, $restrictions);
 }
 ?>

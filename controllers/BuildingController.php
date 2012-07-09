@@ -17,15 +17,19 @@ class BuildingController extends Controller {
      */
     public function get($parameters) {
         $dataFormat = isset($_GET['dataFormat'])?$_GET['dataFormat']:'';
-        $reader = ReaderFactory::createReader($dataFormat);
-                
         $outputFormat = $parameters['format'];
+        
+        $reader = ReaderFactory::createReader($dataFormat);
+        $printer = PrinterFactory::createPrinter($outputFormat);
         
         if(!$reader->isValid($parameters)) {
             throw new InvalidArgumentException('URL parameters are not valid');
         }
         
-        $reader->execute($parameters);
+        $resource = 'Building';
+        $restrictions = parent::splitParameters($parameters['parameters']);
+        
+        $printer->doPrint($reader->execute($resource, $restrictions));
     }
 }
 ?>
