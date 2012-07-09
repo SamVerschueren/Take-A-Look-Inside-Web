@@ -31,7 +31,7 @@ class CategoryController extends Controller {
         $resource = 'Category';
         $restrictions = parent::splitParameters($parameters['parameters']);
         
-        $reader->execute($resource, $restrictions);
+        $printer->doPrint($reader->execute($resource, $restrictions));
     }
 }
 ?>
