@@ -1,5 +1,5 @@
 <?php
-include_once '(Printer.php)';
+include_once('Printer.php');
 
 /**
  * Implementation of a printer that prints in the JSON format.
@@ -10,7 +10,9 @@ include_once '(Printer.php)';
 class JSONPrinter extends Printer{
     
     /**
-     * Prints $toPrint in JSON format.
+     * Print in JSON.
+     *
+     * @param   toPrint     $toPrint    The object to print in JSON.
      */
     public function doPrint($toPrint){
         echo "print in JSON format";    
