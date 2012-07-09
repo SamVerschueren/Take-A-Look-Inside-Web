@@ -3,6 +3,7 @@ require_once('exceptions/ClassNotFoundException.php');
 require_once('exceptions/NotFoundException.php');
 require_once('controllers/BuildingController.php');
 require_once('controllers/CategoryController.php');
+require_once('Config.php');
 
 /**
  * Process request and bind it to the right Controller.
@@ -29,7 +30,9 @@ class Router {
      */
     public function processRequest() {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
-        $cleanURI = trim($_SERVER['REQUEST_URI'], '/');
+        $cleanURI = str_replace(Config::$SUBDIR, '', $_SERVER['REQUEST_URI']);
+        $cleanURI = trim($cleanURI, '/');
+        
         
         $found = false;
         

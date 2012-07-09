@@ -1,23 +1,23 @@
 <?php
-
 include_once('IPrinter.php');
+
 /**
  * Implementation of a printer that prints in the JSON format.
  *
  * @package TakeALookInside/models
- * @author Lieven Benoot  <lieven.benoot@irail.be>
+ * @author Sam Verschueren  <sam@irail.be>
  */
-class JSONPrinter implements IPrinter{
+class XMLPrinter implements IPrinter{
     
     /**
      * Print in JSON.
      *
-     * @param   toPrint     $toPrint    The query object to print in JSON.
+     * @param   toPrint     $toPrint    The query object to print in XML.
      */
     public function doPrint(array $toPrint) {
-        header('Content-type: application/json');
+        header('Content-type: application/xml');
         
-        echo json_encode($toPrint);  
+        print_r($toPrint);
     }
 }
 ?>

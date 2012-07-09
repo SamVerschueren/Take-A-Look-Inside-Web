@@ -11,5 +11,7 @@ class Config {
     public static $DB_HOST = 'localhost';
     public static $DB_USER = 'user';
     public static $DB_PASSWORD = 'password';
+    
+    public static $SUBDIR = '';
 }
 ?>
