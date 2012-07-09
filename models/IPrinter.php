@@ -6,7 +6,7 @@
  * @package TakeALookInside/models
  * @author Lieven Benoot  <lieven.benoot@irail.be>
  */
-interface Printer{    
+interface IPrinter{    
 	public function doPrint($toPrint);	
 }
 

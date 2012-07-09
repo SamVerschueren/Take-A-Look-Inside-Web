@@ -1,22 +1,40 @@
 <?php
-include_once('Printer.php');
 
+include_once('IPrinter.php');
 /**
  * Implementation of a printer that prints in the JSON format.
  *
  * @package TakeALookInside/models
  * @author Lieven Benoot  <lieven.benoot@irail.be>
  */
-class JSONPrinter extends Printer{
+class JSONPrinter implements IPrinter{
     
     /**
      * Print in JSON.
      *
-     * @param   toPrint     $toPrint    The object to print in JSON.
+     * @param   toPrint     $toPrint    The querry object to print in JSON.
      */
     public function doPrint($toPrint){
-        echo "print in JSON format";    
+        
+        //dummycode to simulate $toPrint content.
+        //$link = mysql_connect('localhost','root','root') or die('Cannot connect to the DB');
+        //mysql_select_db('TakeALookInside',$link) or die('Cannot select the DB');        
+        //$result = mysql_query("select * from Category where categoryID=1");
+        
+        $toPrint=$result;
+        $rows = array();
+        while($r = mysql_fetch_assoc($toPrint)) {
+            $rows['Category'][] = $r;
+           //foreach ($r as $field)
+           //     echo $field . "\n";
+        }
+        print json_encode($rows);
+
+         
     }
+    
+
 }
+ 
 
 ?>
