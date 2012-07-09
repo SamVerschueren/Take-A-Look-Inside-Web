@@ -61,7 +61,21 @@ class SQLReader implements Reader {
             throw new SQLException('SQL could not be executed.');
         }
         
-        return $resultset;
+        return $this->resultsetToArray($resource, $resultset);
+    }
+
+    /**
+     * Converting a resultset to an array.
+     * 
+     * @param resultset $resultset  The resultset that should be converted.
+     */
+    private function resultsetToArray($resource, $resultset) {
+        $rows = array();
+        while($r = mysql_fetch_assoc($resultset)) {
+            $rows[$resource][] = $r;
+        }
+        
+        return $rows;
     }
 }
 ?>

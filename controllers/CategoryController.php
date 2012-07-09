@@ -2,6 +2,7 @@
 require_once('Controller.php');
 require_once('models/SQLReader.php');
 require_once('models/ReaderFactory.php');
+require_once('models/PrinterFactory.php');
 
 /**
  * The Controller that handles the Category
@@ -18,9 +19,10 @@ class CategoryController extends Controller {
      */
     public function get($parameters) {
         $dataFormat = isset($_GET['dataFormat'])?$_GET['dataFormat']:'';
-        $reader = ReaderFactory::createReader($dataFormat);
-                
         $outputFormat = $parameters['format'];
+        
+        $reader = ReaderFactory::createReader($dataFormat);
+        $printer = PrinterFactory::createPrinter($outputFormat);
         
         if(!$reader->isValid($parameters)) {
             throw new InvalidArgumentException('URL parameters are not valid');
