@@ -17,7 +17,7 @@ class Context {
      */
 	public function __construct(Printer $p){
 		$this->printer=$p;		
-	}
+	}   
     
     /**
      * Use the print function of the printer.
