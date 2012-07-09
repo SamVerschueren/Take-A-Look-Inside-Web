@@ -16,6 +16,6 @@ try {
     $router->processRequest();
 }
 catch(Exception $ex) {
-    echo $ex;
+    echo $ex->getMessage();
 }
 ?>

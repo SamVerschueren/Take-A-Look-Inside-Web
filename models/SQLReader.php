@@ -1,41 +1,50 @@
 <?php
 require_once('Reader.php');
+require_once('persistence/Connection.php');
+require_once('Config.php');
+require_once('exceptions/MalformedURLException.php');
+require_once('exceptions/SQLException.php');
 
+/**
+ * Reader that can read from SQL datasource
+ * 
+ * @package TakeALookInside/models
+ * @author Sam Verschueren  <sam@irail.be>
+ */
 class SQLReader implements Reader {
     
+    /**
+     * Checks whether the parameters are valid.
+     * 
+     * @param parameters    $parameters     The url parameters
+     */
     public function isValid($parameters) {
+        $parameterSplit = trim($parameters['parameters'])==''?array():explode('/', $parameters['parameters']);
+        
+        if(count($parameterSplit)%2 != 0) {
+            throw new MalformedURLException('Odd number of parameters specified.');
+        }
+        
         return true;
     }
     
-    public function read($parameters) {
-        $table = $parameters['resource'];
-        $where = '';
+    /**
+     * Executes the SQL string
+     * 
+     * @param sql           $sql            The sql-string that should be executed.
+     */
+    public function execute($sql) {
+        // Connect to the database
+        $connection = new Connection();
+        $connection->connect(Config::$DB_HOST, Config::$DB_USER, Config::$DB_PASSWORD);
+        $connection->selectDatabase(Config::$DB);
         
-        $parameterSplit = explode('/', $parameters['parameters']);
-        
-        if(count($parameterSplit)%2 != 0) {
-            throw new InvalidArgumentException('tet');
+        $resultset = mysql_query($sql);
+        if(!$resultset) {
+            throw new SQLException('SQL could not be executed.');
         }
         
-        $parameterList = array();
-        for($i=0; $i<count($parameterSplit); $i++) {
-            $_GET[$parameterSplit[$i]] = $parameterSplit[$i+1];
-            
-            $i++;
-        }
-        
-        foreach($_GET as $key => $value) {
-            if($key != 'dataFormat') {
-                if(empty($where)) {
-                    $where .= ' WHERE ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';
-                }
-                else {
-                    $where .= ' AND ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';
-                }
-            }
-        }
-        
-        echo 'SELECT * FROM ' . mysql_real_escape_string($table) . $where;
+        return $resultset;
     }
 }
 ?>
