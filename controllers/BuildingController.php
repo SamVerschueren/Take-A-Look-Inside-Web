@@ -25,7 +25,7 @@ class BuildingController extends Controller {
             throw new InvalidArgumentException('URL parameters are not valid');
         }
         
-        $reader->read($parameters);
+        $reader->execute($parameters);
     }
 }
 ?>

@@ -17,29 +17,20 @@ class CategoryController extends Controller {
      * @param   parameters  $parameters The parameters of the url.
      */
     public function get($parameters) {
+        $dataFormat = isset($_GET['dataFormat'])?$_GET['dataFormat']:'';
+        $reader = ReaderFactory::createReader($dataFormat);
+                
         $outputFormat = $parameters['format'];
         
-        if(!isset($_GET['dataFormat'])) {
-            $reader = 'SQLReader';
-        }
-        else {
-            $reader = strtoupper(trim($_GET['dataFormat'])) . 'Reader';
-        }
-        
-        $readerClass = new $reader;
-        
-        if(!$readerClass->isValid($parameters)) {
+        if(!$reader->isValid($parameters)) {
             throw new InvalidArgumentException('URL parameters are not valid');
         }
         
-        $readerClass->read($parameters);
+        $sql = 'SELECT * FROM Category';
         
-        /*$resource = $parameters['resource'];
         
-        $get = $_GET;
-        $get['parameters'] = $parameters['parameters'];
         
-        $this->persistenceController->$resource($get);*/
+        $reader->execute($sql);
     }
 }
 ?>

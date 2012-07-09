@@ -5,8 +5,19 @@ require_once('Config.php');
 require_once('exceptions/MalformedURLException.php');
 require_once('exceptions/SQLException.php');
 
+/**
+ * Reader that can read from SQL datasource
+ * 
+ * @package TakeALookInside/models
+ * @author Sam Verschueren  <sam@irail.be>
+ */
 class SQLReader implements Reader {
     
+    /**
+     * Checks whether the parameters are valid.
+     * 
+     * @param parameters    $parameters     The url parameters
+     */
     public function isValid($parameters) {
         $parameterSplit = trim($parameters['parameters'])==''?array():explode('/', $parameters['parameters']);
         
@@ -17,6 +28,11 @@ class SQLReader implements Reader {
         return true;
     }
     
+    /**
+     * Executes the SQL string
+     * 
+     * @param sql           $sql            The sql-string that should be executed.
+     */
     public function execute($sql) {
         // Connect to the database
         $connection = new Connection();
@@ -27,6 +43,8 @@ class SQLReader implements Reader {
         if(!$resultset) {
             throw new SQLException('SQL could not be executed.');
         }
+        
+        return $resultset;
     }
 }
 ?>
