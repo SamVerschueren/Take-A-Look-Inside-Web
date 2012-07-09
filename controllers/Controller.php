@@ -1,41 +1,37 @@
 <?php
-require_once('IController.php');
-require_once('exceptions/runtime/UnsupportedOperationException.php');
-
 /**
- * Controller that handles the GET request (cRud = READ).
+ * Base class. Standard no implementation.
  *
  * @package TakeALookInside/controllers
  * @author Sam Verschueren  <sam@irail.be>
  */
-class CUDController implements IController {
-    
+abstract class Controller {
     /**
-     * Creating new RW-object.
+     * Creating
      */
     public function post($parameters) {
-        
+        throw new UnsupportedOperationException("Posting is unsupported.");
     }
     
     /**
-     * Can't get a RW-object. So no getting here!
+     * Getting
      */
     public function get($parameters) {
         throw new UnsupportedOperationException("Getting is unsupported.");
     }
     
     /**
-     * Updating RW-object.
+     * Updating
      */
     public function put($parameters) {
-        
+        throw new UnsupportedOperationException("Putting is unsupported.");
     }
     
     /**
-     * Deleteting RW-object.
+     * Deleteting
      */
     public function delete($parameters) {
-        
+        throw new UnsupportedOperationException("Deleteing is unsupported.");
     }
 }
 ?>

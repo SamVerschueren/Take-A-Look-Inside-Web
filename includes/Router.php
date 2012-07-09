@@ -1,8 +1,8 @@
 <?php
 require_once('exceptions/ClassNotFoundException.php');
 require_once('exceptions/NotFoundException.php');
-require_once('controllers/RController.php');
-require_once('controllers/CUDController.php');
+require_once('controllers/BuildingController.php');
+require_once('controllers/CategoryController.php');
 
 /**
  * Process request and bind it to the right Controller.
@@ -38,6 +38,8 @@ class Router {
             
             if(preg_match('/^' . $regex . '$/i', $cleanURI, $parameters)) {
                 $found = true;
+                
+                $controller = preg_replace("/{resource}/", $parameters['resource'], ucfirst($controller));
                 
                 if(class_exists($controller)) {
                     $object = new $controller;
