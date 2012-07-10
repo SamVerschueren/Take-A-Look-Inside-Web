@@ -7,12 +7,12 @@
  */
 class Config {
     // Database variables
-    public static $DB = 'db';
+    public static $DB = 'databasename';
     public static $DB_HOST = 'localhost';
-    public static $DB_USER = 'root';
-    public static $DB_PASSWORD = 'root';
+    public static $DB_USER = 'username';
+    public static $DB_PASSWORD = 'password';
     
-    // Fill this in if you use a subfolder
+    // Fill this in if REST api is placed in a subfolder
     public static $SUBDIR = '';
 }
 ?>
