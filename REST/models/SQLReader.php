@@ -39,22 +39,31 @@ class SQLReader implements IReader {
         $connection->connect(Config::$DB_HOST, Config::$DB_USER, Config::$DB_PASSWORD);
         $connection->selectDatabase(Config::$DB);
         
-        $where = '';
+        $where = '';       
+        $orderby='';
+        $select='';
         
-        foreach($restrictions as $key => $value) {
+        foreach($restrictions as $key => $value) {           
+           
             if($key != 'dataFormat') {
-                if($where == '') {
+                if(strtolower($key) == 'orderby')
+                    $orderby = " order by " .$value;
+                else if(strtolower($key)=='select'){
+                    $select=str_replace(";", ",", $value);                
+                }
+                else if($where == '') {
                     $where = 'WHERE ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';
                 }
                 else {
                     $where .= ' AND ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';
-                }
-            }
+                }                
+            }            
         }
-        
-        $sql = 'SELECT * FROM ' . $resource . ' ';
-        $sql .= $where;
-        
+        $sql="select " . ( strlen($select)>0? $select: "*"). " from " .$resource;
+        if(strlen($where)>0)
+            $sql .= " ".$where;
+        if(strlen($orderby)>0)
+            $sql .= $orderby;
         $resultset = mysql_query($sql);
         
         if(!$resultset) {
