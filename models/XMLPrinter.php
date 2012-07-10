@@ -17,12 +17,11 @@ class XMLPrinter implements IPrinter{
      */
     public function doPrint(array $toPrint) {
         header('Content-type: text/xml');
-        
-        echo '<?xml version="1.0" ?>';
+
+        echo '<?xml version="1.0"?>';
         echo '<error>';
         echo '  <message>Not supported yet</message>';
         echo '</error>';
-
     }
 }
 ?>

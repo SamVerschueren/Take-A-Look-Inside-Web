@@ -7,7 +7,7 @@ $(function() {
 });
 
 function success(position) {
-	var map = new OpenLayers.Map({
+	map = new OpenLayers.Map({
 		div: "map",
 		theme: null,
 		controls: [
@@ -35,21 +35,25 @@ function success(position) {
 	map.addLayer(markers);
 
 	// Adding the markers to the layer
-	var size = new OpenLayers.Size(25,41);
-	var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-	var icon = new OpenLayers.Icon('img/marker.png', size, offset);
+	var size = new OpenLayers.Size(25,25);
+	var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
+	var icon = new OpenLayers.Icon('img/my-location.png', size, offset);
 	markers.addMarker(new OpenLayers.Marker(lonlat,icon));
 	
-	// Creating popup
-	var popup = new OpenLayers.Popup("chicken",
-                   lonlat,
-                   new OpenLayers.Size(200,200),
-                   "This is explanation",
-                   false);
-	popup.hide();
-				   
-	// Adding popup
-	map.addPopup(popup);
+	$.getJSON('../Building.json', function(data) {
+        $.each(data.Building, function(key, val) {
+            addMarker(markers, val.longitude, val.latitude);
+        });
+    });
+}
+
+function addMarker(layer, lon, lat) {
+    var lonlat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+    var size = new OpenLayers.Size(25,41);
+    var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+    var icon = new OpenLayers.Icon('img/marker.png', size, offset);
+    
+    layer.addMarker(new OpenLayers.Marker(lonlat,icon));
 }
 
 function error(message) {

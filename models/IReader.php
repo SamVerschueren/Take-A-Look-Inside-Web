@@ -5,7 +5,7 @@
  * @package TakeALookInside/models
  * @author Sam Verschueren  <sam@irail.be>
  */
-interface Reader {
+interface IReader {
     
     /**
      * Checks whether the parameters are valid.

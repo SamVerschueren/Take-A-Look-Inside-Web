@@ -1,5 +1,5 @@
 <?php
-require_once('Reader.php');
+require_once('IReader.php');
 require_once('persistence/Connection.php');
 require_once('Config.php');
 require_once('exceptions/MalformedURLException.php');
@@ -11,7 +11,7 @@ require_once('exceptions/SQLException.php');
  * @package TakeALookInside/models
  * @author Sam Verschueren  <sam@irail.be>
  */
-class SQLReader implements Reader {
+class SQLReader implements IReader {
     
     /**
      * Checks whether the parameters are valid.

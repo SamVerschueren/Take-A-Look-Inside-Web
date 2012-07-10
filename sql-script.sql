@@ -20,12 +20,12 @@ CREATE TABLE Movie (
     PRIMARY KEY(movieId)
 );
 
-CREATE TABLE Location (
-    locationID INT NOT NULL AUTO_INCREMENT,
-    longitude DECIMAL(10,7) NOT NULL,
-    latitude DECIMAL(10,7) NOT NULL,
-    PRIMARY KEY(locationID)
-);
+#CREATE TABLE Location (
+#    locationID INT NOT NULL AUTO_INCREMENT,
+#    longitude DECIMAL(10,7) NOT NULL,
+#    latitude DECIMAL(10,7) NOT NULL,
+#    PRIMARY KEY(locationID)
+#);
 
 CREATE TABLE Category (
     categoryID INT NOT NULL AUTO_INCREMENT,
@@ -43,10 +43,12 @@ CREATE TABLE Building (
     mustSee INT DEFAULT 0,
     seen INT DEFAULT 0,
     movieID INT NOT NULL,
-    locationID INT NOT NULL,
+#    locationID INT NOT NULL,
+    longitude DECIMAL(10,7) NOT NULL,
+    latitude DECIMAL(10,7) NOT NULL,
     categoryID INT,
     PRIMARY KEY(buildingID),
     FOREIGN KEY(movieID) REFERENCES Movie(movieID) ON DELETE RESTRICT,
-    FOREIGN KEY(locationID) REFERENCES Location(locationID) ON DELETE RESTRICT,
+#    FOREIGN KEY(locationID) REFERENCES Location(locationID) ON DELETE RESTRICT,
     FOREIGN KEY(categoryID) REFERENCES Category(categoryID) ON DELETE SET NULL
 );
