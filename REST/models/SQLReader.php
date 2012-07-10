@@ -55,8 +55,7 @@ class SQLReader implements IReader {
                 else if($where == '')                
                     $where = 'WHERE ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';     
                 else 
-                    $where .= ' AND ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';                   
-                     
+                    $where .= ' AND ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';   
         
         $sql="select " . ( strlen($select)>0? $select: "*"). " from " .$resource;
         if(strlen($jointable)>0)
@@ -65,8 +64,7 @@ class SQLReader implements IReader {
             $sql .= " ".$where;
         if(strlen($orderby)>0)
             $sql .= $orderby;
-        
-        echo $sql ."\n";
+
         $resultset = mysql_query($sql);
         
         if(!$resultset) {
