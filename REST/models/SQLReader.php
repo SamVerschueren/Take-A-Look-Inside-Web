@@ -42,28 +42,31 @@ class SQLReader implements IReader {
         $where = '';       
         $orderby='';
         $select='';
+        $jointable='';
         
-        foreach($restrictions as $key => $value) {           
-           
-            if($key != 'dataFormat') {
+        foreach($restrictions as $key => $value)                 
+            if($key != 'dataFormat') 
                 if(strtolower($key) == 'orderby')
-                    $orderby = " order by " .$value;
-                else if(strtolower($key)=='select'){
-                    $select=str_replace(";", ",", $value);                
-                }
-                else if($where == '') {
-                    $where = 'WHERE ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';
-                }
-                else {
-                    $where .= ' AND ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';
-                }                
-            }            
-        }
+                    $orderby = " order by " .$value;                
+                else if(strtolower($key)=='select')
+                    $select=str_replace(";", ",", $value);   
+                else if(strtolower($key)=='join')        
+                    $jointable=$value;                
+                else if($where == '')                
+                    $where = 'WHERE ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';     
+                else 
+                    $where .= ' AND ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';                   
+                     
+        
         $sql="select " . ( strlen($select)>0? $select: "*"). " from " .$resource;
+        if(strlen($jointable)>0)
+            $sql .= " join ".$jointable." on ". $resource. ".".$jointable."ID=".$jointable.".".$jointable."ID";
         if(strlen($where)>0)
             $sql .= " ".$where;
         if(strlen($orderby)>0)
             $sql .= $orderby;
+        
+        echo $sql ."\n";
         $resultset = mysql_query($sql);
         
         if(!$resultset) {
