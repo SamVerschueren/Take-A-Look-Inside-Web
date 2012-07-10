@@ -4,6 +4,10 @@ $(function() {
     if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(success, error);
 	}
+	
+	$("div.filter").click(function(evt) {
+	   alert("clicked"); 
+	});
 });
 
 function success(position) {
@@ -45,6 +49,7 @@ function success(position) {
             addMarker(markers, val.longitude, val.latitude, val.buildingID);
         });
     });
+
     
     /*var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&flat=52.215676&flon=5.963946&tlat=52.2573&tlon=6.1799&v=motorcar&fast=1&layer=mapnik';
 
