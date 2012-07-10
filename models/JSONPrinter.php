@@ -12,12 +12,12 @@ class JSONPrinter implements IPrinter{
     /**
      * Print in JSON.
      *
-     * @param   toPrint     $toPrint    The query object to print in JSON.
+     * @param   data    $data   The array object to print in JSON.
      */
-    public function doPrint(array $toPrint) {
+    public function doPrint(array $data) {
         header('Content-type: application/json');
 
-        echo json_encode($toPrint);  
+        echo json_encode($data);  
     }
 }
 ?>

@@ -7,7 +7,6 @@
  * @author Lieven Benoot  <lieven.benoot@irail.be>
  */
 interface IPrinter{    
-	public function doPrint(array $toPrint);	
+	public function doPrint(array $data);	
 }
-
 ?>

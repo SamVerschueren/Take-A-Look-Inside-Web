@@ -13,9 +13,9 @@ class XMLPrinter implements IPrinter{
     /**
      * Print in XML.
      *
-     * @param   toPrint     $toPrint    The query object to print in XML.
+     * @param   data    $data   The array object to print in XML.
      */
-    public function doPrint(array $toPrint) {
+    public function doPrint(array $data) {
         header('Content-type: text/xml');
 
         echo '<?xml version="1.0"?>';
