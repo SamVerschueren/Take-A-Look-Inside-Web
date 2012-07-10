@@ -12,6 +12,7 @@ class Config {
     public static $DB_USER = 'root';
     public static $DB_PASSWORD = 'root';
     
+    // Fill this in if you use a subfolder
     public static $SUBDIR = '';
 }
 ?>
