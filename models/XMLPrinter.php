@@ -18,6 +18,10 @@ class XMLPrinter implements IPrinter{
         header('Content-type: text/xml');
         
         $keys = array_keys($data);
+        
+        if(empty($keys)) {
+            // throw error?
+        }
 
         echo '<?xml version="1.0" encoding="UTF-8" ?>';
         echo '<' . strtolower($keys[0]) . 's>';
