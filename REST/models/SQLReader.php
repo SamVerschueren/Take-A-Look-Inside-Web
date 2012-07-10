@@ -47,7 +47,9 @@ class SQLReader implements IReader {
         foreach($restrictions as $key => $value)                 
             if($key != 'dataFormat') 
                 if(strtolower($key) == 'orderby')
-                    $orderby = " order by " .$value;                
+                    $orderby = " order by " .$value;     
+                else if(strtolower($key) == 'orderbydesc')
+                    $orderby = " order by " .$value . " desc";                     
                 else if(strtolower($key)=='select')
                     $select=str_replace(";", ",", $value);   
                 else if(strtolower($key)=='join')        
@@ -55,8 +57,7 @@ class SQLReader implements IReader {
                 else if($where == '')                
                     $where = 'WHERE ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';     
                 else 
-                    $where .= ' AND ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';   
-        
+                    $where .= ' AND ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';
         $sql="select " . ( strlen($select)>0? $select: "*"). " from " .$resource;
         if(strlen($jointable)>0)
             $sql .= " join ".$jointable." on ". $resource. ".".$jointable."ID=".$jointable.".".$jointable."ID";
@@ -64,7 +65,8 @@ class SQLReader implements IReader {
             $sql .= " ".$where;
         if(strlen($orderby)>0)
             $sql .= $orderby;
-
+        //echo $sql ."\n";
+        
         $resultset = mysql_query($sql);
         
         if(!$resultset) {

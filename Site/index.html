@@ -58,10 +58,13 @@
           <div class="row-fluid">
               <div class="span6">
                   <h1>Must See</h1>
+                  <p id="must_See"></p> 
               </div>
               <div class="span6">
                   <h1>Favorites</h1>
-              </div>
+              </div>          
+          </div>
+          <div class="row-fluid">
                   <div class="span6">
                   <h1>Seen</h1>
               </div>
@@ -79,5 +82,19 @@
     <!-- Le javascript -->
         <script src="js/libs/jquery.js"></script>
         <script src="js/libs/bootstrap.js"></script>
+        <script type="text/javascript">  
+        $(function() {            
+            $.getJSON('http://localhost/TakeALookInside/REST/Building.json?orderbydesc=mustSee&select=name;buildingID', function(data) {
+                var list = $("<ul />"); 
+                            
+                $.each(data.Building, function(key, val) {
+                    var li = $('<li />').attr('id', val.buildingID).html(val.name);
+                     
+                    list.append(li);                  
+                });
+                $('p#must_See').append(list);
+            });
+        });
+        </script>
 </body>
 </html>
