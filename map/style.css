@@ -23,3 +23,25 @@ div.filter {
     height: 50px;
     cursor: pointer;
 }
+ul.filterMenu {
+    z-index: 999;
+    background-color: rgb(168, 164, 1);
+    display: none;
+    list-style-type: none;
+    border-radius: 5px;
+    margin: 0px;
+    padding: 10px;
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    width: 150px;
+    height: 100px;
+    overflow: auto;
+}
+
+@media screen and (max-height: 500px){
+    ul.filterMenu {
+        height: 50px;
+    }
+}
+

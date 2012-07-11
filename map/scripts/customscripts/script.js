@@ -5,8 +5,23 @@ $(function() {
 		navigator.geolocation.getCurrentPosition(success, error);
 	}
 	
+	$.getJSON('/REST/Category.json', function(data) {	 
+        $.each(data.Category, function(key, value) {            
+            var checkbox = $("<input />").attr({type: 'checkbox', id: 'filter' + value.categoryID});
+            $(checkbox).change(function() {
+                alert(this.id);
+            });
+              
+            var label = $("<label />").attr('for', 'filter' + value.categoryID).html(value.name);
+        
+            var li = $("<li />").append(checkbox).append(' ').append(label); 
+        
+            $("ul.filterMenu").append(li);      
+        });
+	});
+	
 	$("div.filter").click(function(evt) {
-	   alert("clicked"); 
+        $("ul.filterMenu").toggle('slow');
 	});
 });
 
@@ -75,8 +90,8 @@ function addMarker(layer, lon, lat, id) {
     var marker = feature.createMarker();
 
     marker.events.register('mousedown', feature, markerClick);
-    marker.events.register('mouseover', marker, markerOver);
-    marker.events.register('mouseout', marker, markerOut);
+    /*marker.events.register('mouseover', marker, markerOver);
+    marker.events.register('mouseout', marker, markerOut);*/
     
     layer.addMarker(marker);
 }
@@ -104,7 +119,7 @@ var markerClick = function (evt) {
     OpenLayers.Event.stop(evt);
 }
 
-var markerOver = function(evt) {
+/*var markerOver = function(evt) {
     this.setOpacity(0.8);
     document.body.style.cursor='pointer';
         
@@ -116,7 +131,7 @@ var markerOut = function(evt) {
     document.body.style.cursor='auto';
 
     OpenLayers.Event.stop(evt);
-}
+}*/
 
 function error(message) {
 	alert("GEOLocation not supported");
