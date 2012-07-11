@@ -78,16 +78,17 @@ function success(position) {
 	var size = new OpenLayers.Size(25,25);
 	var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
 	var icon = new OpenLayers.Icon('img/my-location.png', size, offset);
-	markers.addMarker(new OpenLayers.Marker(lonlat,icon));
+	locationLayer.addMarker(new OpenLayers.Marker(lonlat,icon));
+	
 	$.getJSON('/REST/Building.json?select=buildingID;longitude;latitude', function(data) {
-	    var lat;
-	    var lon;
+	   // var lat;
+	   // var lon;
         $.each(data.Building, function(key, val) {
-            addMarker(markers, val.longitude, val.latitude, val.buildingID);     
-            lat=val.latitude;
-            lon=val.longitude;
+            addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID);     
+            //lat=val.latitude;
+            //lon=val.longitude;
         });        
-        var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
+        /*var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+position.coords.latitude+'&'+
         'flon='+position.coords.longitude+'&'+
         'tlat='+lat+'&'+
@@ -130,14 +131,8 @@ function success(position) {
                
                
             });
-        });
+        });*/
     });
-    
-    
-    
-    setInterval(function(){ 
-        //alert("5sec"); 
-    }, 5000);
 }
 
 function addMarker(layer, lon, lat, id) {
