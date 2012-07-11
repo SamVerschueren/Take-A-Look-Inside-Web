@@ -4,31 +4,33 @@ body {
 }
 header {
     background-color: red;
-        clear: both;
 }
-header nav {
-    clear: both;
+nav ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
 }
-header nav a {
-    width: 100px;
-    display: block;
+nav ul li {
+    display: inline;
     float: left;
+}
+nav ul li a {
+    display: block;
+    width: 100px;
     text-align: center;
     background-color: #555;
     color: orange;
-    padding: 5px 0 5px 0;
+    padding: 5px 0px 5px 0px;
 }
-header nav a:first-child {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-header nav a:last-child {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+nav ul li a:hover {
+    background-color: #666;
 }
 
-@media screen and (max-width: 515px){
-    header nav a {
+@media screen and (max-width: 515px) {
+    nav ul, nav ul li a {
+        width: 100%;
+    }
+    nav ul li {
         width: 33%;
     }
 }

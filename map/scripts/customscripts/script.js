@@ -71,6 +71,10 @@ function success(position) {
 	var buildingLayer = new OpenLayers.Layer.Markers('BuildingLayer');
 	buildingLayer.id = 'BuildingLayer';
 	
+	var ol = new OpenLayers.Layer.OSM(); 
+	var vector = new OpenLayers.Layer.Vector();
+	map.addLayers([ol,vector]);   
+	
 	map.addLayer(locationLayer);
 	map.addLayer(buildingLayer);
 
@@ -87,7 +91,7 @@ function success(position) {
             latDestination=val.latitude;
             lonDestination=val.longitude;
         });    
-        /*
+
         //get route JSON
         var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+position.coords.latitude+'&'+
@@ -98,9 +102,9 @@ function success(position) {
            
                
         //draw route   
-        var ol = new OpenLayers.Layer.OSM(); 
+        
         var routeStyle = { strokeColor: '#0000ff', 
-                strokeOpacity: 1,
+                strokeOpacity: 0.5,
                 strokeWidth: 5
     	};        
         $.get(url, function(data) { 
@@ -116,13 +120,12 @@ function success(position) {
 		    		var end_point = new OpenLayers.Geometry.Point(latlonpos[0],latlonpos[1]);
 		    		previouslonpos=latlonpos[0];
 	         		previouslatpos=latlonpos[1];
-		    		var vector = new OpenLayers.Layer.Vector();
+		    		
 		    		vector.style=routeStyle;
-		    		vector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);
-		    		map.addLayers([ol,vector]);        
+		    		vector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);     
 				}
 	         });
-        });*/
+        });
     });
 }
 
