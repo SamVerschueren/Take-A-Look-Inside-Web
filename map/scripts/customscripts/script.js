@@ -1,5 +1,7 @@
 var map, drawControls;
 var markerArray = new Array();
+var myLon, myLat;
+var myRouteVector;
 
 $(function() {
     if (navigator.geolocation) {
@@ -60,6 +62,9 @@ function success(position) {
 		]
 	});
 	
+	myLon=position.coords.longitude;
+	myLat=position.coords.latitude;
+	
 	var lonlat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
 	map.setCenter(lonlat);
 	map.zoomTo(16);
@@ -72,8 +77,8 @@ function success(position) {
 	buildingLayer.id = 'BuildingLayer';
 	
 	var ol = new OpenLayers.Layer.OSM(); 
-	var vector = new OpenLayers.Layer.Vector();
-	map.addLayers([ol,vector]);   
+	myRouteVector = new OpenLayers.Layer.Vector();
+	map.addLayers([ol,myRouteVector]);   
 	
 	map.addLayer(locationLayer);
 	map.addLayer(buildingLayer);
@@ -84,49 +89,17 @@ function success(position) {
 	var icon = new OpenLayers.Icon('img/my-location.png', size, offset);
 	locationLayer.addMarker(new OpenLayers.Marker(lonlat,icon));
 	$.getJSON('/REST/Building.json?select=buildingID;longitude;latitude', function(data) {
-	    var latDestination;
-	    var lonDestination;
+	   // var latDestination;
+	   // var lonDestination;
         $.each(data.Building, function(key, val) {
             addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID);     
-            latDestination=val.latitude;
-            lonDestination=val.longitude;
-        });    
-
-        //get route JSON
-        var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
-        'flat='+position.coords.latitude+'&'+
-        'flon='+position.coords.longitude+'&'+
-        'tlat='+latDestination+'&'+
-        'tlon='+lonDestination+
-        '&v=foot&fast=1&layer=mapnik';
-           
-               
-        //draw route   
+      //      latDestination=val.latitude;
+      //      lonDestination=val.longitude;
+        });    	
+        	
         
-        var routeStyle = { strokeColor: '#0000ff', 
-                strokeOpacity: 0.5,
-                strokeWidth: 5
-    	};        
-        $.get(url, function(data) { 
-        	var previouslonpos=0;
-        	var previouslatpos=0; 
-	         $.each(data.coordinates, function(num,latlonpos) {
-	         	if(previouslatpos==0){
-	         		previouslonpos=latlonpos[0];
-	         		previouslatpos=latlonpos[1];
-	         	}
-	         	else{	         	
-		        	var start_point = new OpenLayers.Geometry.Point(previouslonpos,previouslatpos); 
-		    		var end_point = new OpenLayers.Geometry.Point(latlonpos[0],latlonpos[1]);
-		    		previouslonpos=latlonpos[0];
-	         		previouslatpos=latlonpos[1];
-		    		
-		    		vector.style=routeStyle;
-		    		vector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);     
-				}
-	         });
-        });
-    });
+	});
+
 }
 
 function addMarker(layer, lon, lat, id) {
@@ -138,7 +111,9 @@ function addMarker(layer, lon, lat, id) {
     var popup = new OpenLayers.Popup.FramedCloud("Popup", 
         lonlat, null,
         '<a target="_blank" href="http://openlayers.org/">We</a> ' +
-        'could be here.<br>Or elsewhere.', null,
+        'could be here.<br>Or elsewhere.'+
+        '<button onclick="routeTo('+lon+','+lat+')">Route</button>'
+        , null,
         true // <-- true if we want a close (X) button, false otherwise
     );
     
@@ -159,6 +134,44 @@ function addMarker(layer, lon, lat, id) {
     marker.events.register('mousedown', feature, markerClick);
     
     layer.addMarker(marker);
+}
+
+function routeTo (lon,lat) {
+	
+	//get route JSON
+	  var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
+        'flat='+myLat+'&'+
+        'flon='+myLon+'&'+
+        'tlat='+lat+'&'+
+        'tlon='+lon+
+        '&v=foot&fast=0&layer=mapnik';
+           
+               
+        //draw route   
+    myRouteVector.destroyFeatures();   
+    var routeStyle = { strokeColor: '#0000ff', 
+            strokeOpacity: 0.5,
+            strokeWidth: 5
+	};        
+    $.get(url, function(data) { 
+    	var previouslonpos=0;
+    	var previouslatpos=0; 
+         $.each(data.coordinates, function(num,latlonpos) {
+         	if(previouslatpos==0){
+         		previouslonpos=latlonpos[0];
+         		previouslatpos=latlonpos[1];
+         	}
+         	else{	         	
+	        	var start_point = new OpenLayers.Geometry.Point(previouslonpos,previouslatpos); 
+	    		var end_point = new OpenLayers.Geometry.Point(latlonpos[0],latlonpos[1]);
+	    		previouslonpos=latlonpos[0];
+         		previouslatpos=latlonpos[1];
+	    		
+	    		myRouteVector.style=routeStyle;
+	    		myRouteVector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);     
+			}
+         });
+	});
 }
 
 var markerClick = function (evt) {
