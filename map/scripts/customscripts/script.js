@@ -79,58 +79,49 @@ function success(position) {
 	var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
 	var icon = new OpenLayers.Icon('img/my-location.png', size, offset);
 	locationLayer.addMarker(new OpenLayers.Marker(lonlat,icon));
-	
 	$.getJSON('/REST/Building.json?select=buildingID;longitude;latitude', function(data) {
-	   // var lat;
-	   // var lon;
+	    var latDestination;
+	    var lonDestination;
         $.each(data.Building, function(key, val) {
             addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID);     
-            //lat=val.latitude;
-            //lon=val.longitude;
-        });        
-        /*var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
+            latDestination=val.latitude;
+            lonDestination=val.longitude;
+        });    
+        /*
+        //get route JSON
+        var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+position.coords.latitude+'&'+
         'flon='+position.coords.longitude+'&'+
-        'tlat='+lat+'&'+
-        'tlon='+lon+
+        'tlat='+latDestination+'&'+
+        'tlon='+lonDestination+
         '&v=foot&fast=1&layer=mapnik';
-                
-        //draw route
-        var lineLayer = new OpenLayers.Layer.Vector("Line Layer"); 
-	       locationLayer.addMarker(new OpenLayers.Marker(lonlat,icon));
-	
-    	$.getJSON('/REST/Building.json?select=buildingID;longitude;latitude', function(data) {
-            $.each(data.Building, function(key, val) {
-                addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID);
-            });
-        }); 
-
-        map.addLayer(lineLayer);                    
-        map.addControl(new OpenLayers.Control.DrawFeature(lineLayer, OpenLayers.Handler.Path));                                     
-        var points = new Array(
-           new OpenLayers.Geometry.Point('3.7254270','51.0544520'),
-           new OpenLayers.Geometry.Point('3.7252200','51.0538500')
-        );
-        
-        var line = new OpenLayers.Geometry.LineString(points);
-        
-        var style = { 
-          strokeColor: '#0000ff', 
-          strokeOpacity: 0.5,
-          strokeWidth: 5
-        };
-        
-        var lineFeature = new OpenLayers.Feature.Vector(line, null, style);
-        lineLayer.addFeatures([lineFeature]);
-        
-        
-        
-        $.get(url, function(data) {
-            $.each(data.coordinates, function(lon,lat) {
-               // addMarker(markers,lat,lon,4);
+           
                
-               
-            });
+        //draw route   
+        var ol = new OpenLayers.Layer.OSM(); 
+        var routeStyle = { strokeColor: '#0000ff', 
+                strokeOpacity: 1,
+                strokeWidth: 5
+    	};        
+        $.get(url, function(data) { 
+        	var previouslonpos=0;
+        	var previouslatpos=0; 
+	         $.each(data.coordinates, function(num,latlonpos) {
+	         	if(previouslatpos==0){
+	         		previouslonpos=latlonpos[0];
+	         		previouslatpos=latlonpos[1];
+	         	}
+	         	else{	         	
+		        	var start_point = new OpenLayers.Geometry.Point(previouslonpos,previouslatpos); 
+		    		var end_point = new OpenLayers.Geometry.Point(latlonpos[0],latlonpos[1]);
+		    		previouslonpos=latlonpos[0];
+	         		previouslatpos=latlonpos[1];
+		    		var vector = new OpenLayers.Layer.Vector();
+		    		vector.style=routeStyle;
+		    		vector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);
+		    		map.addLayers([ol,vector]);        
+				}
+	         });
         });*/
     });
 }
@@ -169,7 +160,6 @@ function addMarker(layer, lon, lat, id) {
 
 var markerClick = function (evt) {
     var caller = this;
-    
     $.getJSON('/REST/Building/buildingID/' + caller.id + '.json', function(data) {
         var h1 = $('<h1 />').html(data.Building[0].name);
         
