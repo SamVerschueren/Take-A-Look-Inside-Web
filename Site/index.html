@@ -1,25 +1,73 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Take A Look Inside</title>   
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>iRail Summer of Code Bootstrap (from Twitter)</title>
+        
+        <!-- Le fonts -->
+        <link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css" />
+        
+        <!-- Le styles -->
+        <link href="css/bootstrap.css" rel="stylesheet" />
+        <link href="css/bootstrap-responsive.css" rel="stylesheet" />
+        <style type="text/css">
+            body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+            }
+            .sidebar-nav {
+            padding: 9px 0;
+            }
+        </style>
+        
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
     
-    <link rel="stylesheet" href="style/style.css" />
-</head>
-<body>
+    <body>
+      <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container-fluid">                  
+                  <div class="nav-collapse">
+                      <ul class="nav">
+                          <li class="active"><a href="#">Home</a></li>
+                          <li><a href="#nothing">Scan</a></li>
+                          <li><a href="#nolink">Map</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
 
-<header>
-    <nav>
-        <ul>
-            <li><a href="/home" title="Home">Home</a></li>
-            <li><a href="/scan" title="Scan">Scan</a></li>
-            <li><a href="/map" title="Map">Map</a></li>
-        </ul>
-    </nav>
-</header> 
-
-<footer>
-    
-</footer>
-
-</body>
+      <div class="container">
+        <div class="row-fluid">
+          <div class="span6">
+            <h2>Must see</h2>
+          </div><!--/span-->
+          <div class="span6">
+            <h2>Favorites</h2>
+          </div>
+		</div>
+		<div class="row-fluid">
+          <div class="span6">
+            <h2>Seen</h2>
+            <p>Look at these fancy buttons!</p>
+          </div>
+		  <div class="span6">
+            <h2>Look later</h2>
+            <p>Look at these fancy buttons!</p>
+          </div><!--/span-->
+        </div><!--/row-->
+      </div><!--/container-->
+        
+        <!-- Le javascript -->
+        <script src="js/libs/jquery.js"></script>
+        <script src="js/libs/bootstrap.js"></script>
+        
+    </body>
 </html>
