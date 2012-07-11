@@ -1,4 +1,5 @@
 var map, drawControls;
+var markerArray = new Array();
 
 $(function() {
     if (navigator.geolocation) {
@@ -7,10 +8,8 @@ $(function() {
 	
 	$.getJSON('/REST/Category.json', function(data) {	 
         $.each(data.Category, function(key, value) {            
-            var checkbox = $("<input />").attr({type: 'checkbox', id: 'filter' + value.categoryID});
-            $(checkbox).change(function() {
-                alert(this.id);
-            });
+            var checkbox = $("<input />").attr({type: 'checkbox', id: 'filter' + value.categoryID, checked: 'checked'});
+            $(checkbox).change(markerChange);
               
             var label = $("<label />").attr('for', 'filter' + value.categoryID).html(value.name);
         
@@ -24,6 +23,22 @@ $(function() {
         $("ul.filterMenu").toggle('slow');
 	});
 });
+
+var markerChange = function(evt) {
+    var target = evt.target;
+    var id = target.id.replace('filter', '');
+    
+    $.getJSON('/REST/Building/categoryID/' + id + '.json?select=buildingID;longitude;latitude', function(data) {
+        $.each(data.Building, function(key, value) {
+            if($(target).is(':checked')) {
+                markerArray[value.buildingID].display(true);
+            }
+            else {
+                markerArray[value.buildingID].display(false);
+            }       
+        }); 
+    });
+}
 
 function success(position) {
     map = new OpenLayers.Map({
@@ -50,20 +65,26 @@ function success(position) {
 	map.zoomTo(16);
 		
 	// Create new layer and add layer to the map	
-	var markers = new OpenLayers.Layer.Markers("Markers");
-	map.addLayer(markers);
+	var locationLayer = new OpenLayers.Layer.Markers('LocationLayer');
+	locationLayer.id = 'LocationLayer';
+	
+	var buildingLayer = new OpenLayers.Layer.Markers('BuildingLayer');
+	buildingLayer.id = 'BuildingLayer';
+	
+	map.addLayer(locationLayer);
+	map.addLayer(buildingLayer);
 
 	// Adding the markers to the layer
 	var size = new OpenLayers.Size(25,25);
 	var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
 	var icon = new OpenLayers.Icon('img/my-location.png', size, offset);
-	markers.addMarker(new OpenLayers.Marker(lonlat,icon));
+	locationLayer.addMarker(new OpenLayers.Marker(lonlat,icon));
 	
 	$.getJSON('/REST/Building.json?select=buildingID;longitude;latitude', function(data) {
         $.each(data.Building, function(key, val) {
-            addMarker(markers, val.longitude, val.latitude, val.buildingID);
+            addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID);
         });
-    });
+    }); 
 
     
     /*var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&flat=52.215676&flon=5.963946&tlat=52.2573&tlon=6.1799&v=motorcar&fast=1&layer=mapnik';
@@ -79,19 +100,28 @@ function addMarker(layer, lon, lat, id) {
     var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
     var icon = new OpenLayers.Icon('img/marker.png', size, offset);
     
+    var popup = new OpenLayers.Popup.FramedCloud("Popup", 
+        lonlat, null,
+        '<a target="_blank" href="http://openlayers.org/">We</a> ' +
+        'could be here.<br>Or elsewhere.', null,
+        true // <-- true if we want a close (X) button, false otherwise
+    );
+    
+    popup.hide();
+    
     var feature = new OpenLayers.Feature(layer, lonlat); 
     feature.data.icon = icon;
-    feature.closeBox = true;
-    feature.popupClass = OpenLayers.Class(OpenLayers.Popup.FramedCloud, { 'autoSize': true });
-    feature.data.popupContentHTML = 'Dit is een test.';
+    feature.popup = popup;
     feature.data.overflow = 'auto';
     feature.id = id;        
             
     var marker = feature.createMarker();
+                             
+    map.addPopup(popup);
+    
+    markerArray[id] = marker;
 
     marker.events.register('mousedown', feature, markerClick);
-    /*marker.events.register('mouseover', marker, markerOver);
-    marker.events.register('mouseout', marker, markerOut);*/
     
     layer.addMarker(marker);
 }
@@ -118,20 +148,6 @@ var markerClick = function (evt) {
     
     OpenLayers.Event.stop(evt);
 }
-
-/*var markerOver = function(evt) {
-    this.setOpacity(0.8);
-    document.body.style.cursor='pointer';
-        
-    OpenLayers.Event.stop(evt);
-}
-
-var markerOut = function(evt) {
-    this.setOpacity(1);
-    document.body.style.cursor='auto';
-
-    OpenLayers.Event.stop(evt);
-}*/
 
 function error(message) {
 	alert("GEOLocation not supported");
