@@ -98,7 +98,7 @@ function success(position) {
         'flon='+position.coords.longitude+'&'+
         'tlat='+latDestination+'&'+
         'tlon='+lonDestination+
-        '&v=foot&fast=1&layer=mapnik';
+        '&v=foot&fast=0&layer=mapnik';
            
                
         //draw route   
