@@ -116,10 +116,15 @@ function addMarker(layer, lon, lat, id) {
     var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
     var icon = new OpenLayers.Icon('img/marker.png', size, offset);
     
+    /*var button = $('<input />').attr({type: 'button', value: 'Route'}).append('Route');
+    $(button).click(function(evt) {
+        alert('test'); 
+    });
+    
+    var text = $('<p />').html(button);*/
+    
     var popup = new OpenLayers.Popup.FramedCloud("Popup", 
         lonlat, null,
-        '<a target="_blank" href="http://openlayers.org/">We</a> ' +
-        'could be here.<br>Or elsewhere.'+
         '<button onclick="routeTo('+lon+','+lat+')">Route</button>'
         , null,
         true // <-- true if we want a close (X) button, false otherwise
@@ -145,6 +150,8 @@ function addMarker(layer, lon, lat, id) {
 }
 
 function routeTo (lon,lat) {
+	
+	currentPopup.toggle();
 	
 	//get route JSON
 	  var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
