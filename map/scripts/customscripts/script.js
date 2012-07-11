@@ -58,19 +58,59 @@ function success(position) {
 	var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
 	var icon = new OpenLayers.Icon('img/my-location.png', size, offset);
 	markers.addMarker(new OpenLayers.Marker(lonlat,icon));
-	
-	$.getJSON('/REST/Building.json?select=buildingID;longitude;latitude', function(data) {
+	$.getJSON('/TakeALookInside/REST/Building.json?select=buildingID;longitude;latitude', function(data) {
+	    var lat;
+	    var lon;
         $.each(data.Building, function(key, val) {
-            addMarker(markers, val.longitude, val.latitude, val.buildingID);
+            addMarker(markers, val.longitude, val.latitude, val.buildingID);     
+            lat=val.latitude;
+            lon=val.longitude;
+        });
+        
+        var url = '/TakeALookInside/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
+        'flat='+position.coords.latitude+'&'+
+        'flon='+position.coords.longitude+'&'+
+        'tlat='+lat+'&'+
+        'tlon='+lon+
+        '&v=foot&fast=1&layer=mapnik';
+        
+        //draw route
+        var lineLayer = new OpenLayers.Layer.Vector("Line Layer"); 
+
+        map.addLayer(lineLayer);                    
+        map.addControl(new OpenLayers.Control.DrawFeature(lineLayer, OpenLayers.Handler.Path));                                     
+        var points = new Array(
+           new OpenLayers.Geometry.Point('3.7254270','51.0544520'),
+           new OpenLayers.Geometry.Point('3.7252200','51.0538500')
+        );
+        
+        var line = new OpenLayers.Geometry.LineString(points);
+        
+        var style = { 
+          strokeColor: '#0000ff', 
+          strokeOpacity: 0.5,
+          strokeWidth: 5
+        };
+        
+        var lineFeature = new OpenLayers.Feature.Vector(line, null, style);
+        lineLayer.addFeatures([lineFeature]);
+        
+        
+        
+        $.get(url, function(data) {
+            $.each(data.coordinates, function(lon,lat) {
+               // addMarker(markers,lat,lon,4);
+               
+               
+            });
         });
     });
-
     
-    /*var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&flat=52.215676&flon=5.963946&tlat=52.2573&tlon=6.1799&v=motorcar&fast=1&layer=mapnik';
-
-    $.get(url, function(data) {
-        alert(data.coordinates);
-    });*/
+    
+    
+    setInterval(function(){ 
+        //alert("5sec"); 
+    }, 5000);
 }
 
 function addMarker(layer, lon, lat, id) {
