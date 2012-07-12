@@ -2,28 +2,38 @@
 
     <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+    
+    <script src="js/main.js" type="text/javascript"></script>
+    
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />   
 
+    <link rel="stylesheet" href="css/main.css" />  
     
 </head>
 <body>
 
     <div data-role="page" id="home">  
-       <div data-role="header">
-        <p><center>Logo</center></p>
-
-        </div>  
-        <div data-role="content">
-            <div style="display: block; height: 50px;">
-                <p style="float: left;">Must see</p>
-                <p style="float: left;">Favorites</p>
+        <header>
+            <!-- The header! -->
+        </header>  
+        
+        <div id="content" data-role="content">
+            <div align="center">
+                <div id="mustSee" class="icon">
+                    <span>MUST SEE</span>
+                </div>
+                <div id="favorites" class="icon">
+                    <span>FAVORITES</span>
+                </div>
             </div>
-            <div style="display: block; height: 50px;">    
-                <p style="float: left;">Look Later</p>
-                <p style="float: left;">Seen</p>
+            <div align="center">
+                <div id="lookLater" class="icon">
+                    <span>LOOK LATER</span>
+                </div>
+                <div id="seen" class="icon">
+                    <span>SEEN</span>
+                </div>
             </div>
-            <h1 id="home_category_head"></h1>
-            <p id="home_category_content"></p>
         </div> 
         <div data-role="footer" data-position="fixed">
             <p>
@@ -33,6 +43,42 @@
             </p>
         </div>
     </div>
+   
+    <div data-role="page" id="home_category"> 
+        <header>
+            <!-- The header! -->
+        </header> 
+         
+        <div data-role="content" >
+            <div align="center">
+                <div id="mustSee" class="smallIcon">
+                    <span>MUST SEE</span>
+                </div>
+                <div id="favorites" class="smallIcon">
+                    <span>FAVORITES</span>
+                </div>
+                <div id="lookLater" class="smallIcon">
+                    <span>LOOK LATER</span>
+                </div>
+                <div id="seen" class="smallIcon">
+                    <span>SEEN</span>
+                </div>
+            </div>
+             
+            <h1 id="home_category_head"></h1>
+            
+            <p id="home_category_content"></p>
+        </div> 
+        
+        <div data-role="footer" data-position="fixed">
+            <p>
+            <a href="#home" ui-state="active" data-role="button">Home</a>
+            <a href="#scan" data-role="button">Scan</a>
+            <a href="#map" data-role="button">Map</a> 
+            </p>
+        </div>
+    </div>
+   
     <div data-role="page" id="scan">  
        <div data-role="header">
         <p><center>Logo</center></p>
