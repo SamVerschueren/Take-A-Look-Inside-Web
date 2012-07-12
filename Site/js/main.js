@@ -1,34 +1,37 @@
 var homeCategory = "";
 
 $(function() {
-    $("#mustSee").click(function(event) {
-        homeCategory = "mustsee";
-        window.location.href = "#home_category";    
-    });
-    $("#favorites").click(function(event) {
-        homeCategory = "favorites";
-        window.location.href = "#home_category";       
-    });
-    $("#lookLater").click(function(event) {
-        homeCategory = "looklater";
-        window.location.href = "#home_category";       
-    });
-    $("#seen").click(function(event) {
-        homeCategory = "seen";
-        window.location.href = "#home_category";     
-    }); 
+   $('.button').click(function(event) {
+       var id = event.target.id; 
+       
+       homeCategory = id.toLowerCase();
+       
+       $(".smallIcon").removeClass("active");
+       $("#" + id + ".smallIcon").addClass('active');
+       
+       window.location.href = "#home_category"; 
+       
+       changeContent();
+   });
 });
 
-$('div#home_category').live('pagebeforeshow', function(event){
+var changeContent = function() {
     $('h1#home_category_head').html("");
     $('p#home_category_content').html(""); 
+    
     if(homeCategory=='mustsee') {
         fillHomeCategoryMustSee();
     } 
-    else if(homeCategory=='looklater'){}
-    else if(homeCategory=='seen'){}
-    else if(homeCategory=='favorites'){}
-});
+    else if(homeCategory=='looklater') {
+        
+    }
+    else if(homeCategory=='seen') {
+        
+    }
+    else if(homeCategory=='favorites') {
+        
+    }
+}
 
 function fillHomeCategoryMustSee() { 
     $('home_category_text').text("Must See"); 

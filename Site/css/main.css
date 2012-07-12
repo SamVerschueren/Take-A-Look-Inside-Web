@@ -14,12 +14,8 @@ body {
 }
 .smallIcon span {
     position:relative; 
-    top: 85%;
+    top: 100%;
     color: #EF9823;
-}
-#content {
-    padding: 0px;
-    margin: 0px;
 }
 /**
  * Tablet
@@ -36,9 +32,11 @@ body {
         display: inline-block;
     }
     .smallIcon {
-        width: 60px;
-        height: 60px;
+        width: 100px;
+        height: 75px;  
+        font-size: 11px;
         display: inline-block;
+        text-align: center;
     }
     #mustSee.icon {
         background: url('../img/tablet/ipad-mustsee-icon.png') no-repeat center;
@@ -53,16 +51,16 @@ body {
         background: url('../img/tablet/ipad-seen-icon.png') no-repeat center; 
     }
     #mustSee.smallIcon {
-        background: url('../img/smartphone/small-must-icon.png') no-repeat center;
+        background: url('../img/smartphone/mustsee-icon.png') no-repeat center;
     }
     #favorites.smallIcon {
-        background: url('../img/smartphone/small-fav-icon.png') no-repeat center;
+        background: url('../img/smartphone/fav-icon.png') no-repeat center;
     }
     #lookLater.smallIcon {
-        background: url('../img/smartphone/small-LookLater-icon.png') no-repeat center; 
+        background: url('../img/smartphone/LookLater-icon.png') no-repeat center; 
     }
     #seen.smallIcon {
-        background: url('../img/smartphone/small-seen-icon.png') no-repeat center; 
+        background: url('../img/smartphone/seen-icon.png') no-repeat center; 
     }
 }
 
@@ -102,13 +100,25 @@ body {
     #mustSee.smallIcon {
         background: url('../img/smartphone/small-must-icon.png') no-repeat center;
     }
+    #mustSee.active {
+        background: url('../img/smartphone/small-orange-must-icon.png') no-repeat center;
+    }
     #favorites.smallIcon {
         background: url('../img/smartphone/small-fav-icon.png') no-repeat center;
+    }
+    #favorites.active {
+        background: url('../img/smartphone/small-orange-fav-icon.png') no-repeat center;
     }
     #lookLater.smallIcon {
         background: url('../img/smartphone/small-LookLater-icon.png') no-repeat center; 
     }
+    #lookLater.active {
+        background: url('../img/smartphone/small-orange-LookLater-icon.png') no-repeat center; 
+    }
     #seen.smallIcon {
         background: url('../img/smartphone/small-seen-icon.png') no-repeat center; 
+    }
+    #seen.active {
+        background: url('../img/smartphone/small-orange-seen-icon.png') no-repeat center; 
     }
 }

@@ -19,18 +19,18 @@
         
         <div id="content" data-role="content">
             <div align="center">
-                <div id="mustSee" class="icon">
+                <div id="mustSee" class="icon button">
                     <span>MUST SEE</span>
                 </div>
-                <div id="favorites" class="icon">
+                <div id="favorites" class="icon button">
                     <span>FAVORITES</span>
                 </div>
             </div>
             <div align="center">
-                <div id="lookLater" class="icon">
+                <div id="lookLater" class="icon button">
                     <span>LOOK LATER</span>
                 </div>
-                <div id="seen" class="icon">
+                <div id="seen" class="icon button">
                     <span>SEEN</span>
                 </div>
             </div>
@@ -47,20 +47,20 @@
     <div data-role="page" id="home_category"> 
         <header>
             <!-- The header! -->
-        </header> 
+        </header>
          
         <div data-role="content" >
             <div align="center">
-                <div id="mustSee" class="smallIcon">
+                <div id="mustSee" class="smallIcon button">
                     <span>MUST SEE</span>
                 </div>
-                <div id="favorites" class="smallIcon">
+                <div id="favorites" class="smallIcon button">
                     <span>FAVORITES</span>
                 </div>
-                <div id="lookLater" class="smallIcon">
+                <div id="lookLater" class="smallIcon button">
                     <span>LOOK LATER</span>
                 </div>
-                <div id="seen" class="smallIcon">
+                <div id="seen" class="smallIcon button">
                     <span>SEEN</span>
                 </div>
             </div>
@@ -92,19 +92,21 @@
             <h1>Scan!</h1> 
         </div>    
     </div>
-    <div data-role="page" id="map">  
-       <div data-role="header">
-        <p><center>Logo</center></p>
-        <p>
-            <a href="#home" data-role="button">Home</a>
-            <a href="#scan" data-role="button">Scan</a>
-            <a href="#map" ui-state="active" data-role="button">Map</a>
-        </p>
-        </div>  
-        <div data-role="content">
-            <h1>Map!</h1> 
+    
+    <div data-role="page" id="map">
+        <div id="map_content" data-role="content">
+            
         </div> 
+        
+        <div data-role="footer" data-position="fixed">
+            <p>
+                <a href="#home" ui-state="active" data-role="button">Home</a>
+                <a href="#scan" data-role="button">Scan</a>
+                <a href="#map" data-role="button">Map</a>            
+            </p>
+        </div>
     </div>
+    
     <script type="text/javascript">    
             //Add must sees   
             $('h1#home_category_mustsee').click(function() {    
@@ -128,7 +130,6 @@
             
             
             //Add Look Later
-            
     </script>
  
 </body>
