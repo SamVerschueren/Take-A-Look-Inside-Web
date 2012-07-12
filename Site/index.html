@@ -1,14 +1,14 @@
 <head>
 
-    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js" type="text/javascript"></script>
+    <script src="js/libs/OpenLayers.js" type="text/javascript"></script>
     
     <script src="js/main.js" type="text/javascript"></script>
     
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />   
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
 
-    <link rel="stylesheet" href="css/main.css" />  
-    
+    <link rel="stylesheet" href="css/main.css" />   
 </head>
 <body>
 
@@ -94,11 +94,9 @@
     </div>
     
     <div data-role="page" id="map">
-        <div id="map_content" data-role="content">
-            
-        </div> 
+        <div id="mapview"></div>
         
-        <div data-role="footer" data-position="fixed">
+        <div id="footer" data-role="footer" data-position="fixed">
             <p>
                 <a href="#home" ui-state="active" data-role="button">Home</a>
                 <a href="#scan" data-role="button">Scan</a>

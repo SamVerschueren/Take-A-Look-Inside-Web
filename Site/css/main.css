@@ -17,6 +17,15 @@ body {
     top: 100%;
     color: #EF9823;
 }
+#map {
+    height: 90%;
+}
+/*
+ * JQuery styling
+ */
+.ui-page {
+    background: #EDEDE4;
+}
 /**
  * Tablet
  */
