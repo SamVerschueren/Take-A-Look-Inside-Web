@@ -1,107 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>iRail Summer of Code Bootstrap (from Twitter)</title>
-        
-        <!-- Le fonts -->
-        <link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css" />
-        
-        <!-- Le styles -->
-        <link href="css/bootstrap.css" rel="stylesheet" />
-        <link href="css/bootstrap-responsive.css" rel="stylesheet" />
-        <style type="text/css">
-            body {
-            padding-top: 60px;
-            padding-bottom: 40px;
-            }
-            .sidebar-nav {
-            padding: 9px 0;
-            }
-        </style>
-        
-        <script src="js/libs/jquery.js"></script>
-        <script src="js/main.js"></script>
+<head>
 
-        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-    </head>
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />   
+
     
-    <body>
-      <div class="navbar navbar-fixed-top">
-          <div class="navbar-inner">
-              <div class="container-fluid">                  
-                  <div class="nav-collapse">
-                      <ul class="nav">
-                          <li class="active"><a href="#">Home</a></li>
-                          <li><a href="#nothing">Scan</a></li>
-                          <li><a href="#nolink">Map</a></li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
-      </div>
+</head>
+<body>
 
-      <div class="container">
-        <div class="row-fluid">
-          <div class="span3">
-            <h2>Must see</h2>
-             <p id="must_see"></p>
-            <!--ol>
-                <li>Stadhuis</li>
-                <li>Belfort</li>
-                <li>Sint-Baafskathedraal</li>
-            </ol-->
-           
-          </div>
-          <div class="span3">
-            <h2>Favorites</h2>
-            <ol>
-                <li>Sint-Baafskathedraal</li>
-            </ol>
-          </div>
-          <div class="span3">
-            <h2>Seen</h2>
-            <ol>
-                <li>Stadhuis</li>
-                <li>Belfort</li>
-            </ol>
-          </div>
-          <div class="span3">
-            <h2>Look later</h2>
-            
-          </div>
+    <div data-role="page" id="home">  
+       <div data-role="header">
+        <p><center>Logo</center></p>
+
+        </div>  
+        <div data-role="content">
+            <div style="display: block; height: 50px;">
+                <p style="float: left;">Must see</p>
+                <p style="float: left;">Favorites</p>
+            </div>
+            <div style="display: block; height: 50px;">    
+                <p style="float: left;">Look Later</p>
+                <p style="float: left;">Seen</p>
+            </div>
+            <h1 id="home_category_head"></h1>
+            <p id="home_category_content"></p>
+        </div> 
+        <div data-role="footer" data-position="fixed">
+            <p>
+                <a href="#home" ui-state="active" data-role="button">Home</a>
+                <a href="#scan" data-role="button">Scan</a>
+                <a href="#map" data-role="button">Map</a>            
+            </p>
         </div>
-      </div>
-      <script type="text/javascript">  
-      
-        //Add must sees   
-        $(function() {            
-            $.getJSON('http://localhost/REST/Building.json?orderby=mustSee&select=name;buildingID', function(data) {
-                    var list = $("<ol />"); 
-                    $.each(data.Building, function(key, val) {
-                        var li = $('<li />').attr('id', val.buildingID).html('<a href=map.html/buildingID='+val.buildingID+'>'+val.name+'</a>');    
-                        li.attr('href',"map.html");                     
-                        list.append(li);                                          
-                    });       
-                    list.append("</ol>");            
-                    $('p#must_see').append(list);
-                });
-            });
-        
-        //Add Favorites
-        
-        
-        //Add Seen
-        
-        
-        //Add Look Later
-        
-        </script>
-    </body>
-</html>
+    </div>
+    <div data-role="page" id="scan">  
+       <div data-role="header">
+        <p><center>Logo</center></p>
+        <p>
+            <a href="#home" ui-state="active" data-role="button">Home</a>
+            <a href="#scan" data-role="button">Scan</a>
+            <a href="#map" data-role="button">Map</a>
+        </p>
+        </div>  
+        <div data-role="content">
+            <h1>Scan!</h1> 
+        </div>    
+    </div>
+    <div data-role="page" id="map">  
+       <div data-role="header">
+        <p><center>Logo</center></p>
+        <p>
+            <a href="#home" data-role="button">Home</a>
+            <a href="#scan" data-role="button">Scan</a>
+            <a href="#map" ui-state="active" data-role="button">Map</a>
+        </p>
+        </div>  
+        <div data-role="content">
+            <h1>Map!</h1> 
+        </div> 
+    </div>
+    <script type="text/javascript">    
+            //Add must sees   
+            $('h1#home_category_mustsee').click(function() {    
+                $('home_category_text').text("Must See");        
+                $.getJSON('http://localhost/REST/Building.json?orderby=mustSee&select=name;buildingID', function(data) {
+                        var list = $("<ol />"); 
+                        $.each(data.Building, function(key, val) {
+                            var li = $('<li />').attr('id', val.buildingID).html('<a href=map.html/buildingID='+val.buildingID+'>'+val.name+'</a>');    
+                            li.attr('href',"map.html");                     
+                            list.append(li);                                          
+                        });       
+                        list.append("</ol>");    
+                        $('h1#home_category_head').append('Must See');        
+                        $('p#home_category_content').append(list);
+                    });
+                });            
+            //Add Favorites
+            
+            
+            //Add Seen
+            
+            
+            //Add Look Later
+            
+    </script>
+ 
+</body>
