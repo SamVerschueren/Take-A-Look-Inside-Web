@@ -3,6 +3,7 @@ require_once('exceptions/ClassNotFoundException.php');
 require_once('exceptions/NotFoundException.php');
 require_once('controllers/BuildingController.php');
 require_once('controllers/CategoryController.php');
+require_once('controllers/TransportController.php');
 require_once('Config.php');
 
 /**
@@ -43,7 +44,6 @@ class Router {
                 $found = true;
                 
                 $controller = preg_replace("/{resource}/", $parameters['resource'], ucfirst($controller));
-                
                 if(class_exists($controller)) {
                     $object = new $controller;
                     if(method_exists($object, $method)) {

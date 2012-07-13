@@ -1,4 +1,7 @@
-$("div#map").live('pageshow', function() {
+var myLat;
+var myLon; 
+
+$("div#map").live('pagebeforeshow', function() {
     if(!mapLoaded) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
@@ -7,8 +10,8 @@ $("div#map").live('pageshow', function() {
         }
     }
     else {
-        map.setCenter(lonlat);
-        
+        map.setCenter(lonlat);  
+        myRouteVector.destroyFeatures();          
         //markerArray[mapDirect].erase();
     }
 });
@@ -34,8 +37,11 @@ function loadMap(position) {
             })
         ]
     });
+    myLon=position.coords.longitude;
+    myLat=position.coords.latitude;
+    lonlat = new OpenLayers.LonLat(myLon, myLat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
     
-    lonlat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+    
     map.setCenter(lonlat);
     map.zoomTo(16);
     
@@ -68,12 +74,12 @@ function loadMap(position) {
         });    
 
         //get route JSON
-        var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
+        /*var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+position.coords.latitude+'&'+
         'flon='+position.coords.longitude+'&'+
         'tlat='+latDestination+'&'+
         'tlon='+lonDestination+
-        '&v=foot&fast=0&layer=mapnik';
+        '&v=foot&fast=0&layer=mapnik';*/
             
     });
 }
@@ -135,9 +141,8 @@ var markerClick = function (evt) {
 function routeTo (lon,lat) {
     
     currentPopup.toggle();
-    
-    /*//get route JSON
-      var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
+    //get route JSON
+      var url = '/REST/transport.json?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+myLat+'&'+
         'flon='+myLon+'&'+
         'tlat='+lat+'&'+
@@ -168,5 +173,5 @@ function routeTo (lon,lat) {
                 myRouteVector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);     
             }
          });
-    });*/
+    });
 }
