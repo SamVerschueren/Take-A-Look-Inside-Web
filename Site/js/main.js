@@ -152,7 +152,7 @@ function fillHomeCategoryMustSee() {
         var list = $("<ol />"); 
         
         $.each(data.Building, function(key, val) {
-            var li = $('<li />').attr('id', val.buildingID).html('<a href=map.html/buildingID='+val.buildingID+'>'+val.name+'</a>'); 
+            var li = $('<li />').attr('id', val.buildingID).html('<a href="#map">'+val.name+'</a>'); 
             li.attr('href',"map.html"); 
             list.append(li); 
         });

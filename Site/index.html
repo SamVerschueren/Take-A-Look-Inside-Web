@@ -104,32 +104,6 @@
                 <a href="#map" data-role="button">Map</a>            
             </p>
         </div>
-    </div>
-    
-    <script type="text/javascript">    
-            //Add must sees   
-            $('h1#home_category_mustsee').click(function() {    
-                $('home_category_text').text("Must See");        
-                $.getJSON('http://localhost/REST/Building.json?orderby=mustSee&select=name;buildingID', function(data) {
-                        var list = $("<ol />"); 
-                        $.each(data.Building, function(key, val) {
-                            var li = $('<li />').attr('id', val.buildingID).html('<a href=map.html/buildingID='+val.buildingID+'>'+val.name+'</a>');    
-                            li.attr('href',"map.html");                     
-                            list.append(li);                                          
-                        });       
-                        list.append("</ol>");    
-                        $('h1#home_category_head').append('Must See');        
-                        $('p#home_category_content').append(list);
-                    });
-                });            
-            //Add Favorites
-            
-            
-            //Add Seen
-            
-            
-            //Add Look Later
-    </script>
- 
+    </div> 
 </body>
 </html>
