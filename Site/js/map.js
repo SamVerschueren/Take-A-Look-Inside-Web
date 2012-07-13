@@ -9,31 +9,46 @@ $("div#map").live('pagebeforeshow', function() {
     if(mapLoaded) 
         if(typeof myRouteVector!='undefined')
             myRouteVector.destroyFeatures();  
-            
-                 /*   if(mapDirect != null){
-        $.each(markerFeatures, function (markerFeature){
-            if(typeof markerFeatures[markerFeature] != 'undefined')
-                markerFeatures[markerFeature].popup.hide();
-        });
-        //activeFeaturePopup.hide();
-        markerFeatures[mapDirect].popup.show();
-        }  */ 
-   /* if(typeof myRouteVector!='undefined')
-        myRouteVector.destroyFeatures();   */
 });      
 $("div#map").live('pageshow', function() {
     if(!mapLoaded) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
-                alert('Could not detect position.');
-            });
+                alert('Could not detect position.');                
+            });            
         }
     }
     else {
-        map.setCenter(lonlat);          
-        //markerArray[mapDirect].erase();
+        map.setCenter(lonlat);  
+        showMapDirectPopup();        
+        //markerArray[mapDirect].erase();              
     }
+    //showMapDirectPopup(); 
 });
+
+function showMapDirectPopup(){    
+    if(typeof mapDirect!='undefined'){
+        showPopup(markerFeatures[mapDirect].popup);
+        mapDirect=undefined;
+    }  
+}
+
+function showPopup(popup){
+    /*if(typeof activePopup!='undefined')
+        if(activePopup==popup)
+            popup.toggle;
+        else
+            activePopup.hide();*/
+    if(typeof activePopup!='undefined')
+        if(activePopup==popup)
+            popup.toggle();
+        else{
+            activePopup.hide();
+            popup.show();
+    } else
+        popup.show();
+    activePopup=popup;
+}
 
 function loadMap(position) {
     mapLoaded = true;
@@ -85,22 +100,16 @@ function loadMap(position) {
     $.getJSON('/REST/Building.json?select=buildingID;longitude;latitude', function(data) {
        // var latDestination;
        // var lonDestination;
+       markerFeatures=new Array();
         $.each(data.Building, function(key, val) {
             addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID);     
 
             latDestination=val.latitude;
             lonDestination=val.longitude;
-        });    
-
-        //get route JSON
-        /*var url = '/map/transport.php?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
-        'flat='+position.coords.latitude+'&'+
-        'flon='+position.coords.longitude+'&'+
-        'tlat='+latDestination+'&'+
-        'tlon='+lonDestination+
-        '&v=foot&fast=0&layer=mapnik';*/
-            
+        });
+        showMapDirectPopup();                
     });
+   
 }
 
 function addMarker(layer, lon, lat, id) {
@@ -124,11 +133,9 @@ function addMarker(layer, lon, lat, id) {
     feature.data.overflow = 'auto';
     feature.id = id;        
             
-    var marker = feature.createMarker();
-                             
+    var marker = feature.createMarker();                             
     map.addPopup(popup);
-    
-    markerArray[id] = marker;
+    markerFeatures[id] = feature;
 
     marker.events.register('mousedown', feature, markerClick);
     
@@ -147,10 +154,12 @@ var markerClick = function (evt) {
         if (caller.popup == null) {
             caller.popup = caller.createPopup(this.closeBox);
             map.addPopup(caller.popup);
-            caller.popup.show();
+            //caller.popup.show();
+            //showPopup(caller.popup);
         } else {
-            caller.popup.toggle();
+            //caller.popup.toggle();
         }
+        showPopup(caller.popup);
         currentPopup = caller.popup;
     });
     
