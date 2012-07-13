@@ -5,8 +5,16 @@ var markerArray = new Array();
 
 $(function() {    
     $('.button').click(function(event) {
-        var id = event.target.id; 
-       
+        // If user clicks on the span with the text, id of parent div will be retrieved
+        if(event.target.id=='') {
+            var parent = $(event.target).parent();
+            
+            var id = parent.attr('id');
+        }
+        else {
+            var id = event.target.id;
+        }
+        
         homeCategory = id.toLowerCase();
        
         $(".smallIcon").removeClass("active");
@@ -15,6 +23,10 @@ $(function() {
         window.location.href = "#home_category"; 
        
         changeContent();
+    });
+    
+    $('div#fireFilterSection').click(function(event) {
+        $('#filterSection').slideToggle('slow');    
     });
 });
 

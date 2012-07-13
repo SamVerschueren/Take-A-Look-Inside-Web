@@ -30,6 +30,36 @@ li.button:hover {
 #map {
     height: 90%;
 }
+#filterSection {
+    display: none;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    padding-top: 10px;
+}
+#filterSection li {
+    margin-left: 10px;
+    padding: 5px;
+}
+#header {
+    position: absolute;
+    z-index: 2000;
+    background: #D4D4CC;
+    color: #484646;
+    width: 100%;
+}
+.filter {
+    border-radius: 10px;
+}
+.red {
+    background-color: red;
+}
+#menu #home {
+    display: inline-block;
+    background: url('../img/menu/Home.jpg') no-repeat;
+    width: 451px;
+    height: 168px;
+}
 /**
  * JQuery styling
  */
@@ -41,7 +71,7 @@ li.button:hover {
  */
 div.olControlZoom {
     position: absolute;
-    top: 8px;
+    top: 30px;
     left: 8px;
     background: rgba(255,255,255,0.4);
     border-radius: 4px;
@@ -134,8 +164,8 @@ div.olControlZoom a:hover {
         padding-top: 20px;
     }
     .icon {
-        width: 100px;
-        height: 100px;  
+        width: 120px;
+        height: 120px;  
         font-size: 11px;
     }
     .smallIcon {

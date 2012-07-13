@@ -35,12 +35,23 @@
                 </div>
             </div>
         </div> 
-        <div data-role="footer" data-position="fixed">
-            <p>
+        
+        <div data-position="fixed">
+            <div id="menu">
+                <span id="home"><img src="img/px.gif" alt="Home" /></span>
+                <span id="scan"></span>
+                <span id="map"></span>   
+            </div>
+            
+            <!--<img src="img/menu/Home.jpg" alt="Home" />
+            <img src="img/menu/scan.jpg" alt="Scan" />
+            <img src="img/menu/map.jpg" alt="Map" />-->
+            
+            <!--<p>
                 <a href="#home" ui-state="active" data-role="button">Home</a>
                 <a href="#scan" data-role="button">Scan</a>
                 <a href="#map" data-role="button">Map</a>            
-            </p>
+            </p>-->
         </div>
     </div>
    
@@ -92,6 +103,15 @@
     </div>
     
     <div data-role="page" id="map">
+        <div id="header">
+            <div id="fireFilterSection">&raquo; Filter</div>
+            <ul id="filterSection">
+                <li class="filter red">WiFi</li>
+                <li>Cultuur</li>
+                <li>Historisch</li>
+            </ul>
+        </div>
+        
         <div id="mapview"></div>
         
         <div id="footer" data-role="footer" data-position="fixed">
