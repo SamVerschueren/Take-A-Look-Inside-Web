@@ -1,7 +1,7 @@
 var myLat;
 var myLon; 
 
-$("div#map").live('pagebeforeshow', function() {
+$("div#map").live('pageshow', function() {
     if(!mapLoaded) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
@@ -9,7 +9,7 @@ $("div#map").live('pagebeforeshow', function() {
             });
         }
     }
-    else {
+    else {        
         map.setCenter(lonlat);  
         myRouteVector.destroyFeatures();          
         //markerArray[mapDirect].erase();
