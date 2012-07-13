@@ -24,7 +24,7 @@ $(function() {
         changeContent();
     });
     
-    $("a.scan").click(scanCode);  
+    $(".scan").click(scanCode);  
     
     $('div#fireFilterSection').click(function(event) {
         $('#filterSection').slideToggle('slow');    
@@ -33,9 +33,7 @@ $(function() {
 
 var scanCode = function() {
     window.plugins.barcodeScanner.scan(function(result) {
-        navigator.notification.confirm(result.text, confirmCallback, "Scanned", "Ok,Cancel");
-        
-        //alert("Scanned Code: " + result.text);
+        alert("Scanned Code: " + result.text);
         
         // @seealso result.format, result.cancelled
     }, function(error) {
