@@ -24,11 +24,24 @@ $(function() {
         changeContent();
     });
     
+    $("a.scan").click(scanCode);  
+    
     $('div#fireFilterSection').click(function(event) {
         $('#filterSection').slideToggle('slow');    
     });
 });
 
+var scanCode = function() {
+    window.plugins.barcodeScanner.scan(function(result) {
+        navigator.notification.confirm(result.text, confirmCallback, "Scanned", "Ok,Cancel");
+        
+        //alert("Scanned Code: " + result.text);
+        
+        // @seealso result.format, result.cancelled
+    }, function(error) {
+        alert("Scan failed: " + error);
+    });
+}
 
 var changeContent = function() {
     $('h1#home_category_head').html("");
