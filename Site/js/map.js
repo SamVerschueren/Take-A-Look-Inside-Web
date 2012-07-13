@@ -1,7 +1,27 @@
 var myLat;
 var myLon; 
+var buildingLayer;
+var markerFeatures;
+var activePopup;
+
 
 $("div#map").live('pagebeforeshow', function() {
+    if(mapLoaded) 
+        if(typeof myRouteVector!='undefined')
+            myRouteVector.destroyFeatures();  
+            
+                 /*   if(mapDirect != null){
+        $.each(markerFeatures, function (markerFeature){
+            if(typeof markerFeatures[markerFeature] != 'undefined')
+                markerFeatures[markerFeature].popup.hide();
+        });
+        //activeFeaturePopup.hide();
+        markerFeatures[mapDirect].popup.show();
+        }  */ 
+   /* if(typeof myRouteVector!='undefined')
+        myRouteVector.destroyFeatures();   */
+});      
+$("div#map").live('pageshow', function() {
     if(!mapLoaded) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
@@ -10,8 +30,7 @@ $("div#map").live('pagebeforeshow', function() {
         }
     }
     else {
-        map.setCenter(lonlat);  
-        myRouteVector.destroyFeatures();          
+        map.setCenter(lonlat);          
         //markerArray[mapDirect].erase();
     }
 });

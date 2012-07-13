@@ -1,5 +1,4 @@
 var homeCategory = "";
-var mapDirect = "";
 var mapLoaded = false;
 var markerArray = new Array();
 
