@@ -43,6 +43,9 @@ $("div#map").live('pageshow', function() {
             });
         }
     }
+    else {
+        map.setCenter(lonlat);
+    }
 });
 
 function loadMap(position) {
