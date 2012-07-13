@@ -57,32 +57,7 @@ li.button:hover {
 #menu div {
     float: left;
 }
-#menu .home {
-    display: inline-block;
-    background: url('../img/menu/Home.png') no-repeat;
-    width: 107px;
-    height: 41px;
-    margin-bottom: 6px;
-}
-#menu .home.active {
-    background: url('../img/menu/Home-orange.png') no-repeat;
-}
-#menu .scan {
-    display: inline-block;
-    background: url('../img/menu/scan.png') no-repeat;
-    width: 81px;
-    height: 67px;
-    vertical-align: bottom;
-}
-#menu .map {
-    display: inline-block;
-    background: url('../img/menu/map.png') no-repeat;
-    width: 109px;
-    height: 41px;
-}
-#menu .map.active {
-    background: url('../img/menu/map-orange.png') no-repeat;
-}
+
 /**
  * JQuery styling
  */
@@ -131,49 +106,104 @@ div.olControlZoom a:hover {
     filter:alpha(opacity=100);
 }
 /**
- * Tablet
+ * Tablet standard version
  */
-@media screen and (min-width: 450px){
-    header {
-        background: url('../img/tablet/ipad-logo.png') no-repeat center;
-        height: 149px;
-        padding-top: 20px;
+header {
+    background: url('../img/tablet/ipad-logo.png') no-repeat center;
+    height: 149px;
+    padding-top: 20px;
+}
+.icon {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+}
+.smallIcon {
+    width: 100px;
+    height: 75px;  
+    font-size: 11px;
+    display: inline-block;
+    text-align: center;
+}
+#mustSee.icon {
+    background: url('../img/tablet/ipad-mustsee-icon.png') no-repeat center;
+}
+#favorites.icon {
+    background: url('../img/tablet/ipad-Fav-icon.png') no-repeat center;
+}
+#lookLater.icon {
+    background: url('../img/tablet/ipad-LookLater-icon.png') no-repeat center; 
+}
+#seen.icon {
+    background: url('../img/tablet/ipad-seen-icon.png') no-repeat center; 
+}
+#mustSee.smallIcon {
+    background: url('../img/smartphone/mustsee-icon.png') no-repeat center;
+}
+#favorites.smallIcon {
+    background: url('../img/smartphone/fav-icon.png') no-repeat center;
+}
+#lookLater.smallIcon {
+    background: url('../img/smartphone/LookLater-icon.png') no-repeat center; 
+}
+#seen.smallIcon {
+    background: url('../img/smartphone/seen-icon.png') no-repeat center; 
+}
+
+/**
+ * Menu
+ */
+#menu .home {
+    display: inline-block;
+    background: url('../img/tablet/menu/Home.png') no-repeat;
+    width: 191px;
+    height: 72px;
+    margin-bottom: 6px;
+}
+#menu .home.active {
+    background: url('../img/tablet/menu/Home-orange.png') no-repeat;
+}
+#menu .scan {
+    display: inline-block;
+    background: url('../img/tablet/menu/scan.png') no-repeat;
+    width: 144px;
+    height: 118px;
+    vertical-align: bottom;
+}
+#menu .map {
+    display: inline-block;
+    background: url('../img/tablet/menu/map.png') no-repeat;
+    width: 192px;
+    height: 72px;
+}
+#menu .map.active {
+    background: url('../img/tablet/menu/map-orange.png') no-repeat;
+}
+
+@media screen and (max-width: 550px) {     
+    /**
+     * Menu
+     */
+    #menu .home {
+        background: url('../img/smartphone/menu/normal/Home.png') no-repeat;
+        width: 107px;
+        height: 41px;
     }
-    .icon {
-        width: 200px;
-        height: 200px;
-        display: inline-block;
+    #menu .home.active {
+        background: url('../img/smartphone/menu/normal/Home-orange.png') no-repeat;
     }
-    .smallIcon {
-        width: 100px;
-        height: 75px;  
-        font-size: 11px;
-        display: inline-block;
-        text-align: center;
+    #menu .scan {
+        background: url('../img/smartphone/menu/scan.png') no-repeat;
+        width: 81px;
+        height: 67px;
     }
-    #mustSee.icon {
-        background: url('../img/tablet/ipad-mustsee-icon.png') no-repeat center;
+    #menu .map {
+        background: url('../img/smartphone/menu/normal/map.png') no-repeat;
+        width: 109px;
+        height: 41px;
     }
-    #favorites.icon {
-        background: url('../img/tablet/ipad-Fav-icon.png') no-repeat center;
-    }
-    #lookLater.icon {
-        background: url('../img/tablet/ipad-LookLater-icon.png') no-repeat center; 
-    }
-    #seen.icon {
-        background: url('../img/tablet/ipad-seen-icon.png') no-repeat center; 
-    }
-    #mustSee.smallIcon {
-        background: url('../img/smartphone/mustsee-icon.png') no-repeat center;
-    }
-    #favorites.smallIcon {
-        background: url('../img/smartphone/fav-icon.png') no-repeat center;
-    }
-    #lookLater.smallIcon {
-        background: url('../img/smartphone/LookLater-icon.png') no-repeat center; 
-    }
-    #seen.smallIcon {
-        background: url('../img/smartphone/seen-icon.png') no-repeat center; 
+    #menu .map.active {
+        background: url('../img/smartphone/menu/normal/map-orange.png') no-repeat;
     }
 }
 
@@ -205,7 +235,7 @@ div.olControlZoom a:hover {
         background: url('../img/smartphone/fav-icon.png') no-repeat center;
     }
     #lookLater.icon {
-        background: url('../img/smartphone/LookLater-icon.png') no-repeat center; 
+        background: url('../img/smartphone/Looklater-icon.png') no-repeat center; 
     }
     #seen.icon {
         background: url('../img/smartphone/Seen-icon.png') no-repeat center; 
@@ -233,5 +263,27 @@ div.olControlZoom a:hover {
     }
     #seen.active {
         background: url('../img/smartphone/small-orange-seen-icon.png') no-repeat center; 
+    }
+}
+
+@media screen and (max-width: 300px) {
+    /**
+     * Menu
+     */
+    #menu .home {
+        background: url('../img/smartphone/menu/small/Home.png') no-repeat;
+        width: 59px;
+        height: 41px;
+    }
+    #menu .home.active {
+        background: url('../img/smartphone/menu/small/Home-orange.png') no-repeat;
+    }
+    #menu .map {
+        background: url('../img/smartphone/menu/small/map.png') no-repeat;
+        width: 59px;
+        height: 41px;
+    }
+    #menu .map.active {
+        background: url('../img/smartphone/menu/small/map-orange.png') no-repeat;
     }
 }

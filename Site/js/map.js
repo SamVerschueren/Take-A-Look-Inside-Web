@@ -4,12 +4,12 @@ var buildingLayer;
 var markerFeatures;
 var activePopup;
 
-
 $("div#map").live('pagebeforeshow', function() {
     if(mapLoaded) 
         if(typeof myRouteVector!='undefined')
             myRouteVector.destroyFeatures();  
 });      
+
 $("div#map").live('pageshow', function() {
     if(!mapLoaded) {
         if (navigator.geolocation) {
@@ -21,7 +21,7 @@ $("div#map").live('pageshow', function() {
     else {
         map.setCenter(lonlat);  
         showMapDirectPopup();        
-        //markerArray[mapDirect].erase();              
+        //markerArray[mapDirect].erase();             
     }
     //showMapDirectPopup(); 
 });
