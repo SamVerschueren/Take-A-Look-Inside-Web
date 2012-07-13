@@ -19,38 +19,30 @@
         <div id="content" data-role="content">
             <div align="center">
                 <div id="mustSee" class="icon button">
+                    <img src="img/px.gif" alt="Must See" />
                     <span>MUST SEE</span>
                 </div>
                 <div id="favorites" class="icon button">
+                    <img src="img/px.gif" alt="Favorites" />
                     <span>FAVORITES</span>
                 </div>
             </div>
             <div align="center">
                 <div id="lookLater" class="icon button">
+                    <img src="img/px.gif" alt="Look Later" />
                     <span>LOOK LATER</span>
                 </div>
                 <div id="seen" class="icon button">
+                    <img src="img/px.gif" alt="Seen" />
                     <span>SEEN</span>
                 </div>
             </div>
         </div> 
         
         <div data-position="fixed">
-            <div id="menu">
-                <span id="home"><img src="img/px.gif" alt="Home" /></span>
-                <span id="scan"></span>
-                <span id="map"></span>   
+            <div id="menu" align="center">
+                <a href="#home" class="home active"><img src="img/px.gif" alt="Home" /></a><a href="#scan" class="scan"><img src="img/px.gif" alt="Scan" /></a><a href="#map" class="map"><img src="img/px.gif" alt="Map" /></a>   
             </div>
-            
-            <!--<img src="img/menu/Home.jpg" alt="Home" />
-            <img src="img/menu/scan.jpg" alt="Scan" />
-            <img src="img/menu/map.jpg" alt="Map" />-->
-            
-            <!--<p>
-                <a href="#home" ui-state="active" data-role="button">Home</a>
-                <a href="#scan" data-role="button">Scan</a>
-                <a href="#map" data-role="button">Map</a>            
-            </p>-->
         </div>
     </div>
    
@@ -60,30 +52,32 @@
         <div data-role="content" >
             <div align="center">
                 <div id="mustSee" class="smallIcon button">
+                    <img src="img/px.gif" alt="Must See" />
                     <span>MUST SEE</span>
                 </div>
                 <div id="favorites" class="smallIcon button">
+                    <img src="img/px.gif" alt="Favorites" />
                     <span>FAVORITES</span>
                 </div>
                 <div id="lookLater" class="smallIcon button">
+                    <img src="img/px.gif" alt="Look Later" />
                     <span>LOOK LATER</span>
                 </div>
                 <div id="seen" class="smallIcon button">
+                    <img src="img/px.gif" alt="Seen" />
                     <span>SEEN</span>
                 </div>
             </div>
              
             <h1 id="home_category_head"></h1>
             
-            <p id="home_category_content"></p>
+            <p id="home_category_content"></p>   
         </div> 
         
-        <div data-role="footer" data-position="fixed">
-            <p>
-            <a href="#home" ui-state="active" data-role="button">Home</a>
-            <a href="#scan" data-role="button">Scan</a>
-            <a href="#map" data-role="button">Map</a> 
-            </p>
+        <div data-position="fixed">
+            <div id="menu" align="center">
+                <a href="#home" class="home active"><img src="img/px.gif" alt="Home" /></a><a href="#scan" class="scan"><img src="img/px.gif" alt="Scan" /></a><a href="#map" class="map"><img src="img/px.gif" alt="Map" /></a>   
+            </div>
         </div>
     </div>
    
@@ -113,12 +107,10 @@
         
         <div id="mapview"></div>
         
-        <div id="footer" data-role="footer" data-position="fixed">
-            <p>
-                <a href="#home" ui-state="active" data-role="button">Home</a>
-                <a href="#scan" data-role="button">Scan</a>
-                <a href="#map" data-role="button">Map</a>            
-            </p>
+        <div data-position="fixed">
+            <div id="menu" align="center">
+                <a href="#home" class="home"><img src="img/px.gif" alt="Home" /></a><a href="#scan" class="scan"><img src="img/px.gif" alt="Scan" /></a><a href="#map" class="map active"><img src="img/px.gif" alt="Map" /></a>   
+            </div>
         </div>
     </div> 
 </body>
