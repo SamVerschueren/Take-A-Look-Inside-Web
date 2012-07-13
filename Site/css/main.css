@@ -1,6 +1,16 @@
 body {
     background: #EDEDE4;
 }
+li.button {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: white;
+}
+li.button:hover {
+    background-color: #eee;
+}
 .icon {
     display: inline-block; 
 }
