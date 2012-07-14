@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Quicksand";
+    src: url("Quicksand_Book.otf") format("opentype");
+}
+
 body {
     margin: 0px;
     padding: 0px;
@@ -83,7 +88,7 @@ div#carrousel {
     color: #EF9823;
     font-weight: normal;
 }
-.page ol {
+.page ol, ul {
     width: 300px;
     margin-left: auto;
     margin-right: auto;
@@ -99,6 +104,8 @@ div#carrousel {
     /* Clearing the margin and padding of jQuery Mobile */
     margin: 0px;
     padding: 0px;
+    font-family: Quicksand;
+    text-shadow: none;
 }
 /**
  * OpenLayers styling
