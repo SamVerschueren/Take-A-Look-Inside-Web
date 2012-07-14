@@ -1,3 +1,7 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
 li.button {
     border: 1px solid black;
     border-radius: 10px;
@@ -59,10 +63,42 @@ li.button:hover {
 }
 
 /**
+ * Carrousel
+ */
+div#carrouselWrapper {
+    overflow: hidden;
+}
+div#carrousel {
+    height: 100%;
+    width: 99999px;
+    overflow: hidden;
+}
+.page {
+    position: relative;
+    float: left;
+    margin-top: 20px;
+}
+.page h1 {
+    text-align: center;
+    color: #EF9823;
+    font-weight: normal;
+}
+.page ol {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/**
  * JQuery styling
  */
 .ui-page {
     background: #EDEDE4;
+}
+.ui-content {
+    /* Clearing the margin and padding of jQuery Mobile */
+    margin: 0px;
+    padding: 0px;
 }
 /**
  * OpenLayers styling

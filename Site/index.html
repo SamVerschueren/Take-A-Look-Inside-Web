@@ -4,6 +4,7 @@
 
     <script type="text/javascript" src="js/libs/cordova-1.9.0.js"></script>
     <script type="text/javascript" src="js/libs/barcodescanner.js"></script>
+    <script type="text/javascript" src="js/libs/modernizr.js"></script>
     <script type="text/javascript" src="js/libs/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/libs/jquery.mobile-1.1.1.min.js"></script>
     <script type="text/javascript" src="js/libs/OpenLayers.js"></script>
@@ -12,7 +13,7 @@
     <script type="text/javascript" src="js/map.js"></script>
     
     <link rel="stylesheet" href="css/jquery.mobile-1.1.1.css" />
-    <link rel="stylesheet" href="css/main.css" /> 
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
@@ -20,7 +21,7 @@
         <!-- <header></header> -->  
         
         <div id="content" data-role="content">
-            <div align="center">
+            <div class="buttonRow" align="center">
                 <div id="mustSee" class="icon button">
                     <img src="img/px.gif" alt="Must See" />
                     <span>MUST SEE</span>
@@ -30,7 +31,7 @@
                     <span>FAVORITES</span>
                 </div>
             </div>
-            <div align="center">
+            <div class="buttonRowBottom" align="center">
                 <div id="lookLater" class="icon button">
                     <img src="img/px.gif" alt="Look Later" />
                     <span>LOOK LATER</span>
@@ -54,27 +55,48 @@
          
         <div data-role="content" >
             <div align="center">
-                <div id="mustSee" class="smallIcon button">
+                <div id="mustSee" class="smallIcon button" data-page="0">
                     <img src="img/px.gif" alt="Must See" />
                     <span>MUST SEE</span>
                 </div>
-                <div id="favorites" class="smallIcon button">
+                <div id="favorites" class="smallIcon button" data-page="1">
                     <img src="img/px.gif" alt="Favorites" />
                     <span>FAVORITES</span>
                 </div>
-                <div id="lookLater" class="smallIcon button">
+                <div id="lookLater" class="smallIcon button" data-page="2">
                     <img src="img/px.gif" alt="Look Later" />
                     <span>LOOK LATER</span>
                 </div>
-                <div id="seen" class="smallIcon button">
+                <div id="seen" class="smallIcon button" data-page="3">
                     <img src="img/px.gif" alt="Seen" />
                     <span>SEEN</span>
                 </div>
             </div>
              
-            <h1 id="home_category_head"></h1>
-            
-            <p id="home_category_content"></p>   
+            <div id="carrouselWrapper"> 
+                <div id="carrousel">
+                    <div class="page">
+                        <h1 id="mustSee_head">Must See</h1>
+                        
+                        <p id="mustSee_content"></p>
+                    </div>
+                    <div class="page">
+                        <h1 id="favorites_head">Favorites</h1>
+                        
+                        <p id="favorites_content"></p>
+                    </div>
+                    <div class="page">
+                        <h1 id="lookLater_head">Look Later</h1>
+                        
+                        <p id="lookLater_content"></p>
+                    </div>
+                    <div class="page">
+                        <h1 id="seen_head">Seen</h1>
+                        
+                        <p id="seen_content"></p>
+                    </div>
+                </div>
+            </div>   
         </div> 
         
         <div data-position="fixed">

@@ -2,7 +2,19 @@ var homeCategory = "";
 var mapLoaded = false;
 var markerArray = new Array();
 
-$(function() {    
+/**
+ * JQuery $(document).ready() method
+ * The short way! 
+ */
+$(function() {
+    windowWidth = $(window).width();
+    
+    initCarrousel();
+    
+   // localStorage.setItem("name", "Hello World!");
+    
+    // alert(localStorage.getItem("name"));
+       
     $('.button').click(function(event) {
         // If user clicks on the span with the text, id of parent div will be retrieved
         if(event.target.id=='') {
@@ -21,7 +33,7 @@ $(function() {
        
         window.location.href = "#home_category"; 
        
-        changeContent();
+        changeContent($(this).attr('data-page'));
     });
     
     $(".scan").click(scanCode);  
@@ -29,8 +41,31 @@ $(function() {
     $('div#fireFilterSection').click(function(event) {
         $('#filterSection').slideToggle('slow');    
     });
+    
+    fillHomeCategoryMustSee();
 });
 
+/**
+ * Handles the resizing of the window. 
+ */
+$(window).resize(function() {
+    windowWidth = $(window).width();
+    
+    initCarrousel();
+});
+
+/**
+ * Initializes the carrousel. Just scales the width of the window. 
+ */
+function initCarrousel() {
+    $('#carrousel .page').each(function(){
+        $(this).css({ width: windowWidth});
+    }); 
+}
+
+/**
+ * Method that calls the barcodescanner plugin of phonegap. 
+ */
 var scanCode = function() {
     window.plugins.barcodeScanner.scan(function(result) {
         alert("Scanned Code: " + result.text);
@@ -41,27 +76,20 @@ var scanCode = function() {
     });
 }
 
-var changeContent = function() {
-    $('h1#home_category_head').html("");
-    $('p#home_category_content').html(""); 
+/**
+ * Change the content of the page.
+ * 
+ * @param {Object} goToPage The pagenumber to animate to.
+ */
+var changeContent = function(goToPage) {
+    // The position of the current page
+    var page = (-1*parseInt($('.page').css('margin-left'), 10))/windowWidth;       
+    var animateWidth = (page-goToPage)*windowWidth;
     
-    if(homeCategory=='mustsee') {
-        fillHomeCategoryMustSee();
-    } 
-    else if(homeCategory=='looklater') {
-        
-    }
-    else if(homeCategory=='seen') {
-        
-    }
-    else if(homeCategory=='favorites') {
-        
-    }
+    $('#carrousel').animate({ 'marginLeft' : animateWidth });
 }
 
 function fillHomeCategoryMustSee() { 
-    $('home_category_text').text("Must See"); 
-    
     $.getJSON('/REST/Building.json?orderby=mustSee&select=name;buildingID', function(data) {
         var list = $("<ol />"); 
         
@@ -79,7 +107,18 @@ function fillHomeCategoryMustSee() {
      
         list.append("</ol>");
          
-        $('h1#home_category_head').append('Must See'); 
-        $('p#home_category_content').append(list);
+        $('#mustSee_content').append(list);
     });
 };
+
+function fillHomeCategoryFavorites() {
+    $('h1#home_category_head').html('Favorites');
+}
+
+function fillHomeCategoryLookLater() {
+    $('h1#home_category_head').html('Look Later');
+}
+
+function fillHomeCategorySeen() {
+    $('h1#home_category_head').html('Seen');
+}
