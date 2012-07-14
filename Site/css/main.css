@@ -183,14 +183,26 @@ header {
 #mustSee.smallIcon {
     background: url('../img/smartphone/mustsee-icon.png') no-repeat center;
 }
+#mustSee.active {
+    background: url('../img/tablet/mustsee-orange.png') no-repeat center;    
+}
 #favorites.smallIcon {
     background: url('../img/smartphone/fav-icon.png') no-repeat center;
+}
+#favorites.active {
+    background: url('../img/tablet/Fav-orange.png') no-repeat center;    
 }
 #lookLater.smallIcon {
     background: url('../img/smartphone/LookLater-icon.png') no-repeat center; 
 }
+#lookLater.active {
+    background: url('../img/tablet/Looklater-orange.png') no-repeat center;    
+}
 #seen.smallIcon {
     background: url('../img/smartphone/seen-icon.png') no-repeat center; 
+}
+#seen.active {
+    background: url('../img/tablet/Seen-orange.png') no-repeat center; 
 }
 
 /**
