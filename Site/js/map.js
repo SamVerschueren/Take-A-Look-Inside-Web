@@ -98,11 +98,11 @@ function loadMap(position) {
     var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
     var icon = new OpenLayers.Icon('img/my-location.png', size, offset);
     locationLayer.addMarker(new OpenLayers.Marker(lonlat,icon));
-    $.getJSON('/REST/Building.json?select=buildingID;longitude;latitude', function(data) {
+    $.getJSON('http://tali.irail.be/REST/Building.json?select=buildingID;longitude;latitude', function(data) {
        // var latDestination;
        // var lonDestination;
        markerFeatures=new Array();
-        $.each(data.Building, function(key, val) {
+        $.each(data.building, function(key, val) {
             addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID);    
 
             latDestination=val.latitude;
@@ -125,7 +125,7 @@ function addMarker(layer, lon, lat, id) {
     feature.id = id;              
     var marker = feature.createMarker();   
     markerFeatures[id] = feature;
-    marker.events.register('mousedown', feature, markerClick);    
+    marker.events.register('click', feature, markerClick);    
     layer.addMarker(marker);
 }
 
@@ -137,18 +137,18 @@ var markerClick = function (evt) {
     OpenLayers.Event.stop(evt);
 }
 function fillPopup (feature){    
-     $.getJSON('/REST/Building/buildingID/' + feature.id + '.json', function(data) {         
-         var lonlat = new OpenLayers.LonLat(data.Building[0].longitude, data.Building[0].latitude).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));         
+     $.getJSON('http://tali.irail.be/REST/Building/buildingID/' + feature.id + '.json', function(data) {         
+         var lonlat = new OpenLayers.LonLat(data.building[0].longitude, data.building[0].latitude).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));         
          var popup= new OpenLayers.Popup(feature.id,
                    lonlat,
                    null,
-                   data.Building[0].name,
+                   data.building[0].name,
                    true);    
         popup.autoSize=true;
         popup.setBackgroundColor('#444');
         feature.popup=popup; 
-        feature.popup.contentHTML=data.Building[0].name
-        +'</br><button onclick="routeTo('+data.Building[0].longitude+','+data.Building[0].latitude+')">Route</button>';
+        feature.popup.contentHTML=data.building[0].name
+        +'</br><button onclick="routeTo('+data.building[0].longitude+','+data.building[0].latitude+')">Route</button>';
         map.addPopup(feature.popup);
         showPopup(feature.popup);
         markerFeatures[feature.id]=feature;              
@@ -158,7 +158,7 @@ function fillPopup (feature){
 function routeTo (lon,lat) {
     activePopup.toggle();
     //get route JSON
-      var url = '/REST/transport.json?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
+      var url = 'http://tali.irail.be/REST/transport.json?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+myLat+'&'+
         'flon='+myLon+'&'+
         'tlat='+lat+'&'+
