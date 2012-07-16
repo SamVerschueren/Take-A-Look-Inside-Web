@@ -80,6 +80,14 @@ $(function() {
         $('#information').fadeIn('slow'); 
     });
     
+    $('#routeToButton').click(function(event){
+        routeToClick();
+    })
+    
+    $('#mustSeeButton').click(function(event){
+        mustSeeClick();
+    })
+    
     /**
      * Action fired when clicking the 'scan' button 
      */

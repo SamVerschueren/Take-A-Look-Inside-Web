@@ -3,6 +3,7 @@ var myLon;
 var buildingLayer;
 var markerFeatures;
 var activePopup;
+var liked;
 
 $("div#map").live('pagebeforeshow', function() {
     if(mapLoaded) 
@@ -37,7 +38,7 @@ function showMapDirectPopup(){
 }
 
 function showPopup(popup){
-    
+    //alert(Object.keys(popup));
     if(typeof activePopup!='undefined'){
         if(activePopup.id==popup.id)
             activePopup.toggle();
@@ -49,6 +50,14 @@ function showPopup(popup){
     else
         popup.show();
     activePopup=popup;
+    if(typeof activePopup!='undefined' && activePopup.visible()){
+        localStorage["mustsee"+activePopup.id]==1 ?
+            $("img#mustSeeButton").attr("src","img/favorites-selected.png"):
+            $("img#mustSeeButton").attr("src","img/favorites.png"); 
+        $('div#mapButtons').show();
+    }
+    else
+        $('div#mapButtons').hide();
 }
 
 function loadMap(position) {
@@ -143,20 +152,61 @@ function fillPopup (feature){
                    lonlat,
                    null,
                    data.building[0].name,
-                   true);    
+                   true,
+                   function(){closePopup()});
         popup.autoSize=true;
         popup.setBackgroundColor('#444');
         feature.popup=popup; 
-        feature.popup.contentHTML=data.building[0].name
-        +'</br><button onclick="routeTo('+data.building[0].longitude+','+data.building[0].latitude+')">Route</button>';
+        feature.popup.contentHTML=data.building[0].name;
+        
         map.addPopup(feature.popup);
         showPopup(feature.popup);
         markerFeatures[feature.id]=feature;              
     });        
 }
 
+function mustSeeClick(){
+    var buildingID=activePopup.id;
+    var device="lievenANDROID";
+    var method;
+    
+    
+    if(localStorage["mustsee"+activePopup.id]==1){
+        method="unlike";
+        localStorage["mustsee"+activePopup.id]=0;
+        
+    }else {
+        method="like";
+        localStorage["mustsee"+activePopup.id]=1;
+    }
+    $.post("http://localhost/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+device,function(data){
+        alert(data);
+    }); 
+        if(localStorage["mustsee"+activePopup.id]==1)
+        $("img#mustSeeButton").attr("src","img/favorites-selected.png")
+    else
+        $("img#mustSeeButton").attr("src","img/favorites.png");  
+    
+
+}
+
+function routeToClick(){
+    
+    $.getJSON('http://tali.irail.be/REST/Building/buildingID/' + activePopup.id + '.json', function(data) {  
+        routeTo(data.building[0].longitude,data.building[0].latitude);
+        closePopup();
+    });
+}
+function closePopup(){
+    $('div#mapButtons').hide();
+    if(typeof activePopup!='undefined'){
+        activePopup.hide();
+        activePopup=undefined;
+    }
+    
+}
+
 function routeTo (lon,lat) {
-    activePopup.toggle();
     //get route JSON
       var url = 'http://tali.irail.be/REST/transport.json?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+myLat+'&'+
