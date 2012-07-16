@@ -4,6 +4,7 @@ require_once('exceptions/NotFoundException.php');
 require_once('controllers/BuildingController.php');
 require_once('controllers/CategoryController.php');
 require_once('controllers/TransportController.php');
+require_once('controllers/MovieController.php');
 require_once('Config.php');
 
 /**

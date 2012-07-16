@@ -1,6 +1,7 @@
 <?php
 require_once('JSONPrinter.php');
 require_once('XMLPrinter.php');
+require_once('GP3Printer.php');
 
 /**
  * Simple factory pattern that creates the printer.
