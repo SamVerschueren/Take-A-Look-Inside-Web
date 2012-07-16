@@ -9,6 +9,7 @@
     <script type="text/javascript" src="js/libs/jquery.mobile-1.1.1.min.js"></script>
     <script type="text/javascript" src="js/libs/OpenLayers.js"></script>
     
+    <script type="text/javascript" src="js/building.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
     
@@ -18,6 +19,8 @@
 
 <body>    
     <!-- The information overlay at the startup of the application -->
+    
+    
     <div id="information">
         <span id="closeInformation">X</span>
         
@@ -80,19 +83,19 @@
             <div align="center">
                 <div id="mustSee" class="smallIcon button" data-page="0">
                     <img src="img/px.gif" alt="Must See" />
-                    <span>MUST SEE</span>
+                    <!-- <span>MUST SEE</span> -->
                 </div>
                 <div id="favorites" class="smallIcon button" data-page="1">
                     <img src="img/px.gif" alt="Favorites" />
-                    <span>FAVORITES</span>
+                    <!-- <span>FAVORITES</span> -->
                 </div>
                 <div id="lookLater" class="smallIcon button" data-page="2">
                     <img src="img/px.gif" alt="Look Later" />
-                    <span>LOOK LATER</span>
+                    <!-- <span>LOOK LATER</span> -->
                 </div>
                 <div id="seen" class="smallIcon button" data-page="3">
                     <img src="img/px.gif" alt="Seen" />
-                    <span>SEEN</span>
+                    <!-- <span>SEEN</span> -->
                 </div>
             </div>
              
@@ -139,8 +142,8 @@
             </ul>
         </div>
         <div id="mapButtons" style="im">
-            <img src="img/favorites.png" alt="Must See"/></br> </br>
-            <img src="img/route.png" alt="Route"/ onclick="routeToClick()">
+            <img id="mustSeeButton" src="img/favorites.png" alt="Must See"/></br> </br>
+            <img id="routeToButton" src="img/route.png" alt="Route" />
         </div>
         <div id="mapview"></div>
         
