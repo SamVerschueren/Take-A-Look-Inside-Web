@@ -28,9 +28,10 @@ $("div#map").live('pageshow', function() {
 
 function showMapDirectPopup(){    
     if(typeof mapDirect!='undefined'){
-        if(markerFeatures[mapDirect].popup==null)            
-            fillPopup(markerFeatures[mapDirect]); 
-        showPopup(markerFeatures[mapDirect].popup) 
+        if(markerFeatures[mapDirect].popup==null )
+            fillPopup(markerFeatures[mapDirect]);
+        if(!markerFeatures[mapDirect].popup.visible())       
+            showPopup(markerFeatures[mapDirect].popup) 
         mapDirect=undefined;
     }  
 }
