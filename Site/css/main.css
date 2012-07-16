@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "Quicksand";
+    src: url("Quicksand_Book.otf") format("opentype");
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
 li.button {
     border: 1px solid black;
     border-radius: 10px;
@@ -59,10 +68,80 @@ li.button:hover {
 }
 
 /**
+ * Overlay
+ */
+div#information {
+    background: #aaa;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -210px;
+    height: 75%;
+    width: 400px;
+    z-index: 100;
+    border-radius: 10px;
+    opacity: 0.95;
+    color: white;
+    font-family: Quicksand;
+    font-size: 13px;
+    line-height: 19px;
+    padding: 10px;
+    text-shadow: none;
+}
+.center {
+    text-align: center;
+}
+span#closeInformation {
+    position: absolute;
+    right: 10px;
+    clear: both;
+    border: 1px solid #ccc;
+    background-color: #ccc;
+    padding: 5px 7px 5px 7px;
+    color: white;
+    border-radius: 5px;
+    font-size: 160%;
+}
+
+/**
+ * Carrousel
+ */
+div#carrouselWrapper {
+    overflow: hidden;
+}
+div#carrousel {
+    height: 100%;
+    width: 99999px;
+    overflow: hidden;
+}
+.page {
+    position: relative;
+    float: left;
+    margin-top: 20px;
+}
+.page h1 {
+    text-align: center;
+    color: #EF9823;
+    font-weight: normal;
+}
+.page ol, ul {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/**
  * JQuery styling
  */
 .ui-page {
     background: #EDEDE4;
+}
+.ui-content {
+    /* Clearing the margin and padding of jQuery Mobile */
+    margin: 0px;
+    padding: 0px;
+    font-family: Quicksand;
+    text-shadow: none;
 }
 /**
  * OpenLayers styling
@@ -141,14 +220,34 @@ header {
 #mustSee.smallIcon {
     background: url('../img/smartphone/mustsee-icon.png') no-repeat center;
 }
+#mustSee.active {
+    background: url('../img/tablet/mustsee-orange.png') no-repeat center;    
+}
 #favorites.smallIcon {
     background: url('../img/smartphone/fav-icon.png') no-repeat center;
+}
+#favorites.active {
+    background: url('../img/tablet/Fav-orange.png') no-repeat center;    
 }
 #lookLater.smallIcon {
     background: url('../img/smartphone/lookLater-icon.png') no-repeat center; 
 }
+#lookLater.active {
+    background: url('../img/tablet/Looklater-orange.png') no-repeat center;    
+}
 #seen.smallIcon {
     background: url('../img/smartphone/seen-icon.png') no-repeat center; 
+}
+#seen.active {
+    background: url('../img/tablet/Seen-orange.png') no-repeat center; 
+}
+#questionMark {
+    background: url('../img/About.png') no-repeat center; 
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 21px;
+    height: 21px;
 }
 
 /**
@@ -264,6 +363,42 @@ header {
     }
     #seen.active {
         background: url('../img/smartphone/small-orange-seen-icon.png') no-repeat center; 
+    }
+    
+    /**
+     * Overlay
+     */
+    div#information {
+        background: #aaa;
+        position: absolute;
+        top: 20px;
+        left: 13%;
+        margin-left: 0px;
+        height: 75%;
+        width: 70%;
+        z-index: 100;
+        border-radius: 10px;
+        opacity: 0.95;
+        color: white;
+        font-family: Quicksand;
+        font-size: 13px;
+        line-height: 19px;
+        padding: 10px;
+        text-shadow: none;
+    }
+    .center {
+        text-align: center;
+    }
+    span#closeInformation {
+        position: absolute;
+        right: 10px;
+        clear: both;
+        border: 1px solid #ccc;
+        background-color: #ccc;
+        padding: 5px 7px 5px 7px;
+        color: white;
+        border-radius: 5px;
+        font-size: 160%;
     }
 }
 
