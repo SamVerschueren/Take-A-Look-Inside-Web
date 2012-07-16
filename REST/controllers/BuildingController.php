@@ -55,18 +55,14 @@ class BuildingController extends Controller {
         $deviceIDResult= mysql_fetch_assoc($deviceIDResultSet); 
         $deviceID=$deviceIDResult['deviceID'];
         if(strlen($deviceID)>0){
-            if($method=='like'){
-                
-                if(!$alreadyliked){
-                
+            if($method=='like'){                
+                if(!$alreadyliked){                
                     $sql="INSERT INTO must_sees (buildingID, deviceID) VALUES ('". mysql_real_escape_string($buildingID)
                     ."','". $deviceID ."' )";
                     mysql_query($sql);
-                    //echo $sql;
-                
                     echo "Inserted";
                 }                
-                else    echo "Already liked it"; 
+                else echo "Already liked it"; 
             }else if($method=='unlike'){
                 if($alreadyliked){
                     $sql="DELETE FROM must_sees WHERE buildingID='".mysql_real_escape_string($buildingID). "' and 
