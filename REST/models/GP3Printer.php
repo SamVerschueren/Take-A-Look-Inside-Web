@@ -15,7 +15,7 @@ class GP3Printer implements IPrinter{
      * @param   data    $data   The array object to print in JSON.
      */
     public function doPrint(array $data) {
-        
+        print_r($data);
     }
 }
 ?>

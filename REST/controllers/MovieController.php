@@ -28,12 +28,15 @@ class MovieController extends Controller {
         
         $resource = 'movie';
         $restrictions = parent::splitParameters($parameters['parameters']);
-        
-        $reqfile = "../mov/kerstballen.3gp";
          
+        $data = $reader->execute($resource, $restrictions);
+         
+        $file = '../mov/' . $data['movie'][0]['movie']; 
+        
         $movie = array();
-        $movie['size'] = round(filesize($reqfile)/1024, 2);
-        $movie['token'] = 'test';
+        $movie['size'] = round(filesize($file)/1024, 2);
+        $movie['token'] = $data['movie'][0]['qrID'];
+        $movie['movie'] = 'http://tali.irail.be/mov/' . $data['movie'][0]['movie'];
         
         $printer->doPrint($movie);
     }
