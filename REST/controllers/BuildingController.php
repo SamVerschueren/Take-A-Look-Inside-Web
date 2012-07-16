@@ -26,7 +26,7 @@ class BuildingController extends Controller {
             throw new InvalidArgumentException('URL parameters are not valid');
         }
         
-        $resource = 'Building';
+        $resource = 'building';
         $restrictions = parent::splitParameters($parameters['parameters']);
         
         $printer->doPrint($reader->execute($resource, $restrictions));

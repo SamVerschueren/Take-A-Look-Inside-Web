@@ -28,7 +28,7 @@ class CategoryController extends Controller {
             throw new InvalidArgumentException('URL parameters are not valid');
         }
         
-        $resource = 'Category';
+        $resource = 'category';
         $restrictions = parent::splitParameters($parameters['parameters']);
         
         $printer->doPrint($reader->execute($resource, $restrictions));

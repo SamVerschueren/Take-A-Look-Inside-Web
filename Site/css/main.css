@@ -3,6 +3,7 @@
     src: url("Quicksand_Book.otf") format("opentype");
 }
 
+
 body {
     margin: 0px;
     padding: 0px;
@@ -88,6 +89,19 @@ div#information {
     padding: 10px;
     text-shadow: none;
 }
+div#information:after {
+
+    display: block;
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    margin-left: -30px;
+    content:"";
+    display:block;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-top: 30px solid #aaa;    
+} 
 .center {
     text-align: center;
 }

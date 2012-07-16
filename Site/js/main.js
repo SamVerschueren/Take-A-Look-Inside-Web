@@ -15,18 +15,21 @@ $(function() {
     /*
         // Adding some localstorage dummy data
         var buildings = new Array();
-        buildings[0] = 2;
+        buildings[0] = new Building(2, 'Stadhuis');
+        
         localStorage['favorites'] = JSON.stringify(buildings);
-       
+        
+        
         var lookLaters = new Array();
-        lookLaters[0] = 3;
+        lookLaters[0] = new Building(3, 'Belfort');
         localStorage['lookLater'] = JSON.stringify(lookLaters);
         
         var seen = new Array();
-        seen[0] = 2;
-        seen[1] = 4; 
+        seen[0] = new Building(2, 'Stadhuis');
+        seen[1] = new Building(4, 'Sint-Baafskathedraal'); 
         localStorage['seen'] = JSON.stringify(seen);
     */
+    
    
     //localStorage['information'] = 'undefined';
    
@@ -179,34 +182,31 @@ function fillHomeCategoryMustSee() {
 };
 
 function fillHomeCategoryFavorites() {
-    fill('favorites');
+    fillLocal('favorites');
 }
 
 function fillHomeCategoryLookLater() {
-    fill('lookLater');
+    fillLocal('lookLater');
 }
 
 function fillHomeCategorySeen() {
-    fill('seen');
+    fillLocal('seen');
 }
 
-function fill(name) {
+function fillLocal(name) {
     var list = $("<ul />");
-    
-    $.each(JSON.parse(localStorage[name]), function(key, val) {
-        $.getJSON('/REST/Building/buildingID/' + val +'.json?select=name;buildingID', function(data) {            
-            var li = $('<li />').attr('id', data.Building[0].buildingID).html(data.Building[0].name); 
-            li.addClass('button');
-            list.append(li); 
+        
+    $.each(JSON.parse(localStorage[name]), function(key, building) {
+        var li = $('<li />').attr('id', building.id).html(building.name);
+        li.addClass('button');
+
+        li.click(function(event) {
+            mapDirect = event.target.id;
             
-            li.click(function(event) {
-                mapDirect = event.target.id;
-                
-                window.location.href = "#map";
-            });
-            
-            list.append(li);
+            window.location.href = "#map";
         });
+        
+        list.append(li);
     });
     
     $('#' + name + '_content').html(list);

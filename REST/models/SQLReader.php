@@ -65,7 +65,6 @@ class SQLReader implements IReader {
             $sql .= " ".$where;
         if(strlen($orderby)>0)
             $sql .= $orderby;
-        //echo $sql ."\n";
         
         $resultset = mysql_query($sql);
         
