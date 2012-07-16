@@ -37,7 +37,7 @@ function showMapDirectPopup(){
 }
 
 function showPopup(popup){
-    
+    //alert(Object.keys(popup));
     if(typeof activePopup!='undefined'){
         if(activePopup.id==popup.id)
             activePopup.toggle();
@@ -49,6 +49,10 @@ function showPopup(popup){
     else
         popup.show();
     activePopup=popup;
+    if(typeof activePopup!='undefined' && activePopup.visible())
+        $('div#mapButtons').show();
+    else
+        $('div#mapButtons').hide();
 }
 
 function loadMap(position) {
@@ -143,16 +147,38 @@ function fillPopup (feature){
                    lonlat,
                    null,
                    data.Building[0].name,
-                   true);    
+                   true,
+                   function(){closePopup()});
         popup.autoSize=true;
         popup.setBackgroundColor('#444');
         feature.popup=popup; 
-        feature.popup.contentHTML=data.Building[0].name
-        +'</br><button onclick="routeTo('+data.Building[0].longitude+','+data.Building[0].latitude+')">Route</button>';
+        feature.popup.contentHTML=data.Building[0].name;/*
+        +'</br><button onclick="routeTo('+data.Building[0].longitude+','+data.Building[0].latitude+')">Route</button>'
+        +'<button>Must See</button>';*/
         map.addPopup(feature.popup);
         showPopup(feature.popup);
         markerFeatures[feature.id]=feature;              
     });        
+}
+
+function mustSeeClick(){
+    
+}
+
+function routeToClick(){
+    alert(activePopup.id);
+    $.getJSON('/REST/Building/buildingID/' + activePopup.id + '.json', function(data) {  
+        routeTo(data.Building[0].longitude,data.Building[0].latitude);
+        closePopup();
+    });
+}
+function closePopup(pop){
+    $('div#mapButtons').hide();
+    if(typeof activePopup!='undefined'){
+        activePopup.hide();
+        activePopup=undefined;
+    }
+    
 }
 
 function routeTo (lon,lat) {
