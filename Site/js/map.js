@@ -28,24 +28,22 @@ $("div#map").live('pageshow', function() {
 
 function showMapDirectPopup(){    
     if(typeof mapDirect!='undefined'){
-        showPopup(markerFeatures[mapDirect].popup);
+        if(markerFeatures[mapDirect].popup==null)            
+            fillPopup(markerFeatures[mapDirect]);  
         mapDirect=undefined;
     }  
 }
 
 function showPopup(popup){
-    /*if(typeof activePopup!='undefined')
-        if(activePopup==popup)
-            popup.toggle;
-        else
-            activePopup.hide();*/
-    if(typeof activePopup!='undefined')
-        if(activePopup==popup)
-            popup.toggle();
+    if(typeof activePopup!='undefined'){
+        if(activePopup.id==popup.id)
+            activePopup.toggle();
         else{
             activePopup.hide();
             popup.show();
-    } else
+        }
+    }
+    else
         popup.show();
     activePopup=popup;
 }
@@ -117,58 +115,44 @@ function addMarker(layer, lon, lat, id) {
     var size = new OpenLayers.Size(25,41);
     var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
     var icon = new OpenLayers.Icon('img/marker.png', size, offset);
-    
-    var popup = new OpenLayers.Popup.FramedCloud("Popup", 
-        lonlat, null,
-        '<button onclick="routeTo('+lon+','+lat+')">Route</button>'
-        , null,
-        true // <-- true if we want a close (X) button, false otherwise
-    );
-    
-    popup.hide();
-    
+
     var feature = new OpenLayers.Feature(layer, lonlat); 
     feature.data.icon = icon;
-    feature.popup = popup;
     feature.data.overflow = 'auto';
-    feature.id = id;        
-            
-    var marker = feature.createMarker();                             
-    map.addPopup(popup);
+    feature.id = id;              
+    var marker = feature.createMarker();   
     markerFeatures[id] = feature;
-
-    marker.events.register('mousedown', feature, markerClick);
-    
+    marker.events.register('mousedown', feature, markerClick);    
     layer.addMarker(marker);
 }
 
 var markerClick = function (evt) {
     var caller = this;
-    $.getJSON('/REST/Building/buildingID/' + caller.id + '.json', function(data) {
-        var h1 = $('<h1 />').html(data.Building[0].name);
-        
-        var myDiv = $('<div />').append(h1);
-        
-        caller.data.popupContentHTML = $(myDiv).html();
-        
-        if (caller.popup == null) {
-            caller.popup = caller.createPopup(this.closeBox);
-            map.addPopup(caller.popup);
-            //caller.popup.show();
-            //showPopup(caller.popup);
-        } else {
-            //caller.popup.toggle();
-        }
-        showPopup(caller.popup);
-        currentPopup = caller.popup;
-    });
-    
+    if(caller.popup==null)
+        fillPopup(caller);
+    else showPopup(caller.popup);
     OpenLayers.Event.stop(evt);
+}
+function fillPopup (feature){    
+     $.getJSON('/REST/Building/buildingID/' + feature.id + '.json', function(data) {         
+         var lonlat = new OpenLayers.LonLat(data.Building[0].longitude, data.Building[0].latitude).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));         
+         var popup= new OpenLayers.Popup(feature.id,
+                   lonlat,
+                   null,
+                   data.Building[0].name,
+                   true);    
+        popup.autoSize=true;
+        feature.popup=popup; 
+        feature.popup.contentHTML=data.Building[0].name
+        +'</br><button onclick="routeTo('+data.Building[0].longitude+','+data.Building[0].latitude+')">Route</button>';
+        map.addPopup(feature.popup);
+        showPopup(feature.popup);
+        markerFeatures[feature.id]=feature;              
+    });        
 }
 
 function routeTo (lon,lat) {
-    
-    currentPopup.toggle();
+    activePopup.toggle();
     //get route JSON
       var url = '/REST/transport.json?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+myLat+'&'+
