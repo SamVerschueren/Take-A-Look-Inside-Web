@@ -16,11 +16,34 @@
     <link rel="stylesheet" href="css/main.css" />
 </head>
 
-<body>
+<body>    
+    <!-- The information overlay at the startup of the application -->
+    <div id="information">
+        <span id="closeInformation">X</span>
+        
+        <p class="center">
+            <img src="img/smartphone/logo.png" alt="Take A Look Inside Logo" />
+        </p>
+        
+        <p>
+            Take A Look Inside is an application which let you look behind the walls of a lot of beautifull
+            buildings in Ghent.
+        </p>
+        
+        <p>
+            Press the button 'Look Inside' to start scanning <em>Take A Look Inside QR Codes</em>. You can find them in front
+            of multiple buildings around the city of Ghent.
+        </p>
+    </div>
+    
     <div data-role="page" id="home">  
         <!-- <header></header> -->  
         
-        <div id="content" data-role="content">
+        <div id="content" data-role="content">   
+            <div id="questionMark">
+                ?
+            </div>
+                     
             <div class="buttonRow" align="center">
                 <div id="mustSee" class="icon button" data-page="0" data-from="home">
                     <img src="img/px.gif" alt="Must See" />

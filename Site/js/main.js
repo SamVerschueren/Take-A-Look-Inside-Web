@@ -1,6 +1,7 @@
 var homeCategory = "";
 var mapLoaded = false;
 var markerArray = new Array();
+var page = 0;
 
 /**
  * JQuery $(document).ready() method
@@ -26,6 +27,12 @@ $(function() {
         seen[1] = 4; 
         localStorage['seen'] = JSON.stringify(seen);
     */
+   
+    //localStorage['information'] = 'undefined';
+   
+    if(localStorage['information'] == 'closed') {
+        $('#information').hide();   
+    }
        
     $('.button').click(function(event) {
         // If user clicks on the span with the text, id of parent div will be retrieved
@@ -41,7 +48,7 @@ $(function() {
         $(".smallIcon").removeClass("active");
         $("#" + id + ".smallIcon").addClass('active');
         
-        var page = $(this).attr('data-page');
+        page = $(this).attr('data-page');
         
         if($(this).attr('data-from') == 'home') {
             $('#carrousel').css('margin-left', '-' + page*windowWidth + 'px'); 
@@ -49,14 +56,36 @@ $(function() {
             window.location.href = "#home_category";  
         }        
         else {
-            changeContent($(this).attr('data-page'));
+            changeContent(page);
         }
+    });
+    
+    $('#closeInformation').click(function(event) {
+        localStorage['information'] = 'closed';
+        
+        $('#information').fadeOut('slow');    
+    });
+    
+    $('#questionMark').click(function(event) {
+        $('#information').fadeIn('slow'); 
     });
     
     $(".scan").click(scanCode);  
     
     $('div#fireFilterSection').click(function(event) {
         $('#filterSection').slideToggle('slow');    
+    });
+    
+    $('#home_category').live('swipeleft', function(event) {
+        test = parseInt(page)+1;
+        
+        changeContent(test);
+    });
+    
+    $('#home_category').live('swiperight', function(event) {
+        test = parseInt(page)-1;
+        
+        changeContent(test);
     });
     
     fillHomeCategoryMustSee();
@@ -77,7 +106,7 @@ $(window).resize(function() {
 /**
  * Initializes the carrousel. Just scales the width of the window. 
  */
-function initCarrousel() {
+function initCarrousel() {    
     $('#carrousel .page').each(function(){
         $(this).css({ width: windowWidth});
     }); 
@@ -101,12 +130,22 @@ var scanCode = function() {
  * 
  * @param {Object} goToPage The pagenumber to animate to.
  */
-var changeContent = function(goToPage) {
-    // The position of the current page
-    var page = (-1*parseInt($('.page').css('margin-left'), 10))/windowWidth;       
-    var animateWidth = (page-goToPage)*windowWidth;
+function changeContent(goToPage) {
+    page = goToPage;
     
-    $('#carrousel').animate({ 'marginLeft' : animateWidth });
+    if(goToPage >= 0 && goToPage < $('.smallIcon').length) {        
+        $('.smallIcon').removeClass('active');
+        $('.smallIcon[data-page=' + goToPage + ']').addClass('active');
+        
+        // The position of the current page
+        var page = (-1*parseInt($('.page').css('margin-left'), 10))/windowWidth;       
+        var animateWidth = (page-goToPage)*windowWidth;
+        
+        $('#carrousel').animate({ 'marginLeft' : animateWidth });
+    }
+    else {
+        alert('Can\'t go to ' + goToPage);
+    }
 }
 
 function fillHomeCategoryMustSee() { 

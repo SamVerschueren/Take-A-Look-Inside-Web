@@ -68,6 +68,42 @@ li.button:hover {
 }
 
 /**
+ * Overlay
+ */
+div#information {
+    background: #aaa;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -210px;
+    height: 75%;
+    width: 400px;
+    z-index: 100;
+    border-radius: 10px;
+    opacity: 0.95;
+    color: white;
+    font-family: Quicksand;
+    font-size: 13px;
+    line-height: 19px;
+    padding: 10px;
+    text-shadow: none;
+}
+.center {
+    text-align: center;
+}
+span#closeInformation {
+    position: absolute;
+    right: 10px;
+    clear: both;
+    border: 1px solid #ccc;
+    background-color: #ccc;
+    padding: 5px 7px 5px 7px;
+    color: white;
+    border-radius: 5px;
+    font-size: 160%;
+}
+
+/**
  * Carrousel
  */
 div#carrouselWrapper {
@@ -204,6 +240,15 @@ header {
 #seen.active {
     background: url('../img/tablet/Seen-orange.png') no-repeat center; 
 }
+#questionMark {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: #aaa;
+    color: white;
+    padding: 3px 7px 3px 7px;
+    border-radius: 10px;
+}
 
 /**
  * Menu
@@ -318,6 +363,42 @@ header {
     }
     #seen.active {
         background: url('../img/smartphone/small-orange-seen-icon.png') no-repeat center; 
+    }
+    
+    /**
+     * Overlay
+     */
+    div#information {
+        background: #aaa;
+        position: absolute;
+        top: 20px;
+        left: 13%;
+        margin-left: 0px;
+        height: 75%;
+        width: 70%;
+        z-index: 100;
+        border-radius: 10px;
+        opacity: 0.95;
+        color: white;
+        font-family: Quicksand;
+        font-size: 13px;
+        line-height: 19px;
+        padding: 10px;
+        text-shadow: none;
+    }
+    .center {
+        text-align: center;
+    }
+    span#closeInformation {
+        position: absolute;
+        right: 10px;
+        clear: both;
+        border: 1px solid #ccc;
+        background-color: #ccc;
+        padding: 5px 7px 5px 7px;
+        color: white;
+        border-radius: 5px;
+        font-size: 160%;
     }
 }
 
