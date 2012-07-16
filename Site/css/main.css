@@ -241,13 +241,12 @@ header {
     background: url('../img/tablet/Seen-orange.png') no-repeat center; 
 }
 #questionMark {
+    background: url('../img/About.png') no-repeat center; 
     position: absolute;
     right: 10px;
     top: 10px;
-    background-color: #aaa;
-    color: white;
-    padding: 3px 7px 3px 7px;
-    border-radius: 10px;
+    width: 21px;
+    height: 21px;
 }
 
 /**

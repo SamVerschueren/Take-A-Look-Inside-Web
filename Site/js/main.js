@@ -60,34 +60,49 @@ $(function() {
         }
     });
     
+    /**
+     * Clicking the 'X' (close) button on the information screen.
+     * It sets a value in the localstorage.
+     */
     $('#closeInformation').click(function(event) {
         localStorage['information'] = 'closed';
         
         $('#information').fadeOut('slow');    
     });
     
+    /**
+     * Clicking the question mark button on the home screen
+     */
     $('#questionMark').click(function(event) {
         $('#information').fadeIn('slow'); 
     });
     
-    $(".scan").click(scanCode);  
+    /**
+     * Action fired when clicking the 'scan' button 
+     */
+    $('.scan').click(scanCode);  
     
     $('div#fireFilterSection').click(function(event) {
         $('#filterSection').slideToggle('slow');    
     });
     
+    /**
+     * Swipe with your finger from right to left 
+     */
     $('#home_category').live('swipeleft', function(event) {
-        test = parseInt(page)+1;
-        
-        changeContent(test);
+        changeContent(parseInt(page)+1);
     });
     
+    /**
+     * Swipe with your finger from left to right
+     */
     $('#home_category').live('swiperight', function(event) {
-        test = parseInt(page)-1;
-        
-        changeContent(test);
+        changeContent(parseInt(page)-1);
     });
     
+    /**
+     * Fill the different categories with content 
+     */
     fillHomeCategoryMustSee();
     fillHomeCategoryFavorites();
     fillHomeCategoryLookLater();
@@ -131,20 +146,13 @@ var scanCode = function() {
  * @param {Object} goToPage The pagenumber to animate to.
  */
 function changeContent(goToPage) {
-    page = goToPage;
-    
     if(goToPage >= 0 && goToPage < $('.smallIcon').length) {        
         $('.smallIcon').removeClass('active');
         $('.smallIcon[data-page=' + goToPage + ']').addClass('active');
         
-        // The position of the current page
-        var page = (-1*parseInt($('.page').css('margin-left'), 10))/windowWidth;       
-        var animateWidth = (page-goToPage)*windowWidth;
+        $('#carrousel').animate({ 'marginLeft' : -1*goToPage*windowWidth });
         
-        $('#carrousel').animate({ 'marginLeft' : animateWidth });
-    }
-    else {
-        alert('Can\'t go to ' + goToPage);
+        page = goToPage;
     }
 }
 
