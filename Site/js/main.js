@@ -160,10 +160,10 @@ function changeContent(goToPage) {
 }
 
 function fillHomeCategoryMustSee() { 
-    $.getJSON('/REST/Building.json?orderby=mustSee&select=name;buildingID', function(data) {
+    $.getJSON('http://tali.irail.be/REST/Building.json?orderby=mustSee&select=name;buildingID', function(data) {
         var list = $("<ol />"); 
         
-        $.each(data.Building, function(key, val) {
+        $.each(data.building, function(key, val) {
             var li = $('<li />').attr('id', val.buildingID).html(val.name); 
             li.addClass('button');
             list.append(li); 
@@ -180,7 +180,6 @@ function fillHomeCategoryMustSee() {
         $('#mustSee_content').append(list);
     });
 };
-
 function fillHomeCategoryFavorites() {
     fillLocal('favorites');
 }

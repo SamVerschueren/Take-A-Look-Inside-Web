@@ -139,9 +139,17 @@ div#carrousel {
     font-weight: normal;
 }
 .page ol, ul {
-    width: 300px;
+    width: 250px;
     margin-left: auto;
     margin-right: auto;
+}
+.page ul {
+    list-style-type: none;
+    padding: 0px;
+}
+.page ul li {
+    float: left;
+    width: 250px;
 }
 
 /**

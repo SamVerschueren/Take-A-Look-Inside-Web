@@ -53,7 +53,9 @@ class SQLReader implements IReader {
                 else if(strtolower($key)=='select')
                     $select=str_replace(";", ",", $value);   
                 else if(strtolower($key)=='join')        
-                    $jointable=$value;                
+                    $jointable=$value;    
+                else if(strtolower($key)=='callback') { }
+                    // do nothing            
                 else if($where == '')                
                     $where = 'WHERE ' . mysql_real_escape_string($key) . '=\'' . mysql_real_escape_string($value) . '\'';     
                 else 
