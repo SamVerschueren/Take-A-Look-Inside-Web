@@ -33,6 +33,14 @@ li.button:hover {
     top: 100%;
     color: #EF9823;
 }
+.olPopup {
+    background-color: #444;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: -50px;
+    text-shadow: none;
+    color: white;
+}
 #map {
     height: 90%;
 }

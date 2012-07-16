@@ -29,12 +29,14 @@ $("div#map").live('pageshow', function() {
 function showMapDirectPopup(){    
     if(typeof mapDirect!='undefined'){
         if(markerFeatures[mapDirect].popup==null)            
-            fillPopup(markerFeatures[mapDirect]);  
+            fillPopup(markerFeatures[mapDirect]); 
+        showPopup(markerFeatures[mapDirect].popup) 
         mapDirect=undefined;
     }  
 }
 
 function showPopup(popup){
+    
     if(typeof activePopup!='undefined'){
         if(activePopup.id==popup.id)
             activePopup.toggle();
@@ -100,7 +102,7 @@ function loadMap(position) {
        // var lonDestination;
        markerFeatures=new Array();
         $.each(data.Building, function(key, val) {
-            addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID);     
+            addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID);    
 
             latDestination=val.latitude;
             lonDestination=val.longitude;
@@ -142,6 +144,7 @@ function fillPopup (feature){
                    data.Building[0].name,
                    true);    
         popup.autoSize=true;
+        popup.setBackgroundColor('#444');
         feature.popup=popup; 
         feature.popup.contentHTML=data.Building[0].name
         +'</br><button onclick="routeTo('+data.Building[0].longitude+','+data.Building[0].latitude+')">Route</button>';
