@@ -6,6 +6,9 @@
 # Nicolas Dierckx
 #
 
+addType audio/3gpp 3gp
+addType video/3gpp 3gp
+
 RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -98,6 +98,7 @@ class TransportController extends Controller {
         
         // Return the response
         header("Content-type: ".$curl_info['content_type']);
+        header('Access-Control-Allow-Origin: *');
         //header('Content-Type: application/json');
         echo $result;
     }
