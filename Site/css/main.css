@@ -34,6 +34,14 @@ li.button:hover {
     top: 100%;
     color: #EF9823;
 }
+.olPopup {
+    background-color: #444;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: -50px;
+    text-shadow: none;
+    color: white;
+}
 #map {
     height: 90%;
 }
@@ -168,6 +176,7 @@ div#carrousel {
 /**
  * OpenLayers styling
  */
+
 div.olControlZoom {
     position: absolute;
     top: 30px;
@@ -251,13 +260,13 @@ header {
     background: url('../img/tablet/Fav-orange.png') no-repeat center;    
 }
 #lookLater.smallIcon {
-    background: url('../img/smartphone/LookLater-icon.png') no-repeat center; 
+    background: url('../img/smartphone/lookLater-icon.png') no-repeat center; 
 }
 #lookLater.active {
     background: url('../img/tablet/Looklater-orange.png') no-repeat center;    
 }
 #seen.smallIcon {
-    background: url('../img/smartphone/seen-icon.png') no-repeat center; 
+    background: url('../img/smartphone/Seen-icon.png') no-repeat center; 
 }
 #seen.active {
     background: url('../img/tablet/Seen-orange.png') no-repeat center; 
@@ -356,7 +365,7 @@ header {
         background: url('../img/smartphone/fav-icon.png') no-repeat center;
     }
     #lookLater.icon {
-        background: url('../img/smartphone/Looklater-icon.png') no-repeat center; 
+        background: url('../img/smartphone/lookLater-icon.png') no-repeat center; 
     }
     #seen.icon {
         background: url('../img/smartphone/Seen-icon.png') no-repeat center; 
