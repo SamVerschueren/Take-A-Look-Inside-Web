@@ -14,7 +14,7 @@ $(function() {
     
     initCarrousel();
     
-    localStorage.clear();
+    //localStorage.clear();
     
     /*
         // Adding some localstorage dummy data
