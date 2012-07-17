@@ -3,6 +3,11 @@ var myLon;
 var buildingLayer;
 var markerFeatures;
 var activePopup;
+<<<<<<< HEAD
+=======
+var iconSize = new OpenLayers.Size(25,41);
+var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
+>>>>>>> a55f0252e94f316b2dc87b6da7539c070cc657b4
 
 $("div#map").live('pagebeforeshow', function() {  
     if(localStorage['favorites']==null)
@@ -154,6 +159,7 @@ function loadMap(position) {
     });   
 }
 
+<<<<<<< HEAD
 //function getIcon()
 
 function addMarker(layer, lon, lat, id,categoryID) {
@@ -179,6 +185,36 @@ function addMarker(layer, lon, lat, id,categoryID) {
     if(icon==null){
         icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'.png', size, offset);    
     }    
+=======
+function getIcon(buildingID,categoryID){
+   var icon;
+   if(localStorage["favorites"]!=null){
+        $.each(JSON.parse(localStorage["favorites"]), function(key, building) {            
+            if(building!=null && building.id==buildingID)
+               icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'fav.png',iconSize,iconOffset);     
+        });
+    }
+    if(JSON.parse(localStorage["seen"]!=null)){
+        if(icon==null){
+            $.each(JSON.parse(localStorage["seen"]), function(key, building) {
+                if(building.id==buildingID)
+                   icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'seen.png',iconSize,iconOffset);     
+            });        
+        }
+    }
+    if(icon==null){
+        icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'.png',iconSize,iconOffset);    
+    }     
+    return icon;
+}
+
+function addMarker(layer, lon, lat, id,categoryID) {
+    var lonlat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+
+    
+    var icon=getIcon(id,categoryID,iconSize,iconOffset);     
+    
+>>>>>>> a55f0252e94f316b2dc87b6da7539c070cc657b4
     
     var feature = new OpenLayers.Feature(layer, lonlat); 
     feature.data.icon = icon;
@@ -222,7 +258,11 @@ function mustSeeClick(){
     var device="lievenANDROID";
     var method;     
     var building;    
+<<<<<<< HEAD
     $.getJSON("http://localhost/REST/Building.json?buildingID="+activePopup.id,function (data){        
+=======
+    $.getJSON("http://tali.irail.be/REST/Building.json?join=category&select=buildingID;building.name;category.categoryID&buildingID="+activePopup.id,function (data){        
+>>>>>>> a55f0252e94f316b2dc87b6da7539c070cc657b4
         building=new Building(data.building[0].buildingID,data.building[0].name); 
         var buildingList={};
         if(localStorage["favorites"]!=null){
@@ -230,6 +270,10 @@ function mustSeeClick(){
         }
         method=(buildingList[building.id]==null)? 'like':'unlike'; 
         
+<<<<<<< HEAD
+=======
+       // $.post("http://tali.irail.be/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+device,function(data){
+>>>>>>> a55f0252e94f316b2dc87b6da7539c070cc657b4
         $.post("http://localhost/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+device,function(data){
             //alert(data);
         }); 
@@ -246,7 +290,18 @@ function mustSeeClick(){
             $("img#mustSeeButton").attr("src","img/favorites-selected.png")
         else
             $("img#mustSeeButton").attr("src","img/favorites.png"); 
+<<<<<<< HEAD
         fillLocal('favorites');   
+=======
+        fillCategory('favorites'); 
+        
+        markerFeatures[activePopup.id].marker.icon=getIcon(data.building[0].buildingID,data.building[0].categoryID);
+  
+        
+        markerFeatures[activePopup.id].marker.draw();
+        
+        buildingLayer.refresh();
+>>>>>>> a55f0252e94f316b2dc87b6da7539c070cc657b4
     })     
 }
 
