@@ -1,7 +1,62 @@
 @font-face {
-    font-family: "Quicksand";
+    font-family: "Quicksandbook";
     src: url("Quicksand_Book.otf") format("opentype");
 }
+
+@font-face {
+	font-family: "Quicksandbold";
+    src: url("Quicksand_Bold.ttf") format("truetype");
+}
+
+/*reset*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	text-shadow: none;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*---------*/
+
 
 
 body {
@@ -88,36 +143,50 @@ li.button:hover {
  * Overlay
  */
 div#information {
-    background: #aaa;
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    margin-left: -210px;
-    height: 75%;
-    width: 400px;
+    background: #EBECE3;
+    position: relative;
+	margin: 45px auto 0;
+    height: 368px;
+    width: 265px;
     z-index: 100;
     border-radius: 10px;
-    opacity: 0.95;
-    color: white;
-    font-family: Quicksand;
-    font-size: 13px;
-    line-height: 19px;
-    padding: 10px;
-    text-shadow: none;
+    color: #474646;
+    font-family: Quicksandbook;
+    font-size: 14px;
+    line-height: 17px;
+	text-align:center;
 }
-div#information:after {
 
-    display: block;
-    position: absolute;
-    bottom: -30px;
-    left: 50%;
-    margin-left: -30px;
-    content:"";
-    display:block;
-    border-left: 30px solid transparent;
-    border-right: 30px solid transparent;
-    border-top: 30px solid #aaa;    
-} 
+#logo {
+	padding-top:18px;
+}
+
+#experience {
+	font-family: "quicksandbook";
+	font-size: 21px;
+	line-height: 1.2;
+	width: 225px;
+	margin: 25 auto 0;
+	color:#EF9722;
+}
+
+h6 {
+	font-family:"quicksandbold";
+	font-size: 14px;
+	margin-top: 30px;
+}
+
+#uitleg {
+	width: 225px;
+	margin: 11 auto 0;
+}
+
+#skyline {
+	width:265px;
+}
+	
+
+
 .center {
     text-align: center;
 }
@@ -125,12 +194,13 @@ span#closeInformation {
     position: absolute;
     right: 10px;
     clear: both;
-    border: 1px solid #ccc;
-    background-color: #ccc;
     padding: 5px 7px 5px 7px;
     color: white;
     border-radius: 5px;
     font-size: 160%;
+}
+
+#experience{
 }
 
 /**
@@ -179,7 +249,6 @@ div#carrousel {
     margin: 0px;
     padding: 0px;
     font-family: Quicksand;
-    text-shadow: none;
 }
 /**
  * OpenLayers styling
@@ -189,7 +258,6 @@ div#carrousel {
     border-radius: 10px;
     padding: 10px;
     margin-left: -50px;
-    text-shadow: none;
     color: white;
 }
 .olPopupCloseBox{
@@ -219,7 +287,6 @@ div.olControlZoom a {
     height:32px;
     width:32px;
     line-height:28px;
-    text-shadow:0 0 3px rgba(0,0,0,0.8);
     background:rgba(0,60,136,0.5);
     filter:alpha(opacity=80);
     margin:1px;
@@ -415,41 +482,7 @@ header {
         background: url('../img/smartphone/small-orange-seen-icon.png') no-repeat center; 
     }
     
-    /**
-     * Overlay
-     */
-    div#information {
-        background: #aaa;
-        position: absolute;
-        top: 20px;
-        left: 13%;
-        margin-left: 0px;
-        height: 75%;
-        width: 70%;
-        z-index: 100;
-        border-radius: 10px;
-        opacity: 0.95;
-        color: white;
-        font-family: Quicksand;
-        font-size: 13px;
-        line-height: 19px;
-        padding: 10px;
-        text-shadow: none;
-    }
-    .center {
-        text-align: center;
-    }
-    span#closeInformation {
-        position: absolute;
-        right: 10px;
-        clear: both;
-        border: 1px solid #ccc;
-        background-color: #ccc;
-        padding: 5px 7px 5px 7px;
-        color: white;
-        border-radius: 5px;
-        font-size: 160%;
-    }
+
 }
 
 @media screen and (max-width: 300px) {
