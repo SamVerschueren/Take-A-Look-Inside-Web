@@ -14,6 +14,8 @@ $(function() {
     
     initCarrousel();
     
+    localStorage.clear();
+    
     /*
         // Adding some localstorage dummy data
         var buildings = new Array();
@@ -116,10 +118,7 @@ $(function() {
     /**
      * Fill the different categories with content 
      */
-    fillHomeCategoryMustSee();
-    fillHomeCategoryFavorites();
-    fillHomeCategoryLookLater();
-    fillHomeCategorySeen();
+    initHomeContent(true);
 });
 
 /**
@@ -146,19 +145,45 @@ function initCarrousel() {
 var scanCode = function() {
     window.plugins.barcodeScanner.scan(function(result) {
         if(result.text != '') {
-            $.get(result.text, function(data) {
+            $.getJSON(result.text, function(data) {
                 navigator.notification.confirm('The video is ' + $.trim(data.size) + ' KB big. When do you want to see the video?', function(button) {
+                    
+                    var building = new Building(data.buildingID, data.buildingName, data.token);
+                    
                     if(button==1) {
-                        $.post(server + '/Seen', function(data) {
-                            alert(data);    
-                        });
+                        var array;
+                        if(localStorage['lookLater'] == null) {
+                            array = new Array();    
+                        }
+                        else {
+                            array = JSON.parse(localStorage['lookLater']);
+                        }
                         
-                        alert('Video is saved under the Look Later section.');
+                        array.push(building);
+                        
+                        localStorage['lookLater'] = JSON.stringify(array);
+                        
+                        navigator.notification.alert('The video is saved. You can find it under the Look Later section', function(evt) { }, 'Look Later', 'Ok')
                     }
                     else if(button==2) {
-                        window.plugins.videoPlayer.play('http://tali.irail.be/mov/kerstballen.3gp');
+                        playMovie(building);
+                        
+                        var array;
+                        if(localStorage['seen'] == null) {
+                            array = new Array(); 
+                        }
+                        else {
+                            array = JSON.parse(localStorage['seen']);
+                        }
+
+                        array.push(building);
+                        
+                        localStorage['seen'] = JSON.stringify(array);
                     }
-                }, 'Confirm', 'Later,Now');
+                    
+                    initHomeContent(false);
+                    
+                }, data.buildingName, 'Later,Now');
             });
         }
 
@@ -184,7 +209,18 @@ function changeContent(goToPage) {
     }
 }
 
+function initHomeContent(loadMustSee) {
+    if(loadMustSee)
+        fillHomeCategoryMustSee();
+        
+    fillCategory('favorites');
+    fillCategory('lookLater');
+    fillCategory('seen');
+}
+
 function fillHomeCategoryMustSee() {
+    $('#mustSee_content').empty();
+    
     $.getJSON('http://tali.irail.be/REST/Building.json?top=3', function(data) {
         var list = $("<ol />"); 
         
@@ -205,33 +241,38 @@ function fillHomeCategoryMustSee() {
         $('#mustSee_content').append(list);
     });
 };
-function fillHomeCategoryFavorites() {
-    fillLocal('favorites');
-}
 
-function fillHomeCategoryLookLater() {
-    fillLocal('lookLater');
-}
-
-function fillHomeCategorySeen() {
-    fillLocal('seen');
-}
-
-function fillLocal(name) {
-    var list = $("<ul />");
-    $.each(JSON.parse(localStorage[name]), function(key, building) {
-        if(building!=null){
+function fillCategory(name) {
+    $('#' + name + '_content').empty();
+        
+    if(localStorage[name] != null) {
+        var list = $("<ul />");
+   
+        $.each(JSON.parse(localStorage[name]), function(key, building) {
             var li = $('<li />').attr('id', building.id).html(building.name);
-            li.addClass('button');    
+            li.addClass('button');
+    
             li.click(function(event) {
-                mapDirect = event.target.id;
+                if(name == 'favorites') {
+                    mapDirect = event.target.id;
                 
-                window.location.href = "#map";
+                    window.location.href = "#map";    
+                }
+                else {
+                    playMovie(building);
+                }
             });
             
             list.append(li);
-        }
-    });
-    
-    $('#' + name + '_content').html(list);
+        });
+        
+        $('#' + name + '_content').html(list);
+    }
+}
+
+function playMovie(building) {
+    // http://tali.irail.be/REST/Movie/qrID/MjAxMjA3MTYxNTQ4LXRlc3QubXA0.gp3
+    //MjAxMjA3MTYxNTQ4LXRlc3QubXA0
+    //alert('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3');
+    window.plugins.videoPlayer.play('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3');  
 }

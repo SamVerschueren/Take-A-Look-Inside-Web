@@ -30,15 +30,24 @@ class MovieController extends Controller {
         $restrictions = parent::splitParameters($parameters['parameters']);
          
         $data = $reader->execute($resource, $restrictions);
-         
-        $file = '../mov/' . $data['movie'][0]['movie']; 
         
-        $movie = array();
-        $movie['size'] = round(filesize($file)/1024, 2);
-        $movie['token'] = $data['movie'][0]['qrID'];
-        $movie['movie'] = 'http://tali.irail.be/mov/' . $data['movie'][0]['movie'];
+        if($printer instanceof JSONPrinter) {
+            $buildingData = $reader->execute('building', array('movieID' => $data['movie'][0]['movieID'], 'select' => 'buildingID;name'));
         
-        $printer->doPrint($movie);
+            $file = '../mov/' . $data['movie'][0]['movie'];
+            
+            $movie = array();
+            $movie['size'] = round(filesize($file)/1024, 2);
+            $movie['token'] = $data['movie'][0]['qrID'];
+            $movie['buildingID'] = $buildingData['building'][0]['buildingID'];
+            $movie['buildingName'] = $buildingData['building'][0]['name'];
+            //$movie['movie'] = 'http://tali.irail.be/mov/' . $data['movie'][0]['movie'];
+            
+            $printer->doPrint($movie);
+        }
+        else if($printer instanceof GP3Printer) {
+            $printer->doPrint($data['movie'][0]);  
+        }
     }
 }
 ?>
