@@ -18,16 +18,19 @@
     <link rel="stylesheet" href="css/main.css" />
 </head>
 
-<body>    
+<body> 
+
+<div id="colorsize"></div>   
+    
     <!-- The information overlay at the startup of the application -->
     
-    
     <div id="information">
+        
         <span id="closeInformation"><img src="img/close.png"></span>
         
         <p id="logo" class="center">
             <img src="img/smartphone/logo.png" alt="Take A Look Inside Logo" />
-      </p>
+      	</p>
         
         <p id="experience">
             AN AXPERIENCE INSIDE BEAUTIFUL BUILDINGS IN GHENT
@@ -39,43 +42,48 @@
             Scan the QR-codes in front of the buildings. You will get a glimps of the atmosphere inside.
         </p>
         
-    <img id="skyline" src="img/skyline licht.png">
+    	<img id="skyline" src="img/skyline licht.png">
     
     </div>
     
     <div data-role="page" id="home">  
         <!-- <header></header> -->  
         
-        <div id="content" data-role="content">   
+        <div id="content" data-role="content">  
+         
             <div id="questionMark">
                 <img src="img/px.gif" alt="About" />
             </div>
                      
             <div class="buttonRow" align="center">
+            
                 <div id="mustSee" class="icon button" data-page="0" data-from="home">
                     <img src="img/px.gif" alt="Must See" />
-                    <span>MUST SEE</span>
+                    <span class="titel">MUST SEE</span>
                 </div>
+                
                 <div id="favorites" class="icon button" data-page="1" data-from="home">
                     <img src="img/px.gif" alt="Favorites" />
-                    <span>FAVORITES</span>
+                    <span class="titel">FAVORITES</span>
                 </div>
             </div>
             <div class="buttonRowBottom" align="center">
                 <div id="lookLater" class="icon button" data-page="2" data-from="home">
                     <img src="img/px.gif" alt="Look Later" />
-                    <span>LOOK LATER</span>
+                    <span class="titel">LOOK LATER</span>
                 </div>
                 <div id="seen" class="icon button" data-page="3" data-from="home">
                     <img src="img/px.gif" alt="Seen" />
-                    <span>SEEN</span>
+                    <span class="titel">SEEN</span>
                 </div>
             </div>
         </div> 
         
         <div data-position="fixed">
             <div id="menu" align="center">
-                <a href="#home" class="home active"><img src="img/px.gif" alt="Home" /></a><a href="#" class="scan"><img src="img/px.gif" alt="Scan" /></a><a href="#map" class="map"><img src="img/px.gif" alt="Map" /></a>   
+                <a href="#home" class="home active"><img src="img/px.gif" alt="Home" /></a>
+                <a href="#" class="scan"><img src="img/px.gif" alt="Scan" /></a>
+                <a href="#map" class="map"><img src="img/px.gif" alt="Map" /></a>   
             </div>
         </div>
     </div>
