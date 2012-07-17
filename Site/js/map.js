@@ -128,7 +128,7 @@ function loadMap(position) {
     var locationLayer = new OpenLayers.Layer.Markers('LocationLayer');
     locationLayer.id = 'LocationLayer';
     
-    var buildingLayer = new OpenLayers.Layer.Markers('BuildingLayer');
+    buildingLayer = new OpenLayers.Layer.Markers('BuildingLayer');
     buildingLayer.id = 'BuildingLayer';
     
     var ol = new OpenLayers.Layer.OSM(); 
@@ -179,13 +179,8 @@ function getIcon(buildingID,categoryID){
 }
 
 function addMarker(layer, lon, lat, id,categoryID) {
-    var lonlat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
-
-    
-    var icon=getIcon(id,categoryID,iconSize,iconOffset);     
-    
-
-    
+    var lonlat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));    
+    var icon=getIcon(id,categoryID,iconSize,iconOffset);         
     var feature = new OpenLayers.Feature(layer, lonlat); 
     feature.data.icon = icon;
     feature.data.overflow = 'auto';
@@ -257,12 +252,8 @@ function mustSeeClick(){
 
         fillCategory('favorites'); 
         
-        markerFeatures[activePopup.id].marker.icon=getIcon(data.building[0].buildingID,data.building[0].categoryID);
-  
-        
-        markerFeatures[activePopup.id].marker.draw();
-        
-        buildingLayer.refresh();
+        markerFeatures[activePopup.id].marker.icon=getIcon(data.building[0].buildingID,data.building[0].categoryID);  
+        buildingLayer.redraw();
     })     
 }
 
