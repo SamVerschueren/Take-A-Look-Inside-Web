@@ -14,7 +14,7 @@ $(function() {
     
     initCarrousel();
     
-    localStorage.clear();
+    //localStorage.clear();
     
     /*
         // Adding some localstorage dummy data
@@ -249,21 +249,23 @@ function fillCategory(name) {
         var list = $("<ul />");
    
         $.each(JSON.parse(localStorage[name]), function(key, building) {
-            var li = $('<li />').attr('id', building.id).html(building.name);
-            li.addClass('button');
-    
-            li.click(function(event) {
-                if(name == 'favorites') {
-                    mapDirect = event.target.id;
+            if(building!=null){
+                var li = $('<li />').attr('id', building.id).html(building.name);
+                li.addClass('button');
+        
+                li.click(function(event) {
+                    if(name == 'favorites') {
+                        mapDirect = event.target.id;
+                    
+                        window.location.href = "#map";    
+                    }
+                    else {
+                        playMovie(building);
+                    }
+                });
                 
-                    window.location.href = "#map";    
-                }
-                else {
-                    playMovie(building);
-                }
-            });
-            
-            list.append(li);
+                list.append(li);
+            }
         });
         
         $('#' + name + '_content').html(list);

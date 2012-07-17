@@ -3,6 +3,8 @@ var myLon;
 var buildingLayer;
 var markerFeatures;
 var activePopup;
+var iconSize = new OpenLayers.Size(25,41);
+var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
 $("div#map").live('pagebeforeshow', function() {  
     if(localStorage['favorites']==null)
@@ -154,31 +156,34 @@ function loadMap(position) {
     });   
 }
 
-//function getIcon()
-
-function addMarker(layer, lon, lat, id,categoryID) {
-    var lonlat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
-    var size = new OpenLayers.Size(25,41);
-    var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-    
-    var icon;     
-    if(localStorage["favorites"]!=null){
+function getIcon(buildingID,categoryID){
+   var icon;
+   if(localStorage["favorites"]!=null){
         $.each(JSON.parse(localStorage["favorites"]), function(key, building) {            
-            if(building!=null && building.id==id)
-               icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'fav.png', size, offset);     
+            if(building!=null && building.id==buildingID)
+               icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'fav.png',iconSize,iconOffset);     
         });
     }
     if(JSON.parse(localStorage["seen"]!=null)){
         if(icon==null){
             $.each(JSON.parse(localStorage["seen"]), function(key, building) {
-                if(building.id==id)
-                   icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'seen.png', size, offset);     
+                if(building.id==buildingID)
+                   icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'seen.png',iconSize,iconOffset);     
             });        
         }
     }
     if(icon==null){
-        icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'.png', size, offset);    
-    }    
+        icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'.png',iconSize,iconOffset);    
+    }     
+    return icon;
+}
+
+function addMarker(layer, lon, lat, id,categoryID) {
+    var lonlat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+
+    
+    var icon=getIcon(id,categoryID,iconSize,iconOffset);     
+    
     
     var feature = new OpenLayers.Feature(layer, lonlat); 
     feature.data.icon = icon;
@@ -222,7 +227,7 @@ function mustSeeClick(){
     var device="lievenANDROID";
     var method;     
     var building;    
-    $.getJSON("http://localhost/REST/Building.json?buildingID="+activePopup.id,function (data){        
+    $.getJSON("http://tali.irail.be/REST/Building.json?join=category&select=buildingID;building.name;category.categoryID&buildingID="+activePopup.id,function (data){        
         building=new Building(data.building[0].buildingID,data.building[0].name); 
         var buildingList={};
         if(localStorage["favorites"]!=null){
@@ -230,6 +235,7 @@ function mustSeeClick(){
         }
         method=(buildingList[building.id]==null)? 'like':'unlike'; 
         
+       // $.post("http://tali.irail.be/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+device,function(data){
         $.post("http://localhost/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+device,function(data){
             //alert(data);
         }); 
@@ -246,7 +252,14 @@ function mustSeeClick(){
             $("img#mustSeeButton").attr("src","img/favorites-selected.png")
         else
             $("img#mustSeeButton").attr("src","img/favorites.png"); 
-        fillLocal('favorites');   
+        fillCategory('favorites'); 
+        
+        markerFeatures[activePopup.id].marker.icon=getIcon(data.building[0].buildingID,data.building[0].categoryID);
+  
+        
+        markerFeatures[activePopup.id].marker.draw();
+        
+        buildingLayer.refresh();
     })     
 }
 
