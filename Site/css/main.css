@@ -255,15 +255,37 @@ div#carrousel {
  */
 .olPopup {
     background-color: #444;
-    border-radius: 10px;
+    border-radius: 0px 10px 10px 10px;
     padding: 10px;
+<<<<<<< HEAD
     margin-left: -50px;
+=======
+    text-shadow: none;
+>>>>>>> 6d4b64359ba2701d645ed604b0c2f86f83301024
     color: white;
+    width: 200px;
+    overflow: scroll;
+}
+span.moreInfo {
+    display: block;
+    text-align: right;
+    padding-top: 10px;
+    color: #EF9722;
 }
 .olPopupCloseBox{
     /*background-color: #EF9823;*/
     background: url('../img/close.png') no-repeat center;  
-    
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    float: right;
+}
+.olPopup h1 {
+    font-size: 15px;
+    margin-top: 0px;
+}
+.olPopup p {
+    font-size: 12px;
 }
 div.olControlZoom {
     position: absolute;

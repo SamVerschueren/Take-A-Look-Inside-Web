@@ -1,4 +1,5 @@
 <?php
+require_once('exceptions/runtime/UnsupportedOperationException.php');
 /**
  * Base class. Standard no implementation.
  *

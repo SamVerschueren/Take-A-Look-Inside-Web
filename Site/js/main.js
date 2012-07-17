@@ -3,6 +3,8 @@ var mapLoaded = false;
 var markerArray = new Array();
 var page = 0;
 
+var server = 'http://tali.irail.be/REST'
+
 /**
  * JQuery $(document).ready() method
  * The short way! 
@@ -143,11 +145,26 @@ function initCarrousel() {
  */
 var scanCode = function() {
     window.plugins.barcodeScanner.scan(function(result) {
-        alert("Scanned Code: " + result.text);
-        
+        if(result.text != '') {
+            $.get(result.text, function(data) {
+                navigator.notification.confirm('The video is ' + $.trim(data.size) + ' KB big. When do you want to see the video?', function(button) {
+                    if(button==1) {
+                        $.post(server + '/Seen', function(data) {
+                            alert(data);    
+                        });
+                        
+                        alert('Video is saved under the Look Later section.');
+                    }
+                    else if(button==2) {
+                        window.plugins.videoPlayer.play('http://tali.irail.be/mov/kerstballen.3gp');
+                    }
+                }, 'Confirm', 'Later,Now');
+            });
+        }
+
         // @seealso result.format, result.cancelled
     }, function(error) {
-        alert("Scan failed: " + error);
+        alert("Could not scan the code. Please try again.");
     });
 }
 
