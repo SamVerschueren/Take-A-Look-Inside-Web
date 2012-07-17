@@ -168,8 +168,7 @@ function fillPopup (feature){
 function mustSeeClick(){
     var buildingID=activePopup.id;
     var device="lievenANDROID";
-    var method;
-    
+    var method;    
     
     if(localStorage["mustsee"+activePopup.id]==1){
         method="unlike";

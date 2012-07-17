@@ -184,8 +184,8 @@ function changeContent(goToPage) {
     }
 }
 
-function fillHomeCategoryMustSee() { 
-    $.getJSON('http://tali.irail.be/REST/Building.json?orderby=mustSee&select=name;buildingID', function(data) {
+function fillHomeCategoryMustSee() {
+    $.getJSON('http://tali.irail.be/REST/Building.json?top=3', function(data) {
         var list = $("<ol />"); 
         
         $.each(data.building, function(key, val) {
