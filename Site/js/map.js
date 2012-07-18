@@ -250,11 +250,23 @@ function mustSeeClick(){
         else
             $("img#mustSeeButton").attr("src","img/favorites.png"); 
 
-        fillCategory('favorites'); 
+        fillCategory('favorites');
         
-        markerFeatures[activePopup.id].marker.icon=getIcon(data.building[0].buildingID,data.building[0].categoryID);  
-        buildingLayer.redraw();
+       
+        
+        updateIcon(data.building[0].buildingID,data.building[0].categoryID);
+        buildingLayer.redraw();  
+        
     })     
+}
+
+function updateIcon(buildingID,categoryID){
+    console.log(markerFeatures[activePopup.id].marker.events);
+    markerFeatures[activePopup.id].marker.icon.erase();
+    markerFeatures[activePopup.id].marker.icon=getIcon(buildingID,categoryID);
+    markerFeatures[activePopup.id].marker.icon.draw();
+    markerFeatures[activePopup.id].marker.icon.display(true);     
+    console.log(markerFeatures[activePopup.id].marker.events);
 }
 
 function routeToClick(){
