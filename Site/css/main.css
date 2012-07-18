@@ -64,21 +64,23 @@ body {
     padding: 0px;
 }
 li.button {
-    border: 1px solid black;
+	background-color: #D4D3CB;
+	font-family:"quicksandbold";
+	font-size:16px;
     border-radius: 10px;
     margin-bottom: 10px;
     padding: 5px;
-    background-color: white;
+	width: 80%;
 }
 li.button:hover {
-    background-color: #eee;
+    background-color: #EF9722;
 }
 .icon {
     display: inline-block; 
 }
 .icon span {
     position:relative; 
-    top: 85%;
+    top: 88%;
     color: #EF9823;
 }
 .smallIcon {
@@ -451,10 +453,18 @@ header {
 }
 #questionMark {
     background: url('../img/About.png') no-repeat center; 
-    position: absolute;
-    right: 10px;
-    top: 10px;
+ 	float:right;
+    margin-right: 20px;
+    margin-top: 10px;
     width: 21px;
+    height: 21px;
+}
+
+#credits {
+	margin-top: 10px;
+	margin-right:20px;
+	float:right;
+	width: 21px;
     height: 21px;
 }
 
@@ -465,7 +475,7 @@ header {
 .titel {
 	font-family: "quicksandbook";
 	font-size:25px;
-	color:#EE9623;
+	margin-top:10px;
 }
 
 /**
@@ -524,12 +534,6 @@ header {
     #menu .map.active {
         background: url('../img/smartphone/menu/normal/map-orange.png') no-repeat;
     }
-	
-	.buttonRow {
-	margin-top:20%;
-}
-
-
 }
 
 /**
