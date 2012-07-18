@@ -41,10 +41,9 @@ $(function() {
         $('#information').hide();   
 
     }else{
-        var device="DUMMYDEVICE"; //insert native code here to 
-        //alert("voor post");
+        var device="DUMMYDEVICE"; //insert native code here to get DeviceID
         $.post("http://tali.irail.be/REST/Device.php?device="+device,function (data){
-            alert(data);
+            //alert(data);
         });        
     }
        
