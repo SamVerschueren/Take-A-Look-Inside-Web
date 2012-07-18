@@ -237,12 +237,23 @@ function fillHomeCategoryMustSee() {
         var list = $("<ol />"); 
         
         $.each(data.building, function(key, val) {
-            var li = $('<li />').attr('id', val.buildingID).html(val.name); 
+            var categorySpan = $('<span />').addClass('category').addClass(val.catName.toLowerCase());
+            var starSpan = $('<span />').addClass('star').append('<br />').append(val.mustSee);
+            var buildingSpan = $('<span />').append(val.name).append('<br />');
+            var adresSpan = $('<span />').addClass('adresSpan').append(val.adres);
+            
+            var middleSpan = $('<div />').addClass('middleDiv').append(buildingSpan).append(adresSpan);
+            
+            var li = $('<li />').attr('id', val.buildingID).append(categorySpan).append(middleSpan).append(starSpan); 
             li.addClass('button');
             list.append(li); 
             
             li.click(function(event) {
                 mapDirect = event.target.id;
+                
+                if(mapDirect == '') {
+                    mapDirect = $(this).closest("li").attr('id');
+                }
                 
                 window.location.href = "#map";
             });
