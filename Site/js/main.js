@@ -33,19 +33,13 @@ $(function() {
         seen[1] = new Building(4, 'Sint-Baafskathedraal'); 
         localStorage['seen'] = JSON.stringify(seen);
     
-    
-   
-    //localStorage['information'] = 'undefined';
-   
     if(localStorage['information'] == 'closed') {
         $('#information').hide();   
-
     }else{
-        var device="DUMMYDEVICE"; //insert native code here to get DeviceID
-        $.post("http://tali.irail.be/REST/Device.php?device="+device,function (data){
-            //alert(data);
-        });        
+        document.addEventListener("deviceready", onDeviceReady, false);          
     }
+   
+    //localStorage['information'] = 'undefined';
        
     $('.button').click(function(event) {
         // If user clicks on the span with the text, id of parent div will be retrieved
@@ -130,6 +124,13 @@ $(function() {
      */
     initHomeContent(true);
 });
+
+function onDeviceReady() {
+    var deviceId=device.uuid; //insert native code here to get DeviceID
+    $.post("http://tali.irail.be/REST/Device.php?device="+deviceId,function (data){
+        //alert(data);
+    });      
+}
 
 /**
  * Handles the resizing of the window. 
