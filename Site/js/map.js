@@ -65,7 +65,7 @@ function showMapDirectPopup(){
             fillPopup(markerFeatures[mapDirect]);
         if(!markerFeatures[mapDirect].popup.visible())       
             showPopup(markerFeatures[mapDirect].popup) 
-        mapDirect=undefined;
+        mapDirect=undefinecheckBuildingInArrayd;
     }  
 }
 
@@ -85,10 +85,21 @@ function showPopup(popup){
         var buildingList;
        // if(localStorage["mustSee"]!=null){
             buildingList=JSON.parse(localStorage["favorites"]);
-            if(buildingList[activePopup.id]!=null)
-                $("img#mustSeeButton").attr("src","img/favorites-selected.png");
-            else
-                $("img#mustSeeButton").attr("src","img/favorites.png");  
+            //buildingListSeen=JSON.parse(localStorage["seen"]);
+            //$.each(buildingListSeen)
+            if(localStorage["seen"]!=null && checkBuildingInArray(JSON.parse(localStorage["seen"]),activePopup.id)){
+                if(buildingList[activePopup.id]!=null  )
+                    $("img#mustSeeButton").attr("src","img/favorites-selected.png");
+                else
+                    $("img#mustSeeButton").attr("src","img/favorites.png");  
+                $("img#mustSeeButton").show(); 
+            }
+            else{
+                $("img#mustSeeButton").css('display', 'none');
+                $("img#mustSeeButton").attr("src","");
+            }   
+            
+  
         //}else $("img#mustSeeButton").attr("src","img/favorites.png");  ;
        
         $('div#mapButtons').show();
@@ -194,7 +205,6 @@ function addMarker(layer, lon, lat, id,categoryID) {
 }
 
 var markerClick = function (evt) {
-    console.log('markerclick');
     var caller = this;
     if(caller.popup==null)
         fillPopup(caller);

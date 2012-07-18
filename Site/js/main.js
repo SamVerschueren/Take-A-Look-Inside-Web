@@ -243,6 +243,17 @@ function fillHomeCategoryMustSee() {
     });
 };
 
+function checkBuildingInArray(array, buildingID){
+     $.each(array, function(key, building) {
+        if(building!=null){
+            console.log(building.id==buildingID);
+            if(building.id==buildingID)
+                return true;
+        }
+    });
+    return false;    
+}
+
 function fillCategory(name) {
     $('#' + name + '_content').empty();
         
