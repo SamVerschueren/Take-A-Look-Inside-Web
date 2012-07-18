@@ -98,7 +98,7 @@ $(function() {
     $('.scan').click(scanCode);  
     
     $('div#fireFilterSection').click(function(event) {
-        $('#filterSection').slideToggle('slow');    
+        $('div#filter').slideToggle('slow');    
     });
     
     /**
@@ -113,6 +113,10 @@ $(function() {
      */
     $('#home_category').live('swiperight', function(event) {
         changeContent(parseInt(page)-1);
+    });
+    
+    $('li#cultuur').click(function() {
+        alert('test');
     });
     
     /**
@@ -285,8 +289,5 @@ function fillCategory(name) {
 }
 
 function playMovie(building) {
-    // http://tali.irail.be/REST/Movie/qrID/MjAxMjA3MTYxNTQ4LXRlc3QubXA0.gp3
-    //MjAxMjA3MTYxNTQ4LXRlc3QubXA0
-    //alert('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3');
     window.plugins.videoPlayer.play('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3');  
 }

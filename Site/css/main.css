@@ -115,11 +115,11 @@ li.button:hover {
     display:block;
 }
 #filterSection {
-    display: none;
     list-style-type: none;
     padding: 0px;
     margin: 0px;
     padding-top: 10px;
+    width: 50%;
 }
 #filterSection li {
     margin-left: 10px;
@@ -128,21 +128,48 @@ li.button:hover {
 #header {
     position: absolute;
     z-index: 2000;
-    background: #D4D4CC;
+    background: #EDEDE4;
     color: #484646;
     width: 100%;
 }
 .filter {
     border-radius: 10px;
 }
-.red {
-    background-color: red;
-}
 #menu {
     background: #EDEDE4;
 }
 #menu div {
     float: left;
+}
+div#fireFilterSection {
+    margin: 5px;
+    font-family: Quicksandbold;
+    font-size: 16pt;
+}
+div#filter li {
+    border-radius: 15px;
+    margin-bottom: 10px;
+    color: white;
+    font-family: Quicksandbold;
+    font-size: 14pt;
+}
+/**
+ * Categoriën
+ */
+.cultuur {
+    background-color: #107FA1;
+}
+.historisch {
+    background-color: #D4003E;
+}
+.wifi {
+    background-color: #350F94;
+}
+.sport {
+    background-color: #A15810;
+}
+.horeca {
+    background-color: #00870F;
 }
 
 /**
@@ -242,6 +269,31 @@ div#carrousel {
     float: left;
     width: 250px;
 }
+/**
+ * Checkbox
+ */
+.checkBox
+{
+    background-position: 0px 0px;
+}
+
+.checkBoxClear
+{
+    background-position: -21px 0px;
+}
+
+.checkBox, .checkBoxClear
+{
+    background-image: url('../img/checkbox.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+    float: left;
+    width: 21px;
+    height: 21px;
+    padding: 0px;
+    margin: 0px;
+    cursor: hand;
+}
 
 /**
  * JQuery styling
@@ -261,12 +313,8 @@ div#carrousel {
 .olPopup {
     background-color: #444;
     border-radius: 0px 10px 10px 10px;
-    padding: 10px;
-<<<<<<< HEAD
-    margin-left: -50px;
-=======
+
     text-shadow: none;
->>>>>>> 6d4b64359ba2701d645ed604b0c2f86f83301024
     color: white;
     width: 200px;
     overflow: scroll;
@@ -278,23 +326,33 @@ span.moreInfo {
     color: #EF9722;
 }
 .olPopupCloseBox{
-    /*background-color: #EF9823;*/
+    background-color: green;
     background: url('../img/close.png') no-repeat center;  
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    float: right;
+    margin: 5px;
 }
 .olPopup h1 {
     font-size: 15px;
     margin-top: 0px;
+    padding: 5px 10px 5px 10px;
+    width: 100%;
+    border-top-right-radius: 14px;
+    font-weight: bold;
 }
-.olPopup p {
+.olPopup p.description {
     font-size: 12px;
+    padding: 5px 10px 0px 10px;
+    line-height: 14px;
+}
+.olPopup p.adres {
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 15px;
 }
 div.olControlZoom {
     position: absolute;
-    top: 30px;
+    top: 40px;
     left: 8px;
     background: rgba(255,255,255,0.4);
     border-radius: 4px;
