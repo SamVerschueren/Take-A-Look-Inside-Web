@@ -161,26 +161,27 @@ function getIcon(buildingID,categoryID){
    if(localStorage["favorites"]!=null){
         $.each(JSON.parse(localStorage["favorites"]), function(key, building) {            
             if(building!=null && building.id==buildingID)
-               icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'fav.png',iconSize,iconOffset);     
+               icon ='img/markers/marker'+categoryID+'fav.png';     
         });
     }
     if(JSON.parse(localStorage["seen"]!=null)){
         if(icon==null){
             $.each(JSON.parse(localStorage["seen"]), function(key, building) {
                 if(building.id==buildingID)
-                   icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'seen.png',iconSize,iconOffset);     
+                   icon= 'img/markers/marker'+categoryID+'seen.png';     
             });        
         }
     }
     if(icon==null){
-        icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'.png',iconSize,iconOffset);    
+        icon ='img/markers/marker'+categoryID+'.png';    
     }     
     return icon;
 }
 
 function addMarker(layer, lon, lat, id,categoryID) {
     var lonlat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));    
-    var icon=getIcon(id,categoryID,iconSize,iconOffset);         
+    //var icon=getIcon(id,categoryID,iconSize,iconOffset);
+    var icon=new OpenLayers.Icon(getIcon(id,categoryID),iconSize,iconOffset);      
     var feature = new OpenLayers.Feature(layer, lonlat); 
     feature.data.icon = icon;
     feature.data.overflow = 'auto';
@@ -193,6 +194,7 @@ function addMarker(layer, lon, lat, id,categoryID) {
 }
 
 var markerClick = function (evt) {
+    console.log('markerclick');
     var caller = this;
     if(caller.popup==null)
         fillPopup(caller);
@@ -252,9 +254,6 @@ function mustSeeClick(){
             $("img#mustSeeButton").attr("src","img/favorites.png"); 
 
         fillCategory('favorites');
-        
-       
-        
         updateIcon(data.building[0].buildingID,data.building[0].categoryID);
         buildingLayer.redraw();  
         
@@ -262,12 +261,7 @@ function mustSeeClick(){
 }
 
 function updateIcon(buildingID,categoryID){
-    console.log(markerFeatures[activePopup.id].marker.events);
-    markerFeatures[activePopup.id].marker.icon.erase();
-    markerFeatures[activePopup.id].marker.icon=getIcon(buildingID,categoryID);
-    markerFeatures[activePopup.id].marker.icon.draw();
-    markerFeatures[activePopup.id].marker.icon.display(true);     
-    console.log(markerFeatures[activePopup.id].marker.events);
+     markerFeatures[buildingID].marker.setUrl(getIcon(buildingID,categoryID));  
 }
 
 function routeToClick(){

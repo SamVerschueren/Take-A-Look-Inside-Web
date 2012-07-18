@@ -173,12 +173,13 @@ var scanCode = function() {
                             array = new Array(); 
                         }
                         else {
-                            array = JSON.parse(localStorage['seen']);
+                            array = JSON.parse(localStorage['seen']);                            
                         }
 
                         array.push(building);
                         
                         localStorage['seen'] = JSON.stringify(array);
+                        updateIcon(data.buildingID,data.categoryID);
                     }
                     
                     initHomeContent(false);
