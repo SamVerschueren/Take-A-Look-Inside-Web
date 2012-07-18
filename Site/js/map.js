@@ -171,26 +171,26 @@ function getIcon(buildingID,category){
    if(localStorage["favorites"]!=null){
         $.each(JSON.parse(localStorage["favorites"]), function(key, building) {            
             if(building!=null && building.id==buildingID)
-               icon = new OpenLayers.Icon('img/markers/'+category+'[fav].png',iconSize,iconOffset);     
+               icon = 'img/markers/'+category+'[fav].png';     
         });
     }
     if(JSON.parse(localStorage["seen"]!=null)){
         if(icon==null){
             $.each(JSON.parse(localStorage["seen"]), function(key, building) {
                 if(building.id==buildingID)
-                    icon = new OpenLayers.Icon('img/markers/'+category+'[seen].png',iconSize,iconOffset);     
+                    icon = 'img/markers/'+category+'[seen].png';     
             });        
         }
     }
     if(icon==null){
-        icon = new OpenLayers.Icon('img/markers/'+category+'.png',iconSize,iconOffset);    
+        icon = 'img/markers/'+category+'.png';    
     }     
     return icon;
 }
 
 function addMarker(layer, lon, lat, id,category) {
     var lonlat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));    
-    var icon=getIcon(id,category,iconSize,iconOffset);         
+    var icon=new OpenLayers.Icon(getIcon(id,category),iconSize,iconOffset);         
     var feature = new OpenLayers.Feature(layer, lonlat); 
     feature.data.icon = icon;
     feature.data.overflow = 'auto';
@@ -221,7 +221,7 @@ function fillPopup (feature){
         popup.autoSize=true;
         popup.setBackgroundColor('#444');
         feature.popup=popup; 
-        feature.popup.contentHTML='<h1 class="' + data.building[0].catName + '">' + data.building[0].name + '</h1><p class="description">' + data.building[0].description + '<span class="moreInfo">More info...</span></p><p class="adres ' + data.building[0].catName + '">Botermarkt 1</p>';
+        feature.popup.contentHTML='<h1 class="' + data.building[0].catName + '">' + data.building[0].name + '</h1><p class="description">' + data.building[0].description + '<br /><br /><br /></p><p class="adres ' + data.building[0].catName + '">' + data.building[0].adres + '</p>';
         
         map.addPopup(feature.popup);
         showPopup(feature.popup);
@@ -262,13 +262,13 @@ function mustSeeClick(){
             $("img#mustSeeButton").attr("src","img/favorites.png"); 
 
         fillCategory('favorites');
-        updateIcon(data.building[0].buildingID,data.building[0].categoryID);
+        updateIcon(data.building[0].buildingID,data.building[0].catName);
         buildingLayer.redraw();  
     })     
 }
 
-function updateIcon(buildingID,categoryID){
-     markerFeatures[buildingID].marker.setUrl(getIcon(buildingID,categoryID));  
+function updateIcon(buildingID,category) {
+     markerFeatures[buildingID].marker.setUrl(getIcon(buildingID,category));  
 }
 
 function routeToClick(){
