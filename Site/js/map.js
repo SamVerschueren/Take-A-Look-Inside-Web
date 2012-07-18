@@ -19,14 +19,12 @@ $("div#map").live('pagebeforeshow', function() {
                 $(checkbox).change(filterClick);
                 
                 var label = $("<label />").attr('for', 'filter' + val.categoryID).html(val.name);
-                var li = $("<li />").append(checkbox).append(' ').append(label); 
-                $('ul#filterSection').append(li);
-                
+                var li = $("<li />").attr('class', val.name.toLowerCase()).append(checkbox).append(' ').append(label); 
+                $('ul#filterSection').append(li);  
             });
         });
-    }  
-            
-});      
+    }              
+});    
 
 $("div#map").live('pageshow', function() {
     if(!mapLoaded) {
@@ -143,12 +141,12 @@ function loadMap(position) {
     var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
     var icon = new OpenLayers.Icon('img/my-location.png', size, offset);
     locationLayer.addMarker(new OpenLayers.Marker(lonlat,icon));
-    $.getJSON('http://tali.irail.be/REST/Building.json?select=buildingID;longitude;latitude,categoryID', function(data) {
+    $.getJSON('http://tali.irail.be/REST/Building.json?select=buildingID;longitude;latitude,building.categoryID,category.name&join=category', function(data) {
        // var latDestination;
        // var lonDestination;
        markerFeatures=new Array();
         $.each(data.building, function(key, val) {
-            addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID,val.categoryID);    
+            addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID,val.name);    
             latDestination=val.latitude;
             lonDestination=val.longitude;
         });
@@ -156,31 +154,31 @@ function loadMap(position) {
     });   
 }
 
-function getIcon(buildingID,categoryID){
+function getIcon(buildingID,category){
    var icon;
    if(localStorage["favorites"]!=null){
         $.each(JSON.parse(localStorage["favorites"]), function(key, building) {            
             if(building!=null && building.id==buildingID)
-               icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'fav.png',iconSize,iconOffset);     
+               icon = new OpenLayers.Icon('img/markers/'+category+'[fav].png',iconSize,iconOffset);     
         });
     }
     if(JSON.parse(localStorage["seen"]!=null)){
         if(icon==null){
             $.each(JSON.parse(localStorage["seen"]), function(key, building) {
                 if(building.id==buildingID)
-                   icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'seen.png',iconSize,iconOffset);     
+                   icon = new OpenLayers.Icon('img/markers/'+category+'[seen].png',iconSize,iconOffset);     
             });        
         }
     }
     if(icon==null){
-        icon = new OpenLayers.Icon('img/markers/marker'+categoryID+'.png',iconSize,iconOffset);    
+        icon = new OpenLayers.Icon('img/markers/'+category+'.png',iconSize,iconOffset);    
     }     
     return icon;
 }
 
-function addMarker(layer, lon, lat, id,categoryID) {
+function addMarker(layer, lon, lat, id,category) {
     var lonlat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));    
-    var icon=getIcon(id,categoryID,iconSize,iconOffset);         
+    var icon=getIcon(id,category,iconSize,iconOffset);         
     var feature = new OpenLayers.Feature(layer, lonlat); 
     feature.data.icon = icon;
     feature.data.overflow = 'auto';
@@ -200,7 +198,7 @@ var markerClick = function (evt) {
     OpenLayers.Event.stop(evt);
 }
 function fillPopup (feature){    
-     $.getJSON('http://tali.irail.be/REST/Building/buildingID/' + feature.id + '.json', function(data) {         
+     $.getJSON('http://tali.irail.be/REST/Building/buildingID/' + feature.id + '.json?select=building.*;category.name%20AS%20catName&join=category', function(data) {         
          var lonlat = new OpenLayers.LonLat(data.building[0].longitude, data.building[0].latitude).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));         
          var popup= new OpenLayers.Popup(feature.id,
                    lonlat,
@@ -211,7 +209,7 @@ function fillPopup (feature){
         popup.autoSize=true;
         popup.setBackgroundColor('#444');
         feature.popup=popup; 
-        feature.popup.contentHTML='<h1>' + data.building[0].name + '</h1><p>' + data.building[0].description + '<span class="moreInfo">More info...</span></p>';
+        feature.popup.contentHTML='<h1 class="' + data.building[0].catName + '">' + data.building[0].name + '</h1><p class="description">' + data.building[0].description + '<span class="moreInfo">More info...</span></p><p class="adres ' + data.building[0].catName + '">Botermarkt 1</p>';
         
         map.addPopup(feature.popup);
         showPopup(feature.popup);
@@ -224,7 +222,7 @@ function mustSeeClick(){
     var device="lievenANDROID";
     var method;     
     var building;    
-    $.getJSON("http://tali.irail.be/REST/Building.json?join=category&select=buildingID;building.name;category.categoryID&buildingID="+activePopup.id,function (data){        
+    $.getJSON("http://tali.irail.be/REST/Building.json?join=category&select=buildingID;building.name;category.name AS catName&buildingID="+activePopup.id,function (data){        
 
         building=new Building(data.building[0].buildingID,data.building[0].name); 
         var buildingList={};
@@ -253,7 +251,7 @@ function mustSeeClick(){
 
         fillCategory('favorites'); 
         
-        markerFeatures[activePopup.id].marker.icon=getIcon(data.building[0].buildingID,data.building[0].categoryID);  
+        markerFeatures[activePopup.id].marker.icon=getIcon(data.building[0].buildingID,data.building[0].catName);  
         buildingLayer.redraw();
     })     
 }
