@@ -82,30 +82,29 @@ function showPopup(popup){
         popup.show();
     activePopup=popup;
     if(typeof activePopup!='undefined' && activePopup.visible()){
-        var buildingList;
-       // if(localStorage["mustSee"]!=null){
-            buildingList=JSON.parse(localStorage["favorites"]);
-            //buildingListSeen=JSON.parse(localStorage["seen"]);
-            //$.each(buildingListSeen)
-            if(localStorage["seen"]!=null && checkBuildingInArray(JSON.parse(localStorage["seen"]),activePopup.id)){
-                if(buildingList[activePopup.id]!=null  )
-                    $("img#mustSeeButton").attr("src","img/favorites-selected.png");
-                else
-                    $("img#mustSeeButton").attr("src","img/favorites.png");  
-                $("img#mustSeeButton").show(); 
-            }
-            else{
-                $("img#mustSeeButton").css('display', 'none');
-                $("img#mustSeeButton").attr("src","");
-            }   
-            
-  
-        //}else $("img#mustSeeButton").attr("src","img/favorites.png");  ;
-       
+        updateRightSideButtons(activePopup.id);
         $('div#mapButtons').show();
     }
     else
         $('div#mapButtons').hide();
+}
+
+function updateRightSideButtons(buildingID){
+    if(buildingID==activePopup.id){
+        var buildingList;
+        buildingList=JSON.parse(localStorage["favorites"]);
+        if(localStorage["seen"]!=null && checkBuildingInArray(JSON.parse(localStorage["seen"]),buildingID)){
+            if(buildingList[activePopup.id]!=null  )
+                $("img#mustSeeButton").attr("src","img/favorites-selected.png");
+            else
+                $("img#mustSeeButton").attr("src","img/favorites.png");  
+            $("img#mustSeeButton").show(); 
+        }
+        else{
+            $("img#mustSeeButton").css('display', 'none');
+            $("img#mustSeeButton").attr("src","");
+        }   
+    }
 }
 
 function loadMap(position) {

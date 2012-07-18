@@ -180,6 +180,7 @@ var scanCode = function() {
                         
                         localStorage['seen'] = JSON.stringify(array);
                         updateIcon(data.buildingID,data.categoryID);
+                        updateRightSideButtons(data.buildingID);
                     }
                     
                     initHomeContent(false);
