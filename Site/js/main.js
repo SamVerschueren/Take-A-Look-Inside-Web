@@ -14,7 +14,7 @@ $(function() {
     
     initCarrousel();
     
-    //localStorage.clear();
+    localStorage.clear();
     
     /*
         // Adding some localstorage dummy data
@@ -27,7 +27,7 @@ $(function() {
         var lookLaters = new Array();
         lookLaters[0] = new Building(3, 'Belfort');
         localStorage['lookLater'] = JSON.stringify(lookLaters);
-      */  
+     */
         var seen = new Array();
         seen[0] = new Building(2, 'Stadhuis');
         seen[1] = new Building(4, 'Sint-Baafskathedraal'); 
@@ -39,6 +39,13 @@ $(function() {
    
     if(localStorage['information'] == 'closed') {
         $('#information').hide();   
+
+    }else{
+        var device="DUMMYDEVICE"; //insert native code here to 
+        //alert("voor post");
+        $.post("http://tali.irail.be/REST/Device.php?device="+device,function (data){
+            alert(data);
+        });        
     }
        
     $('.button').click(function(event) {

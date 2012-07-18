@@ -254,7 +254,7 @@ function mustSeeClick(){
         method=(buildingList[building.id]==null)? 'like':'unlike'; 
        // $.post("http://tali.irail.be/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+device,function(data){
 
-        $.post("http://localhost/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+device,function(data){
+        $.post("http://tali.irail.be/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+device,function(data){
             //alert(data);
         }); 
         
