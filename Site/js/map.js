@@ -35,7 +35,7 @@ $("div#map").live('pageshow', function() {
         }
     }
     else {
-        map.setCenter(lonlat);  
+        
         showMapDirectPopup();        
         //markerArray[mapDirect].erase();             
     }
@@ -63,9 +63,19 @@ function showMapDirectPopup(){
             fillPopup(markerFeatures[mapDirect]);
         if(markerFeatures[mapDirect].popup !=null && !markerFeatures[mapDirect].popup.visible())       
             showPopup(markerFeatures[mapDirect].popup)
+        $.getJSON('http://tali.irail.be/REST/Building.json?buildingID='+mapDirect , function(data) {
+            
+            var lonlatBuilding= new OpenLayers.LonLat(
+                data.building[0].longitude,data.building[0].latitude
+                ).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+            map.setCenter(lonlatBuilding);
+            //map.setCenter(markerFeatures[mapDirect].) 
+            
+        });
         
         mapDirect=undefined;
-    }  
+    } 
+    else map.setCenter(lonlat);   
 }
 
 function showPopup(popup){
@@ -263,7 +273,6 @@ function mustSeeClick(){
 
         fillCategory('favorites');
         updateIcon(data.building[0].buildingID,data.building[0].catName);
-        buildingLayer.redraw();  
     })     
 }
 
