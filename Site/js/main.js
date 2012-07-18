@@ -27,12 +27,12 @@ $(function() {
         var lookLaters = new Array();
         lookLaters[0] = new Building(3, 'Belfort');
         localStorage['lookLater'] = JSON.stringify(lookLaters);
-        
+      */  
         var seen = new Array();
         seen[0] = new Building(2, 'Stadhuis');
         seen[1] = new Building(4, 'Sint-Baafskathedraal'); 
         localStorage['seen'] = JSON.stringify(seen);
-    */
+    
     
    
     //localStorage['information'] = 'undefined';
@@ -245,14 +245,13 @@ function fillHomeCategoryMustSee() {
 };
 
 function checkBuildingInArray(array, buildingID){
+    var result=false;
      $.each(array, function(key, building) {
-        if(building!=null){
-            console.log(building.id==buildingID);
+        if(building!=null)       
             if(building.id==buildingID)
-                return true;
-        }
+               result=true;        
     });
-    return false;    
+    return result;    
 }
 
 function fillCategory(name) {

@@ -93,11 +93,12 @@ function updateRightSideButtons(buildingID){
     if(buildingID==activePopup.id){
         var buildingList;
         buildingList=JSON.parse(localStorage["favorites"]);
+        //console.log("in seen list: " +checkBuildingInArray(JSON.parse(localStorage["seen"]),buildingID));
         if(localStorage["seen"]!=null && checkBuildingInArray(JSON.parse(localStorage["seen"]),buildingID)){
             if(buildingList[activePopup.id]!=null  )
                 $("img#mustSeeButton").attr("src","img/favorites-selected.png");
             else
-                $("img#mustSeeButton").attr("src","img/favorites.png");  
+                $("img#mustSeeButton").attr("src","img/favorites.png");
             $("img#mustSeeButton").show(); 
         }
         else{
