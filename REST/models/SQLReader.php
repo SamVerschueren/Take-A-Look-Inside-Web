@@ -44,8 +44,8 @@ class SQLReader implements IReader {
         $select='';
         $jointable='';
         if(array_key_exists("top" , $restrictions)){
-           $sql="select name, building.buildingID from building join must_sees on building.buildingID = must_sees.buildingID
-            group by name, buildingID order by count(*) desc limit " . $restrictions["top"]  ;      
+           $sql="select building.name, building.buildingID, building.adres, category.name AS catName, count(*) AS mustSee from building join must_sees on building.buildingID = must_sees.buildingID join category on building.categoryID=category.categoryID
+            group by name, buildingID, adres, catName order by count(*) desc limit " . mysql_real_escape_string($restrictions["top"]);     
         }else{        
             foreach($restrictions as $key => $value)                 
                 if($key != 'dataFormat') 
