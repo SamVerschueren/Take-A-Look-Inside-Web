@@ -187,7 +187,8 @@ function addMarker(layer, lon, lat, id,categoryID) {
     feature.id = id;              
     var marker = feature.createMarker();   
     markerFeatures[id] = feature;
-    marker.events.register('click', feature, markerClick);    
+    marker.events.register('touchstart', feature, markerClick);  
+    marker.events.register('click', feature, markerClick);     
     layer.addMarker(marker);
 }
 
