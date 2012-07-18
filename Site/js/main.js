@@ -14,7 +14,7 @@ $(function() {
     
     initCarrousel();
     
-    //localStorage.clear();
+    localStorage.clear();
     
     /*
         // Adding some localstorage dummy data
@@ -42,8 +42,8 @@ $(function() {
 
     }else{
         var device="DUMMYDEVICE"; //insert native code here to 
-        alert("voor post");
-        $.post("http://localhost/REST/Device.php?device="+device,function (data){
+        //alert("voor post");
+        $.post("http://tali.irail.be/REST/Device.php?device="+device,function (data){
             alert(data);
         });        
     }
