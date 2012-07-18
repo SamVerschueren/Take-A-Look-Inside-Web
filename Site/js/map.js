@@ -61,8 +61,9 @@ function showMapDirectPopup(){
     if(typeof mapDirect!='undefined'){
         if(markerFeatures[mapDirect].popup==null )
             fillPopup(markerFeatures[mapDirect]);
-        if(!markerFeatures[mapDirect].popup.visible())       
-            showPopup(markerFeatures[mapDirect].popup) 
+        if(markerFeatures[mapDirect].popup !=null && !markerFeatures[mapDirect].popup.visible())       
+            showPopup(markerFeatures[mapDirect].popup)
+        
         mapDirect=undefined;
     }  
 }
@@ -80,19 +81,30 @@ function showPopup(popup){
         popup.show();
     activePopup=popup;
     if(typeof activePopup!='undefined' && activePopup.visible()){
-        var buildingList;
-       // if(localStorage["mustSee"]!=null){
-            buildingList=JSON.parse(localStorage["favorites"]);
-            if(buildingList[activePopup.id]!=null)
-                $("img#mustSeeButton").attr("src","img/favorites-selected.png");
-            else
-                $("img#mustSeeButton").attr("src","img/favorites.png");  
-        //}else $("img#mustSeeButton").attr("src","img/favorites.png");  ;
-       
+        updateRightSideButtons(activePopup.id);
         $('div#mapButtons').show();
     }
     else
         $('div#mapButtons').hide();
+}
+
+function updateRightSideButtons(buildingID){
+    if(buildingID==activePopup.id){
+        var buildingList;
+        buildingList=JSON.parse(localStorage["favorites"]);
+        //console.log("in seen list: " +checkBuildingInArray(JSON.parse(localStorage["seen"]),buildingID));
+        if(localStorage["seen"]!=null && checkBuildingInArray(JSON.parse(localStorage["seen"]),buildingID)){
+            if(buildingList[activePopup.id]!=null  )
+                $("img#mustSeeButton").attr("src","img/favorites-selected.png");
+            else
+                $("img#mustSeeButton").attr("src","img/favorites.png");
+            $("img#mustSeeButton").show(); 
+        }
+        else{
+            $("img#mustSeeButton").css('display', 'none');
+            $("img#mustSeeButton").attr("src","");
+        }   
+    }
 }
 
 function loadMap(position) {
@@ -166,7 +178,7 @@ function getIcon(buildingID,category){
         if(icon==null){
             $.each(JSON.parse(localStorage["seen"]), function(key, building) {
                 if(building.id==buildingID)
-                   icon = new OpenLayers.Icon('img/markers/'+category+'[seen].png',iconSize,iconOffset);     
+                    icon = new OpenLayers.Icon('img/markers/'+category+'[seen].png',iconSize,iconOffset);     
             });        
         }
     }
@@ -249,11 +261,14 @@ function mustSeeClick(){
         else
             $("img#mustSeeButton").attr("src","img/favorites.png"); 
 
-        fillCategory('favorites'); 
-        
-        markerFeatures[activePopup.id].marker.icon=getIcon(data.building[0].buildingID,data.building[0].catName);  
-        buildingLayer.redraw();
+        fillCategory('favorites');
+        updateIcon(data.building[0].buildingID,data.building[0].categoryID);
+        buildingLayer.redraw();  
     })     
+}
+
+function updateIcon(buildingID,categoryID){
+     markerFeatures[buildingID].marker.setUrl(getIcon(buildingID,categoryID));  
 }
 
 function routeToClick(){

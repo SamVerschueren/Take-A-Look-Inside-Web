@@ -27,12 +27,12 @@ $(function() {
         var lookLaters = new Array();
         lookLaters[0] = new Building(3, 'Belfort');
         localStorage['lookLater'] = JSON.stringify(lookLaters);
-        
+      */  
         var seen = new Array();
         seen[0] = new Building(2, 'Stadhuis');
         seen[1] = new Building(4, 'Sint-Baafskathedraal'); 
         localStorage['seen'] = JSON.stringify(seen);
-    */
+    
     
    
     //localStorage['information'] = 'undefined';
@@ -177,12 +177,14 @@ var scanCode = function() {
                             array = new Array(); 
                         }
                         else {
-                            array = JSON.parse(localStorage['seen']);
+                            array = JSON.parse(localStorage['seen']);                            
                         }
 
                         array.push(building);
                         
                         localStorage['seen'] = JSON.stringify(array);
+                        updateIcon(data.buildingID,data.categoryID);
+                        updateRightSideButtons(data.buildingID);
                     }
                     
                     initHomeContent(false);
@@ -245,6 +247,16 @@ function fillHomeCategoryMustSee() {
         $('#mustSee_content').append(list);
     });
 };
+
+function checkBuildingInArray(array, buildingID){
+    var result=false;
+     $.each(array, function(key, building) {
+        if(building!=null)       
+            if(building.id==buildingID)
+               result=true;        
+    });
+    return result;    
+}
 
 function fillCategory(name) {
     $('#' + name + '_content').empty();
