@@ -65,7 +65,7 @@ function showMapDirectPopup(){
             fillPopup(markerFeatures[mapDirect]);
         if(!markerFeatures[mapDirect].popup.visible())       
             showPopup(markerFeatures[mapDirect].popup) 
-        mapDirect=undefinecheckBuildingInArrayd;
+        mapDirect=undefined;
     }  
 }
 
