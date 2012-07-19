@@ -1,11 +1,19 @@
+//declare variables
 var homeCategory = "";
 var mapLoaded = false;
 var markerArray = new Array();
 var page = 0;
 
+//Link to the site
 var siteUrl = 'http://tali.irail.be';
+
+//Link to the restfull webservice
 var server = 'http://tali.irail.be/REST'
 
+/**
+ * Extension to arrays:
+ * now possible to use syntax like: some_array.remove(building);
+ */
 Array.prototype.remove = function (building) {
     for (var i = 0; i < this.length; ) {
         if (this[i].id === building.id) {
@@ -17,6 +25,7 @@ Array.prototype.remove = function (building) {
     }
 }
 
+//Add deviceready event listetener from Phonegap
 document.addEventListener("deviceready", onDeviceReady, false);
 
 /**
@@ -28,7 +37,7 @@ $(function() {
     
     initCarrousel();
     
-
+    //Testing purposes:
    // localStorage.clear();
     
     /*
@@ -49,10 +58,12 @@ $(function() {
         localStorage['seen'] = JSON.stringify(seen);
 		*/
     
+    //Don't show information screen if application isn't opened for the first time
     if(localStorage['information'] == 'closed') {
         $('#information').hide();   
     }
-       
+    
+    //Eventhandler for clicks in homescreen.
     $('.button').click(function(event) {
         // If user clicks on the span with the text, id of parent div will be retrieved
         if(event.target.id=='') {
