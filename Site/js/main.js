@@ -3,6 +3,7 @@ var mapLoaded = false;
 var markerArray = new Array();
 var page = 0;
 
+var siteUrl = 'http://tali.irail.be';
 var server = 'http://tali.irail.be/REST'
 
 /**
@@ -156,7 +157,17 @@ function initCarrousel() {
 var scanCode = function() {
     window.plugins.barcodeScanner.scan(function(result) {
         if(result.text != '') {
-            $.getJSON(result.text, function(data) {
+            var url = result.text.split('#');//http://tali.irail.be#2
+            
+            if(url[0] != siteUrl) {
+                navigator.notification.alert('You scanned a QR-code that not belongs to Take A Look Inside.', function() { }, 'Wrong QR-code', 'Ok');
+                
+                return;       
+            }
+            
+            
+            
+            $.getJSON(server + '/Movie/qrID/' + url[1] + '.json', function(data) {
                 navigator.notification.confirm('The video is ' + $.trim(data.size) + ' KB big. When do you want to see the video?', function(button) {
                     
                     var building = new Building(data.buildingID, data.buildingName, data.token);
