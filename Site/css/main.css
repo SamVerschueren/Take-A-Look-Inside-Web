@@ -363,7 +363,7 @@ ul li.button {
  * OpenLayers styling
  */
 .olPopup {
-    background-color: #444;
+    background-color: #EBECE3;
     border-radius: 0px 10px 10px 10px;
 
     text-shadow: none;
@@ -394,6 +394,7 @@ span.moreInfo {
     font-size: 12px;
     padding: 5px 10px 0px 10px;
     line-height: 14px;
+	color:#474646;
 }
 .olPopup p.adres {
     position: absolute;
