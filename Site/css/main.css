@@ -525,6 +525,23 @@ header {
 	margin-top:10px;
 }
 
+h3 {
+	float:left;
+	width:70px;
+	}
+
+#legendarrow {
+	width:20px;
+}
+
+.rotate {
+	transform:rotate(90deg);
+	-ms-transform:rotate(90deg); /* IE 9 */
+	-moz-transform:rotate(90deg); /* Firefox */
+	-webkit-transform:rotate(90deg); /* Safari and Chrome */
+	-o-transform:rotate(90deg); /* Opera */
+} 
+
 /**
  * Menu
  */
@@ -581,8 +598,8 @@ header {
     #menu .map.active {
         background: url('../img/smartphone/menu/normal/map-orange.png') no-repeat;
     }
-
-}
+	
+	
 
 /**
  * Smartphone

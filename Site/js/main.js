@@ -110,7 +110,8 @@ $(function() {
     $('.scan').click(scanCode);  
     
     $('div#fireFilterSection').click(function(event) {
-        $('div#filter').slideToggle('slow');    
+        $('div#filter').slideToggle('slow'); 
+		$('#legendarrow').addClass('rotate');   
     });
     
     /**
