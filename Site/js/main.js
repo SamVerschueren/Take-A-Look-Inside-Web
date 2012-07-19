@@ -74,18 +74,20 @@ $(function() {
         else {
             var id = event.target.id;
         }
-        
+        //set Active page icon
         $(".smallIcon").removeClass("active");
         $("#" + id + ".smallIcon").addClass('active');
         
         page = $(this).attr('data-page');
         
+        //Go to home page
         if($(this).attr('data-from') == 'home') {
             $('#carrousel').css('margin-left', '-' + page*windowWidth + 'px'); 
             
             window.location.href = "#home_category";  
         }        
         else {
+            //Go to other page
             changeContent(page);
         }
     });
@@ -144,13 +146,23 @@ $(function() {
     initHomeContent(true);
 });
 
+/**
+ * 
+ */
 function onDeviceReady() {
     deviceUUID=device.uuid;
-    
+    alert(checkNetworkState());
     $.post(server + "/Device", {device: deviceUUID}, function (data){
-        // doe niets   
+        // do nothing  
     });      
 }
+
+function checkNetworkState(){
+   return networkState ==
+        NetworkStatus.REACHABLE_VIA_CARRIER_DATA_NETWORK ||
+        NetworkStatus.REACHABLE_VIA_WIFI_NETWORK;
+}
+
 
 /**
  * Handles the resizing of the window. 
