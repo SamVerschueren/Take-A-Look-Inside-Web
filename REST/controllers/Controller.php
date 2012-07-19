@@ -1,7 +1,7 @@
 <?php
 require_once('exceptions/runtime/UnsupportedOperationException.php');
 /**
- * Base class for implementation of the RESTfull implementation.
+ * Base class for implementation of the RESTful implementation.
  * Provides different methods of restfull interface and some abstract methods.
  *
  * @package TakeALookInside/controllers
@@ -32,6 +32,9 @@ abstract class Controller {
         return $data['c'] > 0;      
     }
     /**
+     * 
+     * Standard methods of restful webservice interface.
+     * 
      * Methods that can be overridden by subclasses. Methods are not supported if subclass does not implement them.
      * 
      */
