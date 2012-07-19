@@ -60,7 +60,7 @@ $(function() {
     
     //Don't show information screen if application isn't opened for the first time
     if(localStorage['information'] == 'closed') {
-        $('#information').hide();   
+        $('#information, #triangle').hide();   
     }
     
     //Eventhandler for clicks in homescreen.
@@ -99,7 +99,7 @@ $(function() {
     $('#closeInformation').click(function(event) {
         localStorage['information'] = 'closed';
         
-        $('#information').fadeOut('slow');    
+        $('#information, #triangle').fadeOut('slow');    
     });
     
     /**
@@ -123,7 +123,8 @@ $(function() {
     $('.scan').click(scanCode);  
     
     $('div#fireFilterSection').click(function(event) {
-        $('div#filter').slideToggle('slow');    
+        $('div#filter').slideToggle('slow'); 
+		$('#legendarrow').addClass('rotate');   
     });
     
     /**
@@ -417,16 +418,23 @@ function playMovie(building) {
        
             //update home categories except for must sees (these didnt change anyway)    
             initHomeContent(false);
+<<<<<<< HEAD
             
             //get JSON in order to get category ID of the current building in order to be able to 
             //update the icon properly (from unseen to seen).
             $.getJSON('http://tali.irail.be/REST/building.json?select=category.name&join=category&buildingID='+building.id, function(data){
                 //update the icon
                 updateIcon(building.id,data.building[0].category)
+=======
+       
+            $.getJSON('http://tali.irail.be/REST/building.json?select=category.name as catName&join=category&buildingID='+building.id, function(data){
+                var catName = data.building[0].catName;
+                
+                updateIcon(building.id, catName.toLowerCase());
+>>>>>>> fa4132f971dedd7b900db783c7747252cc0ef7fd
                 mapDirect = building.id;
                 window.location.href = '#map'; 
             });
-
         }
         //video not asked from a device stored in the DB: something went wrong, people are trying to get the movie
         //in ways we would not like them to get it.

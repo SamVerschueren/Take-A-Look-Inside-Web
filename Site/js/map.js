@@ -290,12 +290,8 @@ function mustSeeClick(){
         method=(buildingList[building.id]==null)? 'like':'unlike'; 
 
         $.post('http://tali.irail.be/REST/Building', {buildingID: buildingID, method: method, device: deviceUUID}, function(data) {
-            alert(data);   
+              
         });
-
-        /*$.post("http://tali.irail.be/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+deviceUUID,function(data){
-            //alert(data);
-        }); */
         
         if(method=='like'){
             buildingList[building.id]=building;        
@@ -312,6 +308,7 @@ function mustSeeClick(){
 
         fillCategory('favorites');
         updateIcon(data.building[0].buildingID,data.building[0].catName);
+        initHomeContent(true);
     })     
 }
 
