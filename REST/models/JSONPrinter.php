@@ -1,6 +1,6 @@
 <?php
-
 include_once('IPrinter.php');
+
 /**
  * Implementation of a printer that prints in the JSON format.
  *
