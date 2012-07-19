@@ -28,6 +28,27 @@ $(function() {
     
     initCarrousel();
     
+
+   // localStorage.clear();
+    
+    /*
+        // Adding some localstorage dummy data
+        var buildings = new Array();
+        buildings[0] = new Building(2, 'Stadhuis');
+        
+        localStorage['favorites'] = JSON.stringify(buildings);
+        
+        
+        var lookLaters = new Array();
+        lookLaters[0] = new Building(3, 'Belfort');
+        localStorage['lookLater'] = JSON.stringify(lookLaters);
+     
+        var seen = new Array();
+        seen[0] = new Building(2, 'Stadhuis');
+        seen[1] = new Building(4, 'Sint-Baafskathedraal'); 
+        localStorage['seen'] = JSON.stringify(seen);
+		*/
+    
     if(localStorage['information'] == 'closed') {
         $('#information').hide();   
     }

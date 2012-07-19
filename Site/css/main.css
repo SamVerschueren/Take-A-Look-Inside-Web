@@ -72,6 +72,9 @@ li.button {
     padding: 10px;
     height: 45px;
 }
+
+
+
 li.button:hover {
     background-color: #EF9722;
 }
@@ -295,19 +298,32 @@ div#carrousel {
 	margin-top:25px;
 	margin-bottom: 10px;
 }
-.page ol, ul {
+.page ol{
     width: 90%;
     margin-left: auto;
+	
     margin-right: auto;
 }
+
+ul {
+	width:90%;
+}
+
 .page ul {
     list-style-type: none;
     padding: 0px;
+	margin-left: 5%;
 }
+
 .page ul li {
     float: left;
     width: 100%;
 }
+
+ul li.button {
+	height:17px;
+}
+
 /**
  * Checkbox
  */
@@ -636,6 +652,9 @@ header {
 	font-family:"quicksandbold";
 }
   
+  .page ul {
+	margin-left: 3%;
+}
 }
 
 @media screen and (max-width: 300px) {
