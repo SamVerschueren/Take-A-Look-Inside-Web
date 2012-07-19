@@ -29,7 +29,7 @@ $(function() {
     initCarrousel();
     
 
-   // localStorage.clear();
+    //localStorage.clear();
     
     /*
         // Adding some localstorage dummy data
@@ -50,7 +50,7 @@ $(function() {
 		*/
     
     if(localStorage['information'] == 'closed') {
-        $('#information').hide();   
+        $('#information, #triangle').hide();   
     }
        
     $('.button').click(function(event) {
@@ -86,7 +86,7 @@ $(function() {
     $('#closeInformation').click(function(event) {
         localStorage['information'] = 'closed';
         
-        $('#information').fadeOut('slow');    
+        $('#information, #triangle').fadeOut('slow');    
     });
     
     /**
