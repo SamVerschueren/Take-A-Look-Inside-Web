@@ -266,7 +266,7 @@ function fillPopup (feature){
                    true,
                    function(){closePopup()});
         popup.autoSize=true;
-        popup.setBackgroundColor('#444');
+        popup.setBackgroundColor('#EBECE3');
         feature.popup=popup; 
         feature.popup.contentHTML='<h1 class="' + data.building[0].catName + '">' + data.building[0].name + '</h1><p class="description">' + data.building[0].description + '<br /><br /><br /></p><p class="adres ' + data.building[0].catName + '">' + data.building[0].adres + '</p>';
         
@@ -290,7 +290,7 @@ function mustSeeClick(){
         method=(buildingList[building.id]==null)? 'like':'unlike'; 
 
         $.post('http://tali.irail.be/REST/Building', {buildingID: buildingID, method: method, device: deviceUUID}, function(data) {
-            alert(data);   
+              
         });
         
         if(method=='like'){
