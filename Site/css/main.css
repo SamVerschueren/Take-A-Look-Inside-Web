@@ -71,7 +71,7 @@ li.button {
     margin-bottom: 10px;
     padding: 10px;
     height: 45px;
-    width: 100%;
+    width: 300px;
 }
 li.button:hover {
     background-color: #EF9722;
@@ -112,6 +112,7 @@ span.star {
     background-position: center right;
     float: right;
     text-align: center;
+    font-size: 14px;
 }
 div.middleDiv {
     float: left;
@@ -306,7 +307,7 @@ div#carrousel {
 	margin-bottom: 10px;
 }
 .page ol, ul {
-    width: 250px;
+    width: 300px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -680,59 +681,59 @@ div#information {
         background: url('../img/smartphone/menu/small/map-orange.png') no-repeat;
     }
 	
-	/**
- * Overlay
- */
-div#information {
+    /**
+     * Overlay
+     */
+    div#information {
+        
+    	margin: 18px auto 0;
+        width: 100%;
+        line-height: 17px;
+    	text-align:center;
+    	padding-bottom:10px;
+    }
     
-	margin: 18px auto 0;
-    width: 100%;
-    line-height: 17px;
-	text-align:center;
-	padding-bottom:10px;
-}
-
-#logo {
-	padding-top:18px;
-}
-
-#experience {
-	font-size: 18px;
-	line-height: 1.2;
-	width: 220px;
-	margin: 25 auto 0;
-	color:#EF9722;
-}
-
-h6 {
-	font-family:"quicksandbold";
-	font-size: 14px;
-	margin-top: 30px;
-}
-
-#uitleg {
-	width: 220px;
-	margin: 11 auto 0;
-}
-
-#skyline {
-	width:240px;
-}
-	
-
-
-.center {
-    text-align: center;
-}
-span#closeInformation {
-    position: absolute;
-    right: 5px;
-    clear: both;
-    padding: 5px 7px 5px 7px;
-    color: white;
-	width: 25px;
-}
-
-/*-----Menu------*/
+    #logo {
+    	padding-top:18px;
+    }
+    
+    #experience {
+    	font-size: 18px;
+    	line-height: 1.2;
+    	width: 220px;
+    	margin: 25 auto 0;
+    	color:#EF9722;
+    }
+    
+    h6 {
+    	font-family:"quicksandbold";
+    	font-size: 14px;
+    	margin-top: 30px;
+    }
+    
+    #uitleg {
+    	width: 220px;
+    	margin: 11 auto 0;
+    }
+    
+    #skyline {
+    	width:240px;
+    }
+    	
+    
+    
+    .center {
+        text-align: center;
+    }
+    span#closeInformation {
+        position: absolute;
+        right: 5px;
+        clear: both;
+        padding: 5px 7px 5px 7px;
+        color: white;
+    	width: 25px;
+    }
+    
+    /*-----Menu------*/
 
 }

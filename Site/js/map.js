@@ -119,7 +119,37 @@ function updateRightSideButtons(buildingID){
     }
 }
 
+/**
+ * Method to load the map
+ *  
+ * @param       position        The position of the device
+ */
 function loadMap(position) {
+    /**
+     * This is the mapbox tileset, this one is used. 
+     */
+    var mapBoxTiles = new OpenLayers.Layer.XYZ(
+                                            "MapBox Streets",
+                                            [
+                                                "http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets/${z}/${x}/${y}.png",
+                                                "http://b.tiles.mapbox.com/v3/mapbox.mapbox-streets/${z}/${x}/${y}.png",
+                                                "http://c.tiles.mapbox.com/v3/mapbox.mapbox-streets/${z}/${x}/${y}.png",
+                                                "http://d.tiles.mapbox.com/v3/mapbox.mapbox-streets/${z}/${x}/${y}.png"
+                                            ], {
+                                                sphericalMercator: true,
+                                                wrapDateLine: true,
+                                                transitionEffect: "resize",
+                                                buffer: 1,
+                                                numZoomLevels: 18
+                                            }
+                                         );
+                   
+    /**
+     * The openstreetmap tileset, this one is not used. 
+     * If you want to use this tileset, changes the layers property of the map.
+     */                                    
+    var openStreetMapTiles = new OpenLayers.Layer.OSM("OpenStreetMap", null, { transitionEffect: "resize" });
+
     mapLoaded = true;    
     map = new OpenLayers.Map({
         div: "mapview",
@@ -133,12 +163,9 @@ function loadMap(position) {
             }),
             new OpenLayers.Control.Zoom()
         ],
-        layers: [
-            new OpenLayers.Layer.OSM("OpenStreetMap", null, {
-                transitionEffect: "resize"
-            })
-        ]
+        layers: [mapBoxTiles]                   /* Change this in [openStreetMapTiles] to change the tileset to default */
     });
+
     if(navigator.geolocation){
         myLon=position.coords.longitude;
         myLat=position.coords.latitude;
@@ -147,6 +174,7 @@ function loadMap(position) {
         myLon=3.7219830;
         myLat=51.0546200;
     }
+    
     lonlat = new OpenLayers.LonLat(myLon, myLat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
     
     

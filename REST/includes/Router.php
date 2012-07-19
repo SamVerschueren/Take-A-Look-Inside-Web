@@ -32,7 +32,7 @@ class Router {
      * Handles the HTTP Request and binds the url to the right controller. Method based upon TDT project.
      */
     public function processRequest() {
-        header('Access-Control-Allow-Origin: *');
+        //header('Access-Control-Allow-Origin: *');
         
         $method = strtolower($_SERVER['REQUEST_METHOD']);
         $cleanURI = str_replace(Config::$SUBDIR, '', $_SERVER['REQUEST_URI']);
