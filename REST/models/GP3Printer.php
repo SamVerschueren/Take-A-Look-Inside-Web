@@ -16,7 +16,7 @@ class GP3Printer implements IPrinter{
      */
     public function doPrint(array $data) {
         $reqfile = '../mov/' . $data['movie'];
-               
+        
         if(file_exists($reqfile)) {
             if($fn=fopen($reqfile, "rba")){
                 header("Content-Type: video/3gpp"); 
