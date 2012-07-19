@@ -11,6 +11,7 @@ interface IReader {
      * Checks whether the parameters are valid.
      * 
      * @param parameters    $parameters     The url parameters
+     * @return  bool    Paramters valid
      */
     function isValid($parameters);
     
@@ -18,6 +19,7 @@ interface IReader {
      * Executes the SQL string
      * 
      * @param sql           $sql            The sql-string that should be executed.
+     * @return void
      */
     function execute($resource, $restrictions);
 }

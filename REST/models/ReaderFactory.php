@@ -13,6 +13,7 @@ class ReaderFactory {
      * Returns the Reader.
      * 
      * @param   type    $type   The type of the reader
+     * @return  type    return reader of the specific type
      */
     public static function createReader($type='') {
         $type = trim($type);

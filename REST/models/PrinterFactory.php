@@ -15,6 +15,7 @@ class PrinterFactory {
      * Returns the Printer.
      * 
      * @param   type    $type   The type of the printer
+     * @return  type    printer of the specific type
      */
     public static function createPrinter($type='') {
         $type = trim($type);

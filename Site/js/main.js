@@ -2,10 +2,22 @@ var homeCategory = "";
 var mapLoaded = false;
 var markerArray = new Array();
 var page = 0;
-var deviceUUID;
 
 var siteUrl = 'http://tali.irail.be';
 var server = 'http://tali.irail.be/REST'
+
+Array.prototype.remove = function (building) {
+    for (var i = 0; i < this.length; ) {
+        if (this[i].id === building.id) {
+            this.splice(i, 1);
+        } 
+        else {
+           ++i;
+        }
+    }
+}
+
+document.addEventListener("deviceready", onDeviceReady, false);
 
 /**
  * JQuery $(document).ready() method
@@ -16,6 +28,7 @@ $(function() {
     
     initCarrousel();
     
+<<<<<<< HEAD
     localStorage.clear();
     
     /*
@@ -35,13 +48,11 @@ $(function() {
         seen[1] = new Building(4, 'Sint-Baafskathedraal'); 
         localStorage['seen'] = JSON.stringify(seen);
     
+=======
+>>>>>>> 3aca17c64ff8a57ce08caa676a051b2bca705da2
     if(localStorage['information'] == 'closed') {
         $('#information').hide();   
-    }else{
-        document.addEventListener("deviceready", onDeviceReady, false);          
     }
-   
-    //localStorage['information'] = 'undefined';
        
     $('.button').click(function(event) {
         // If user clicks on the span with the text, id of parent div will be retrieved
@@ -124,9 +135,10 @@ $(function() {
 });
 
 function onDeviceReady() {
-    deviceUUID=device.uuid; //insert native code here to get DeviceID
-    $.post("http://tali.irail.be/REST/Device.php?device="+deviceUUID,function (data){
-        //alert(data);
+    deviceUUID=device.uuid;
+    
+    $.post(server + "/Device", {device: deviceUUID}, function (data){
+        // doe niets   
     });      
 }
 
@@ -152,9 +164,9 @@ function initCarrousel() {
  * Method that calls the barcodescanner plugin of phonegap. 
  */
 var scanCode = function() {
-    window.plugins.barcodeScanner.scan(function(result) {
+    window.plugins.barcodeScanner.scan(function(result) {        
         if(result.text != '') {
-            var url = result.text.split('#');//http://tali.irail.be#2
+            var url = result.text.split('#');
             
             if(url[0] != siteUrl) {
                 navigator.notification.alert('You scanned a QR-code that not belongs to Take A Look Inside.', function() { }, 'Wrong QR-code', 'Ok');
@@ -162,8 +174,7 @@ var scanCode = function() {
                 return;       
             }
             
-            
-            $.getJSON(server + '/Movie/qrID/' + url[1] + '.json?device=' + deviceUUID, function(data) {
+            $.getJSON(server + '/Movie/qrID/' + url[1] + '.json?device=' + deviceUUID, function(data) {                
                 navigator.notification.confirm('The video is ' + $.trim(data.size) + ' KB big. When do you want to see the video?', function(button) {
                     
                     var building = new Building(data.buildingID, data.buildingName, data.token);
@@ -184,23 +195,7 @@ var scanCode = function() {
                         navigator.notification.alert('The video is saved. You can find it under the Look Later section', function(evt) { }, 'Look Later', 'Ok')
                     }
                     else if(button==2) {
-                        
-                        
                         playMovie(building);
-                        
-                        var array;
-                        if(localStorage['seen'] == null) {
-                            array = new Array(); 
-                        }
-                        else {
-                            array = JSON.parse(localStorage['seen']);                            
-                        }
-
-                        array.push(building);
-                        
-                        localStorage['seen'] = JSON.stringify(array);
-                        updateIcon(data.buildingID,data.categoryID);
-                        updateRightSideButtons(data.buildingID);
                     }
                     
                     initHomeContent(false);
@@ -277,12 +272,13 @@ function fillHomeCategoryMustSee() {
 
 function checkBuildingInArray(array, buildingID){
     var result=false;
-     $.each(array, function(key, building) {
+    
+    $.each(array, function(key, building) {
         if(building!=null)       
             if(building.id==buildingID)
                result=true;        
     });
-    return result;    
+    return result;
 }
 
 function fillCategory(name) {
@@ -318,13 +314,50 @@ function fillCategory(name) {
 function playMovie(building) {    
     $.getJSON(server + '/Device.json?device='+deviceUUID,function(data) {
         if(data.exists==true) {
-            window.plugins.videoPlayer.play('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3?device=' + deviceUUID);
+            var seenArray = getLocalStorageArray('seen');
             
-          //  updateRightSideButtons(building.id);   
+            var lookLaterArray = getLocalStorageArray('lookLater');
+            lookLaterArray.remove(building);
+            
+            localStorage['lookLater'] = JSON.stringify(lookLaterArray);
+            
+            if(!checkBuildingInArray(seenArray, building.id)) {
+                seenArray.push(building);    
+                
+                localStorage['seen'] = JSON.stringify(seenArray);
+            } 
+            
+            window.plugins.videoPlayer.play('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3?device=' + deviceUUID);
+       
+            initHomeContent(false);
+       
+            mapDirect = building.id;
+            window.location.href = '#map';
         }
         else{
             navigator.notification.alert("Video is only playable from a mobile device.", null, "Device not registered", "OK");;          
         }
     });  
+}
+
+/**
+ * Get the localStorage array
+ *  
+ * @param   string  The key of the array
+ */
+function getLocalStorageArray(string) {
+    var array;
     
+    /**
+     * If the localStorage array does not exists, create a new array.
+     * If the localStorage array exists, parse the localStorage json string to an array 
+     */
+    if(localStorage[string] == null) {
+        array = new Array();
+    }
+    else {
+        array = JSON.parse(localStorage[string]);
+    }
+    
+    return array;
 }

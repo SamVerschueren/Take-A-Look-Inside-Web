@@ -14,11 +14,14 @@ class DeviceController extends Controller {
      * Example in JSON format: Result is returned like this: { "exists":"true" } or { "exists":"false" }
      */
     public function get($parameters) {
+        //get device present bool
         $isPresent = parent::devicePresentInDb($_GET['device']);
         $result = array('exists' => $isPresent);
         
+        //get output format
         $outputFormat = $parameters['format'];
         
+        //print in specific format
         $printer = PrinterFactory::createPrinter($outputFormat);
         $printer->doPrint($result);
     }
@@ -29,12 +32,13 @@ class DeviceController extends Controller {
      * 
      */
     public function post($parameters){
+        //Checks if device is arleady present in the DB.
         $deviceAlreadyInDb=parent::devicePresentInDb($_POST['device']);       
-           
+        
+        //If not present, insert it   
         if(!$deviceAlreadyInDb){
             $sqlInsert="INSERT INTO device (device) VALUES ('". mysql_real_escape_string($_POST['device'])."')";
-            mysql_query($sqlInsert);
-            
+            mysql_query($sqlInsert);            
             echo "inserted";
         } 
         else {

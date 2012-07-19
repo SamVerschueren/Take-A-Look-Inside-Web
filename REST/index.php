@@ -12,9 +12,11 @@ $router = new Router();
 $router->addRoute('(?P<resource>[^/?.]+)/?(?P<parameters>[^.]*)(\.(?P<format>[^?]+))?.*', '{resource}Controller');
 
 try {
+    //router handles the request, redirects to correct controller
     $router->processRequest();
 }
 catch(Exception $ex) {
+    //fail
     echo $ex->getMessage();
 }
 ?>
