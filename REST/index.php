@@ -9,7 +9,7 @@ header('Access-Control-Allow-Origin: *');
  * Regex rules based on The-Datatank project
  */
 $router = new Router();
-$router->addRoute('(?P<resource>[^/.]+)/?(?P<parameters>[^.]*)(\.(?P<format>[^?]+))?.*', '{resource}Controller');
+$router->addRoute('(?P<resource>[^/?.]+)/?(?P<parameters>[^.]*)(\.(?P<format>[^?]+))?.*', '{resource}Controller');
 
 try {
     $router->processRequest();

@@ -21,15 +21,17 @@ class DeviceController extends Controller {
     }
     
     public function post($parameters){
-        $deviceAlreadyInDb=parent::deviceAlreadyInDb($_GET['device']);       
-        
+        $deviceAlreadyInDb=parent::devicePresentInDb($_POST['device']);       
+           
         if(!$deviceAlreadyInDb){
-            $sqlInsert="INSERT INTO device (device) VALUES ('". mysql_real_escape_string($device)."')";
+            $sqlInsert="INSERT INTO device (device) VALUES ('". mysql_real_escape_string($_POST['device'])."')";
             mysql_query($sqlInsert);
-            echo "Device inserted";            
+            
+            echo "inserted";
         } 
-        else echo "Device already present in DB";
-        
+        else {
+            echo "already exists";
+        }
     }     
 }
 ?>
