@@ -32,6 +32,8 @@ $("div#map").live('pageshow', function() {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
                 alert('Could not detect position.');                
             });            
+        }else{
+            navigator.notification.alert("Your position cannot be determined, the korenmarkt is used as your location now.", null, "No geolocation", "OK");  
         }
     }
     else {
@@ -163,9 +165,16 @@ function loadMap(position) {
         ],
         layers: [mapBoxTiles]                   /* Change this in [openStreetMapTiles] to change the tileset to default */
     });
+
+    if(navigator.geolocation){
+        myLon=position.coords.longitude;
+        myLat=position.coords.latitude;
+    }
+    else{
+        myLon=3.7219830;
+        myLat=51.0546200;
+    }
     
-    myLon=position.coords.longitude;
-    myLat=position.coords.latitude;
     lonlat = new OpenLayers.LonLat(myLon, myLat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
     
     

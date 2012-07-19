@@ -55,13 +55,13 @@ table {
 	border-spacing: 0;
 }
 
-/*---------*/
+/*--------------------------------------------*/
 
 body {
 	background-color:#EBECE3;
 }
 
-header {
+#topheader {
 	height: 40px;
 	width:100%;
 	background-color:#EBECE3;
@@ -72,23 +72,19 @@ header {
  	float:right;
     margin-right: 20px;
     margin-top: 10px;
-    width: 20px;
-    height: 20px;
+    width: 21px;
+    height: 21px;
 }
 
-#credits {
+#creditsicon {
 	margin-top: 10px;
 	margin-right:20px;
 	float:right;
 	width: 20px;
     height: 20px;
-}
-
-#logo {
-	float:left; 
 }	
 
-h1 {
+.titelcredits {
 	font-family:'quicksandbold';
 	color:#EF9722;
 	font-size:14px;
@@ -96,7 +92,7 @@ h1 {
 	float:left;
 	text-align:center;
 	width: 100%;
-	margin-bottom:7px;
+	margin-bottom:5px;
 }
 
 #backgroundimg {
@@ -118,25 +114,63 @@ section {
 	float: left;
 	width: 80%;
 	margin-left: 10%;
-	margin-top: 14px;
 }
 
 #what{
-	
 	float:left;
 	text-align:center;
 	font-family:'quicksandbook';
 	color:#474646;
 	font-size:14px;
+	margin-top: 14px;
 }
 
 #who {
 	font-family: 'quicksandbook';
+	font-size:14px;
+	color:#EBECE3;	
+}
+
+li {
+	list-style: none;
+}
+
+.left {
+	float:left;
+	width:50%;
+	margin-top:5px;
+}
+
+.right {
+	float:right;
+	width:50%;
+	margin-top:5px;
+}
+
+.full {
+	width:100%;
+	float:left;
+	margin-top: 5px;
+}
+
+#whatis {
+	margin-top: 7px;
+	float:left;
+}
+
+.sponsorlogo {
+	margin-left:5px;
+}
+
+#sponsors {
+	margin-bottom: 20px;
 }
 
 /**
  * Menu
  */
+
+ 
 #menu .home {
     display: inline-block;
     background: url('../img/tablet/menu/Home.png') no-repeat;
@@ -144,6 +178,7 @@ section {
     height: 72px;
     margin-bottom: 6px;
 }
+
 #menu .home.active {
     background: url('../img/tablet/menu/Home-orange.png') no-repeat;
 }
@@ -173,9 +208,21 @@ section {
 }
 
 
+#creditslogo {
+		margin-left:44%;
+		float:left;
+		width: 88px;
+		text-align:center;
+	}
 
-
-@media screen and (max-width: 550px) { 
+@media screen and (max-width: 550px) {
+	
+	#creditslogo {
+		margin-left:41%;
+		float:left;
+		width: 88px;
+	}
+	 
 
 	/**
      * Menu
@@ -212,10 +259,8 @@ section {
  */
 @media screen and (max-width: 450px) {
 	
-	#logo {
-		width:83px;
-		height:60px;
-		margin-left: 40%;
+	#creditslogo {
+		margin-left:40%;
 	}
 	
     

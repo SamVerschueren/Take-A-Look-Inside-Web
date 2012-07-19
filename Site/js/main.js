@@ -46,7 +46,7 @@ $(function() {
         // If user clicks on the span with the text, id of parent div will be retrieved
         if(event.target.id=='') {
             var parent = $(event.target).parent();
-            
+            Belfor
             var id = parent.attr('id');
         }
         else {
