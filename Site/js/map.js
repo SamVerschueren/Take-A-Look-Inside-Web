@@ -38,9 +38,10 @@ $("div#map").live('pageshow', function() {
         }
     }
     else {
-        
-        showMapDirectPopup();                   
+        showMapDirectPopup();        
+        //markerArray[mapDirect].erase();             
     }
+    //showMapDirectPopup(); 
 });
 
 var filterClick = function(evt) {
@@ -70,6 +71,8 @@ function showMapDirectPopup(){
                 data.building[0].longitude,data.building[0].latitude
                 ).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
             map.setCenter(lonlatBuilding);
+            //map.setCenter(markerFeatures[mapDirect].) 
+            
         });
         
         mapDirect=undefined;
@@ -101,6 +104,7 @@ function updateRightSideButtons(buildingID){
     if(buildingID==activePopup.id){
         var buildingList;
         buildingList=JSON.parse(localStorage["favorites"]);
+        //console.log("in seen list: " +checkBuildingInArray(JSON.parse(localStorage["seen"]),buildingID));
         if(localStorage["seen"]!=null && checkBuildingInArray(JSON.parse(localStorage["seen"]),buildingID)){
             if(buildingList[activePopup.id]!=null  )
                 $("img#mustSeeButton").attr("src","img/favorites-selected.png");
@@ -197,6 +201,8 @@ function loadMap(position) {
     var icon = new OpenLayers.Icon('img/my-location.png', size, offset);
     locationLayer.addMarker(new OpenLayers.Marker(lonlat,icon));
     $.getJSON('http://tali.irail.be/REST/Building.json?select=buildingID;longitude;latitude,building.categoryID,category.name&join=category', function(data) {
+       // var latDestination;
+       // var lonDestination;
        markerFeatures=new Array();
         $.each(data.building, function(key, val) {
             addMarker(buildingLayer, val.longitude, val.latitude, val.buildingID,val.name);    
@@ -269,13 +275,9 @@ function fillPopup (feature){
         markerFeatures[feature.id]=feature;              
     });        
 }
-/**
- * Click event of the Must See button in the right hand side panel.
- * 
- */
+
 function mustSeeClick(){
     var buildingID=activePopup.id;
-    var device="lievenANDROID";
     var method;     
     var building;    
     $.getJSON("http://tali.irail.be/REST/Building.json?join=category&select=buildingID;building.name;category.name AS catName&buildingID="+activePopup.id,function (data){        
@@ -286,11 +288,14 @@ function mustSeeClick(){
             buildingList=JSON.parse(localStorage["favorites"]);
         }
         method=(buildingList[building.id]==null)? 'like':'unlike'; 
-       // $.post("http://tali.irail.be/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+device,function(data){
 
-        $.post("http://tali.irail.be/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+device,function(data){
+        $.post('http://tali.irail.be/REST/Building', {buildingID: buildingID, method: method, device: deviceUUID}, function(data) {
+            alert(data);   
+        });
+
+        /*$.post("http://tali.irail.be/REST/Building.php?buildingID="+buildingID+"&method="+method+"&device="+deviceUUID,function(data){
             //alert(data);
-        }); 
+        }); */
         
         if(method=='like'){
             buildingList[building.id]=building;        
@@ -310,20 +315,10 @@ function mustSeeClick(){
     })     
 }
 
-/**
- * Updates the icon of a specific building according to it's category.
- * 
- * @param       buildingID      ID of the location that should be updated
- * @param       category        NAME of the category to use as icon
- */
 function updateIcon(buildingID,category) {
      markerFeatures[buildingID].marker.setUrl(getIcon(buildingID,category));  
 }
 
-/**
- * Click event of the route button. Uses the location of the selected building to call
- * the routeTo method. 
- */
 function routeToClick(){
     
     $.getJSON('http://tali.irail.be/REST/Building/buildingID/' + activePopup.id + '.json', function(data) {  
@@ -331,24 +326,15 @@ function routeToClick(){
         closePopup();
     });
 }
-
-/**
- * Closes the active popup & hides corresponding buttons on the right side of the map.
- */
 function closePopup(){
     $('div#mapButtons').hide();
     if(typeof activePopup!='undefined'){
         activePopup.hide();
         activePopup=undefined;
-    }    
+    }
+    
 }
 
-/**
- * Gets the route from external navigation webservice and draws the route to the target location on the map.
- *  
- * @param       lon     longitue of the destination
- * @param       lat     latitude of the destination
- */
 function routeTo (lon,lat) {
     //get route JSON
       var url = 'http://tali.irail.be/REST/transport.json?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
@@ -358,7 +344,7 @@ function routeTo (lon,lat) {
         'tlon='+lon+
         '&v=foot&fast=0&layer=mapnik';      
        
-    //draw route   
+        //draw route   
     myRouteVector.destroyFeatures();   
     var routeStyle = { strokeColor: '#0000ff', 
             strokeOpacity: 0.5,

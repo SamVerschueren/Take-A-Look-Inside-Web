@@ -51,9 +51,12 @@ class BuildingController extends Controller {
         $connection->selectDatabase(Config::$DB);
         
         //Getting parameters from URL
-        $buildingID=$_GET['buildingID'];
-        $device=$_GET['device'];
-        $method=$_GET['method'];
+        $buildingID=$_POST['buildingID'];
+        $device=$_POST['device'];
+        $method=$_POST['method'];
+        
+        echo 'building: ' + $buildingID + ' - device: ' + $device + ' - method: ' + $method;
+        
         //SQL that counts the likes from a specific device for a specific location.        
         $alreadylikedSQL="select count(*) as c from devices join
          must_sees on devices.deviceID = must_sees.deviceID where
