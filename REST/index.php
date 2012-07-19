@@ -1,6 +1,8 @@
 <?php
 require_once('includes/Router.php');
 
+header('Access-Control-Allow-Origin: *');
+
 /*
  * Create the Router instance and add the routing directions.
  * 
