@@ -28,8 +28,8 @@ $(function() {
     
     initCarrousel();
     
-<<<<<<< HEAD
-    localStorage.clear();
+
+   // localStorage.clear();
     
     /*
         // Adding some localstorage dummy data
@@ -42,14 +42,13 @@ $(function() {
         var lookLaters = new Array();
         lookLaters[0] = new Building(3, 'Belfort');
         localStorage['lookLater'] = JSON.stringify(lookLaters);
-     */
+     
         var seen = new Array();
         seen[0] = new Building(2, 'Stadhuis');
         seen[1] = new Building(4, 'Sint-Baafskathedraal'); 
         localStorage['seen'] = JSON.stringify(seen);
+		*/
     
-=======
->>>>>>> 3aca17c64ff8a57ce08caa676a051b2bca705da2
     if(localStorage['information'] == 'closed') {
         $('#information').hide();   
     }
