@@ -15,6 +15,8 @@ class Connection {
      * @param   host        $dbHost     The database host, default=localhost
      * @param   user        $dbUser     The database user, default=root
      * @param   password    $dbPassword The database password, default=<empty>
+     * 
+     * @return  void
      */
     public function connect($dbHost='localhost', $dbUser='root', $dbPassword='') {
         $this->db = mysql_connect($dbHost, $dbUser, $dbPassword); 
@@ -28,6 +30,8 @@ class Connection {
      * Selecting the database.
      *
      * @param   database    $database   The database that should be selected
+     * 
+     * @return  void
      */
     public function selectDatabase($database) {
         mysql_select_db($database, $this->db);

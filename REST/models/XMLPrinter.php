@@ -13,6 +13,7 @@ class XMLPrinter implements IPrinter{
      * Print in XML.
      *
      * @param   data    $data   The array object to print in XML.
+     * @return  void
      */
     public function doPrint(array $data) {
         header('Content-type: text/xml');
@@ -34,10 +35,12 @@ class XMLPrinter implements IPrinter{
      * 
      * @param   $array      array       The array that needs to be converted in XML.
      * @param   $nodeName   nodeName    The nodename
+     * 
+     * @return  string      $xml        The array converted to xml format as a string.
      */
     private function arrayToXml($array, $nodeName) {
         $xml = '';
-    
+        
         if (is_array($array) || is_object($array)) {
             foreach ($array as $key=>$value) {
                 if (is_numeric($key)) {
