@@ -64,13 +64,14 @@ body {
     padding: 0px;
 }
 li.button {
-	background-color: #D4D3CB;
+	background-color: #D4D4cc;
 	font-family:"quicksandbold";
 	font-size:16px;
     border-radius: 10px;
     margin-bottom: 10px;
-    padding: 5px;
-	width: 80%;
+    padding: 10px;
+    height: 45px;
+    width: 100%;
 }
 li.button:hover {
     background-color: #EF9722;
@@ -91,7 +92,36 @@ li.button:hover {
     top: 100%;
     color: #EF9823;
 }
-
+span.category {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('../img/slot-xsmall.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 8px;
+    margin-right: 10px;
+    float: left;
+}
+span.star {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    background-image: url('../img/mustsee-star.png');
+    background-repeat: no-repeat;
+    background-position: center right;
+    float: right;
+    text-align: center;
+}
+div.middleDiv {
+    float: left;
+}
+span.adresSpan {
+    display: inline-block;
+    color: #888;
+    font-size: 14px;
+    margin-top: 5px;
+}
 #map {
     height: 90%;
 }
@@ -261,6 +291,7 @@ div#carrousel {
 	font-size:25px;
 	text-transform:uppercase;
 	margin-top:25px;
+	margin-bottom: 10px;
 }
 .page ol, ul {
     width: 250px;
@@ -534,12 +565,6 @@ header {
     #menu .map.active {
         background: url('../img/smartphone/menu/normal/map-orange.png') no-repeat;
     }
-	
-	.buttonRow {
-	margin-top:20%;
-}
-
-
 }
 
 /**

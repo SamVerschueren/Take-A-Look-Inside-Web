@@ -14,7 +14,7 @@ $(function() {
     
     initCarrousel();
     
-    //localStorage.clear();
+    localStorage.clear();
     
     /*
         // Adding some localstorage dummy data
@@ -27,25 +27,25 @@ $(function() {
         var lookLaters = new Array();
         lookLaters[0] = new Building(3, 'Belfort');
         localStorage['lookLater'] = JSON.stringify(lookLaters);
-      */  
+     */
         var seen = new Array();
         seen[0] = new Building(2, 'Stadhuis');
         seen[1] = new Building(4, 'Sint-Baafskathedraal'); 
         localStorage['seen'] = JSON.stringify(seen);
     
-    
-   
-    //localStorage['information'] = 'undefined';
-   
     if(localStorage['information'] == 'closed') {
         $('#information').hide();   
+    }else{
+        document.addEventListener("deviceready", onDeviceReady, false);          
     }
+   
+    //localStorage['information'] = 'undefined';
        
     $('.button').click(function(event) {
         // If user clicks on the span with the text, id of parent div will be retrieved
         if(event.target.id=='') {
             var parent = $(event.target).parent();
-            
+            Belfor
             var id = parent.attr('id');
         }
         else {
@@ -124,6 +124,13 @@ $(function() {
      */
     initHomeContent(true);
 });
+
+function onDeviceReady() {
+    var deviceId=device.uuid; //insert native code here to get DeviceID
+    $.post("http://tali.irail.be/REST/Device.php?device="+deviceId,function (data){
+        //alert(data);
+    });      
+}
 
 /**
  * Handles the resizing of the window. 
@@ -231,12 +238,23 @@ function fillHomeCategoryMustSee() {
         var list = $("<ol />"); 
         
         $.each(data.building, function(key, val) {
-            var li = $('<li />').attr('id', val.buildingID).html(val.name); 
+            var categorySpan = $('<span />').addClass('category').addClass(val.catName.toLowerCase());
+            var starSpan = $('<span />').addClass('star').append('<br />').append(val.mustSee);
+            var buildingSpan = $('<span />').append(val.name).append('<br />');
+            var adresSpan = $('<span />').addClass('adresSpan').append(val.adres);
+            
+            var middleSpan = $('<div />').addClass('middleDiv').append(buildingSpan).append(adresSpan);
+            
+            var li = $('<li />').attr('id', val.buildingID).append(categorySpan).append(middleSpan).append(starSpan); 
             li.addClass('button');
             list.append(li); 
             
             li.click(function(event) {
                 mapDirect = event.target.id;
+                
+                if(mapDirect == '') {
+                    mapDirect = $(this).closest("li").attr('id');
+                }
                 
                 window.location.href = "#map";
             });

@@ -5,6 +5,7 @@ require_once('controllers/BuildingController.php');
 require_once('controllers/CategoryController.php');
 require_once('controllers/TransportController.php');
 require_once('controllers/MovieController.php');
+require_once('controllers/DeviceController.php');
 require_once('Config.php');
 
 /**
@@ -31,6 +32,8 @@ class Router {
      * Handles the HTTP Request and binds the url to the right controller. Method based upon TDT project.
      */
     public function processRequest() {
+        header('Access-Control-Allow-Origin: *');
+        
         $method = strtolower($_SERVER['REQUEST_METHOD']);
         $cleanURI = str_replace(Config::$SUBDIR, '', $_SERVER['REQUEST_URI']);
         $cleanURI = trim($cleanURI, '/');
