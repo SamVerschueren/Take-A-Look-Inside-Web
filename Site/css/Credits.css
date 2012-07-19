@@ -209,7 +209,7 @@ li {
 
 
 #creditslogo {
-		margin-left:36%;
+		margin-left:44%;
 		float:left;
 		width: 88px;
 		text-align:center;
@@ -218,7 +218,7 @@ li {
 @media screen and (max-width: 550px) {
 	
 	#creditslogo {
-		margin-left:36%;
+		margin-left:41%;
 		float:left;
 		width: 88px;
 	}
@@ -260,7 +260,7 @@ li {
 @media screen and (max-width: 450px) {
 	
 	#creditslogo {
-		margin-left:36%;
+		margin-left:40%;
 	}
 	
     
