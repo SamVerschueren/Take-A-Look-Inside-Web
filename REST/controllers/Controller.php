@@ -1,13 +1,19 @@
 <?php
 require_once('exceptions/runtime/UnsupportedOperationException.php');
 /**
- * Base class. Standard no implementation.
+ * Base class for implementation of the RESTfull implementation.
+ * Provides different methods of restfull interface and some abstract methods.
  *
  * @package TakeALookInside/controllers
  * @author Sam Verschueren  <sam@irail.be>
  */
 abstract class Controller {
-    
+    /**
+     * Checks if a given devicename is found in the database.
+     * 
+     * @param   $device     devicename of the device to search for.
+     * @return  boolean     $data['c']>0    returns true if device was found in the Database.
+     */
     protected function devicePresentInDb($device){
         $connection = new Connection();
         $connection->connect(Config::$DB_HOST, Config::$DB_USER, Config::$DB_PASSWORD);        
@@ -25,7 +31,10 @@ abstract class Controller {
               
         return $data['c'] > 0;      
     }
-    
+    /**
+     * Methods that can be overridden by subclasses. Methods are not supported if subclass does not implement them.
+     * 
+     */
     
     /**
      * Creating
@@ -56,7 +65,9 @@ abstract class Controller {
     }
     
     /**
+     * Parses all parameters from the URL in an array of different parameters based on the '/' delimiter.
      * 
+     * @param $parameters   All parameters from the URL
      */
     public function splitParameters($parameters) {
         $result = $_GET;

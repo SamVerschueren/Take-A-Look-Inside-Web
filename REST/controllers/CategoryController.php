@@ -14,9 +14,12 @@ class CategoryController extends Controller {
     
     /**
      * Getting the information of a category.
+     * Gets parameters from URL to determine which information to return.
+     * Parameters are passed to a SQLreader, which queries the DB to get the results.
+     * Based on the 'format' parameter, the corresponding printer is called.
      * 
      * @param   array   $parameters The parameters of the url.
-     * @return void
+     * @return  void
      */
     public function get($parameters) {
         $dataFormat = isset($_GET['dataFormat'])?$_GET['dataFormat']:'';

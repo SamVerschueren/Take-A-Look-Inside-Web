@@ -11,9 +11,13 @@ require_once('models/ReaderFactory.php');
 class MovieController extends Controller {
     
     /**
-     * Getting the information of a building.
+     * Getting the information of a movie.
+     * Gets parameters from URL to determine which information to return.
+     * Parameters are passed to a SQLreader, which queries the DB to get the results.
+     * Based on the 'format' parameter, the corresponding printer is called.
      * 
-     * @param   parameters  $parameters The parameters of the url.
+     * @param   array   $parameters The parameters of the url.
+     * @return  void
      */
     public function get($parameters) {
         if(!isset($_GET['device']) || !parent::devicePresentInDb($_GET['device'])){
