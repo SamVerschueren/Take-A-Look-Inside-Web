@@ -8,23 +8,20 @@ require_once('Controller.php');
  * @author Lieven Benoot  <lieven.benoot@irail.be>
  */
 class DeviceController extends Controller {
+
     
-    public function get($parameters){
+    public function get($parameters) {
+        $isPresent = parent::devicePresentInDb($_GET['device']);
+        $result = array('exists' => $isPresent);
         
+        $outputFormat = $parameters['format'];
+        
+        $printer = PrinterFactory::createPrinter($outputFormat);
+        $printer->doPrint($result);
     }
     
     public function post($parameters){
-        $connection = new Connection();
-        $connection->connect(Config::$DB_HOST, Config::$DB_USER, Config::$DB_PASSWORD);
-        $connection->selectDatabase(Config::$DB);
-        
-        $device=$_GET['device'];
-        $deviceAlreadyInDbSql="select count(*) as d from device where
-          device='" . mysql_real_escape_string($device) . "'";
-        $deviceAlreadyInDbSqlResultSet = mysql_query($deviceAlreadyInDbSql);
-        //echo $deviceAlreadyInDbSql;
-        $deviceAlreadyInDbSqlResult=mysql_fetch_assoc($deviceAlreadyInDbSqlResultSet);
-        $deviceAlreadyInDb=$deviceAlreadyInDbSqlResult['d']>0;
+        $deviceAlreadyInDb=parent::deviceAlreadyInDb($_GET['device']);       
         
         if(!$deviceAlreadyInDb){
             $sqlInsert="INSERT INTO device (device) VALUES ('". mysql_real_escape_string($device)."')";
@@ -35,4 +32,8 @@ class DeviceController extends Controller {
         
     }     
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 9a889887863cd1f29e71051e347ffa69af85cd66
 ?>

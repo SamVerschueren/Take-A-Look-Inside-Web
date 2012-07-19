@@ -30,7 +30,8 @@ $("div#map").live('pageshow', function() {
     if(!mapLoaded) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
-                alert('Could not detect position.');                
+                navigator.notification.alert("Your position cannot be determined, the korenmarkt is used as your location now.", null, "No geolocation", "OK");  
+                
             });            
         }else{
             navigator.notification.alert("Your position cannot be determined, the korenmarkt is used as your location now.", null, "No geolocation", "OK");  
@@ -171,6 +172,7 @@ function loadMap(position) {
         myLat=position.coords.latitude;
     }
     else{
+        //set center to korenmarkt coordinates
         myLon=3.7219830;
         myLat=51.0546200;
     }

@@ -29,10 +29,10 @@ $(function() {
         lookLaters[0] = new Building(3, 'Belfort');
         localStorage['lookLater'] = JSON.stringify(lookLaters);
      */
-        var seen = new Array();
+     /*   var seen = new Array();
         seen[0] = new Building(2, 'Stadhuis');
         seen[1] = new Building(4, 'Sint-Baafskathedraal'); 
-        localStorage['seen'] = JSON.stringify(seen);
+        localStorage['seen'] = JSON.stringify(seen);*/
     
     if(localStorage['information'] == 'closed') {
         $('#information').hide();   
@@ -116,10 +116,6 @@ $(function() {
         changeContent(parseInt(page)-1);
     });
     
-    $('li#cultuur').click(function() {
-        alert('test');
-    });
-    
     /**
      * Fill the different categories with content 
      */
@@ -188,6 +184,8 @@ var scanCode = function() {
                         navigator.notification.alert('The video is saved. You can find it under the Look Later section', function(evt) { }, 'Look Later', 'Ok')
                     }
                     else if(button==2) {
+                        
+                        
                         playMovie(building);
                         
                         var array;
@@ -318,5 +316,13 @@ function fillCategory(name) {
 }
 
 function playMovie(building) {
-    window.plugins.videoPlayer.play('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3');  
+    var device= device.uuid;
+    $.getJSON('http://tali.irail.be/REST/Device.json?device='+device,function(data){
+        if(data["exists"]=='true')
+            window.plugins.videoPlayer.play('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3');
+        else{
+            navigator.notification.alert("Video is only playable from a mobile device.", null, "Device not registered", "OK");;          
+        }
+    });  
+    
 }
