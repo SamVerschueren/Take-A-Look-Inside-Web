@@ -308,9 +308,12 @@ function playMovie(building) {
             window.plugins.videoPlayer.play('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3?device=' + deviceUUID);
        
             initHomeContent(false);
-       
-            mapDirect = building.id;
-            window.location.href = '#map';
+            $.getJSON('http://tali.irail.be/REST/building.json?select=category.category&join=category where building.buldingID='+building.id, function(data){
+                updateIcon(building.id,data.building[0].category)
+                mapDirect = building.id;
+                window.location.href = '#map'; 
+            });
+
         }
         else{
             navigator.notification.alert("Video is only playable from a mobile device.", null, "Device not registered", "OK");;          
