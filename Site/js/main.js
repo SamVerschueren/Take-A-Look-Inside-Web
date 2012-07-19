@@ -418,20 +418,13 @@ function playMovie(building) {
        
             //update home categories except for must sees (these didnt change anyway)    
             initHomeContent(false);
-<<<<<<< HEAD
-            
+
             //get JSON in order to get category ID of the current building in order to be able to 
             //update the icon properly (from unseen to seen).
-            $.getJSON('http://tali.irail.be/REST/building.json?select=category.name&join=category&buildingID='+building.id, function(data){
-                //update the icon
-                updateIcon(building.id,data.building[0].category)
-=======
-       
             $.getJSON('http://tali.irail.be/REST/building.json?select=category.name as catName&join=category&buildingID='+building.id, function(data){
                 var catName = data.building[0].catName;
-                
+                //update the icon
                 updateIcon(building.id, catName.toLowerCase());
->>>>>>> fa4132f971dedd7b900db783c7747252cc0ef7fd
                 mapDirect = building.id;
                 window.location.href = '#map'; 
             });
