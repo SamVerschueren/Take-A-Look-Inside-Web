@@ -329,7 +329,7 @@ function playMovie(building) {
             window.plugins.videoPlayer.play('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3?device=' + deviceUUID);
        
             initHomeContent(false);
-            $.getJSON('http://tali.irail.be/REST/building.json?select=category.category&join=category where building.buldingID='+building.id, function(data){
+            $.getJSON('http://tali.irail.be/REST/building.json?select=category.name&join=category&buildingID='+building.id, function(data){
                 updateIcon(building.id,data.building[0].category)
                 mapDirect = building.id;
                 window.location.href = '#map'; 
