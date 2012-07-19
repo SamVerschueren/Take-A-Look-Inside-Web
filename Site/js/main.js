@@ -2,6 +2,7 @@ var homeCategory = "";
 var mapLoaded = false;
 var markerArray = new Array();
 var page = 0;
+var deviceUUID;
 
 var siteUrl = 'http://tali.irail.be';
 var server = 'http://tali.irail.be/REST'
@@ -123,8 +124,8 @@ $(function() {
 });
 
 function onDeviceReady() {
-    var deviceId=device.uuid; //insert native code here to get DeviceID
-    $.post("http://tali.irail.be/REST/Device.php?device="+deviceId,function (data){
+    deviceUUID=device.uuid; //insert native code here to get DeviceID
+    $.post("http://tali.irail.be/REST/Device.php?device="+deviceUUID,function (data){
         //alert(data);
     });      
 }
@@ -162,8 +163,7 @@ var scanCode = function() {
             }
             
             
-            
-            $.getJSON(server + '/Movie/qrID/' + url[1] + '.json', function(data) {
+            $.getJSON(server + '/Movie/qrID/' + url[1] + '.json?device=' + deviceUUID, function(data) {
                 navigator.notification.confirm('The video is ' + $.trim(data.size) + ' KB big. When do you want to see the video?', function(button) {
                     
                     var building = new Building(data.buildingID, data.buildingName, data.token);
@@ -315,11 +315,13 @@ function fillCategory(name) {
     }
 }
 
-function playMovie(building) {
-    var device= device.uuid;
-    $.getJSON('http://tali.irail.be/REST/Device.json?device='+device,function(data){
-        if(data["exists"]=='true')
-            window.plugins.videoPlayer.play('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3');
+function playMovie(building) {    
+    $.getJSON(server + '/Device.json?device='+deviceUUID,function(data) {
+        if(data.exists==true) {
+            window.plugins.videoPlayer.play('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3?device=' + deviceUUID);
+            
+            updateRightSideButtons(building.id);   
+        }
         else{
             navigator.notification.alert("Video is only playable from a mobile device.", null, "Device not registered", "OK");;          
         }
