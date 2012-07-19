@@ -15,7 +15,8 @@ class CategoryController extends Controller {
     /**
      * Getting the information of a category.
      * 
-     * @param   parameters  $parameters The parameters of the url.
+     * @param   array   $parameters The parameters of the url.
+     * @return void
      */
     public function get($parameters) {
         $dataFormat = isset($_GET['dataFormat'])?$_GET['dataFormat']:'';

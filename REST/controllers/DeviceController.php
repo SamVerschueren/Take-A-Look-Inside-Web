@@ -9,7 +9,10 @@ require_once('Controller.php');
  */
 class DeviceController extends Controller {
 
-    
+    /**
+     * Gets a array which returns whether a specific device exists in the database or not.
+     * Example in JSON format: Result is returned like this: { "exists":"true" } or { "exists":"false" }
+     */
     public function get($parameters) {
         $isPresent = parent::devicePresentInDb($_GET['device']);
         $result = array('exists' => $isPresent);
@@ -20,6 +23,11 @@ class DeviceController extends Controller {
         $printer->doPrint($result);
     }
     
+    /**
+     * Posts method that checks if the device is already present in the DB. 
+     * Inserts the device of it is not yet present.
+     * 
+     */
     public function post($parameters){
         $deviceAlreadyInDb=parent::devicePresentInDb($_POST['device']);       
            
