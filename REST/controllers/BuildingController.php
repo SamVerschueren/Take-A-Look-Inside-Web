@@ -55,13 +55,8 @@ class BuildingController extends Controller {
         $device=$_POST['device'];
         $method=$_POST['method'];
         
-        echo 'building: ' + $buildingID + ' - device: ' + $device + ' - method: ' + $method;
-        
         //SQL that counts the likes from a specific device for a specific location.        
-        $alreadylikedSQL="select count(*) as c from devices join
-         must_sees on devices.deviceID = must_sees.deviceID where
-          device='" . mysql_real_escape_string($device) . "' and buildingID='".mysql_real_escape_string($buildingID)."'" ;
-        
+        $alreadylikedSQL="select count(*) as c from device join must_sees on device.deviceID = must_sees.deviceID where device='" . mysql_real_escape_string($device) . "' and buildingID='".mysql_real_escape_string($buildingID)."'" ;
         $alreadylikedResultSet = mysql_query($alreadylikedSQL);
         $alreadylikedResult=mysql_fetch_assoc($alreadylikedResultSet);
         //reading 'c' column from first record (count value)
@@ -69,7 +64,7 @@ class BuildingController extends Controller {
         $alreadyliked=$alreadylikedResult['c']==1;
         
         //Get devicename corresponding to given deviceID in URL.        
-        $deviceIDSQL="select deviceID from devices where device='". mysql_real_escape_string($device) ."'";
+        $deviceIDSQL="select deviceID from device where device='". mysql_real_escape_string($device) ."'";
         $deviceIDResultSet=mysql_query($deviceIDSQL);
         $deviceIDResult= mysql_fetch_assoc($deviceIDResultSet); 
         $deviceID=$deviceIDResult['deviceID'];
