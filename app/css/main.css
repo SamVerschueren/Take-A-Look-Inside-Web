@@ -409,7 +409,7 @@ div.olControlZoom {
     position: absolute;
     top: 40px;
     left: 8px;
-    background: rgba(255,255,255,0.4);
+    background: #DCDCD4; /*rgba(255,255,255,0.4);*/
     border-radius: 4px;
     padding:2px;
 }
@@ -427,7 +427,7 @@ div.olControlZoom a {
     height:32px;
     width:32px;
     line-height:28px;
-    background:rgba(0,60,136,0.5);
+    background:#8E9092;
     filter:alpha(opacity=80);
     margin:1px;
     padding:0;
@@ -439,7 +439,7 @@ a.olControlZoomOut {
     border-radius:0 0 4px 4px;
 }
 div.olControlZoom a:hover {
-    background:rgba(0,60,136,0.7);
+    background:#474646;
     filter:alpha(opacity=100);
 }
 /**
@@ -598,7 +598,7 @@ h3 {
     #menu .map.active {
         background: url('../img/smartphone/menu/normal/map-orange.png') no-repeat;
     }
-	
+}
 	
 
 /**
@@ -662,14 +662,14 @@ h3 {
 	
 	/*-----Menu------*/
 
-.titel {
-	font-size:14px;
-	font-family:"quicksandbold";
-}
-  
-  .page ul {
-	margin-left: 3%;
-}
+    .titel {
+    	font-size:14px;
+    	font-family:"quicksandbold";
+    }
+      
+    .page ul {
+    	margin-left: 3%;
+    }
 }
 
 @media screen and (max-width: 300px) {
