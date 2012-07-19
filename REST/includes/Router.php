@@ -9,7 +9,7 @@ require_once('controllers/DeviceController.php');
 require_once('Config.php');
 
 /**
- * Process request and bind it to the right Controller.
+ * Processes request binds it to the right controller.
  *
  * @package TakeALookInside
  * @author Sam Verschueren  <sam@irail.be>
@@ -30,6 +30,8 @@ class Router {
     
     /**
      * Handles the HTTP Request and binds the url to the right controller. Method based upon TDT project.
+     * 
+     * @return void
      */
     public function processRequest() {
         $method = strtolower($_SERVER['REQUEST_METHOD']);

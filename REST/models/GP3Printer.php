@@ -12,13 +12,15 @@ class GP3Printer implements IPrinter{
     /**
      * Print in 3GP.
      *
-     * @param   data    $data   The array object to print in JSON.
+     * @param   data    $data   The array object to print in 3GP.
      */
     public function doPrint(array $data) {
         $reqfile = '../mov/' . $data['movie'];
-        
+        //check if file can be found
         if(file_exists($reqfile)) {
+            //open file
             if($fn=fopen($reqfile, "rba")){
+                //add headers
                 header("Content-Type: video/3gpp"); 
                 header("Content-Length: ".filesize($reqfile)); 
                 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
@@ -29,13 +31,12 @@ class GP3Printer implements IPrinter{
                 fpassthru($fn);
                 fclose($fn);
             } 
-            else{
+            else{//failed to open              
               exit("error....");
-            }
-            
+            }            
             exit();
         }
-        else {
+        else {//file can't be found'
             echo 'File does not exists';
         }
     }
