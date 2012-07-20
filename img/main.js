@@ -106,7 +106,7 @@ $(function() {
      * Clicking the question mark button on the home screen
      */
     $('#questionMark').click(function(event) {
-        $('#information').fadeIn('slow'); 
+        $('#information, #triangle').fadeIn('slow'); 
     });
     
     $('#routeToButton').click(function(event){
@@ -123,8 +123,15 @@ $(function() {
     $('.scan').click(scanCode);  
     
     $('div#fireFilterSection').click(function(event) {
-        $('div#filter').slideToggle('slow'); 
-		$('#legendarrow').addClass('rotate');   
+        
+        $('div#filter').slideToggle('slow', function() {
+            if($('div#filter').is(':visible')) {
+                $('#legendarrow').addClass('rotate');   
+            }
+            else {
+                $('#legendarrow').removeClass('rotate');   
+            }
+        }); 
     });
     
     /**
