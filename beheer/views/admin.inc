@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['ip']) || !isset($_SESSION['user']) || !isset($_SESSION['role']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+    header('Location: Home');        
+}
+?>
+
 <header>
     <a href="handlers/Logout.handler.php">Logout</a>    
 </header>
@@ -37,6 +45,6 @@
     
     <p>
         <a href="Create">Create</a><br />
-        <a href="#">Upload movie</a>
+        <a href="Upload">Upload movie</a>
     </p>
 </div>

@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['ip']) || !isset($_SESSION['user']) || !isset($_SESSION['role']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+    header('Location: Home');        
+}
+
 if($file == 'edit') {
     $buildingID = $_GET['id'];
 
