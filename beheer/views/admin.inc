@@ -3,30 +3,39 @@
 </header>
 
 <div id="content">
-    <table>
+    <table class="center">
     <tr>
         <th>Name</th>
+        <th>Category</th>
+        <th>Adres</th>
         <th>Longitude</th>
         <th>Latitude</th>
-        <th>Category</th>
         <th>Movie</th>
         <th></th>
     </tr>
     <tr>
     <?php
-        $resultset = mysql_query("SELECT buildingID, b.name, longitude, latitude, c.name AS category, movieID FROM building b JOIN category c ON b.categoryID=c.categoryID ");
+        $resultset = mysql_query("SELECT buildingID, adres, b.name, longitude, latitude, c.name AS category, movie
+                                  FROM building b JOIN category c ON b.categoryID=c.categoryID
+                                                  JOIN movie m ON b.movieID=m.movieID
+                                  ORDER BY b.name");
         
         while($data = mysql_fetch_assoc($resultset)) {
             echo '<tr>';
             echo '<td>' . $data['name'] . '</td>';     
+            echo '<td>' . $data['category'] . '</td>';  
+            echo '<td>' . $data['adres'] . '</td>'; 
             echo '<td>' . $data['longitude'] . '</td>';  
             echo '<td>' . $data['latitude'] . '</td>';  
-            echo '<td>' . $data['category'] . '</td>';  
-            echo '<td>' . $data['movieID'] . '</td>';
+            echo '<td>' . $data['movie'] . '</td>';
             echo '<td><a href="Edit?id=' . $data['buildingID'] . '">Edit</a> <a href="Delete?id=' . $data['buildingID'] . '">Delete</a></td>';
             echo '</tr>';
         }
     ?>
     </tr>
     </table>
+    
+    <p>
+        <a href="#">Upload movie</a>
+    </p>
 </div>
