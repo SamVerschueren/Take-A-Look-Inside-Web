@@ -256,6 +256,11 @@ function changeContent(goToPage) {
     }
 }
 
+/**
+ * Initialize the content of the homepage
+ * 
+ * @param   loadMustSee     true if the mustsee content should also be reloaded 
+ */
 function initHomeContent(loadMustSee) {
     if(loadMustSee)
         fillHomeCategoryMustSee();
@@ -265,10 +270,13 @@ function initHomeContent(loadMustSee) {
     fillCategory('seen');
 }
 
+/**
+ * Fill the home category. 
+ */
 function fillHomeCategoryMustSee() {
     $('#mustSee_content').empty();
     
-    $.getJSON('http://tali.irail.be/REST/Building.json?top=3', function(data) {
+    $.getJSON(server + '/Building.json?top=3', function(data) {
         var list = $("<ol />"); 
         
         $.each(data.building, function(key, val) {
@@ -300,6 +308,12 @@ function fillHomeCategoryMustSee() {
     });
 };
 
+/**
+ * Check's if the building is in the specified array
+ * 
+ * @param   array       The array that should be iterated.
+ * @param   buildingID  The id of the building that should be checked.
+ */
 function checkBuildingInArray(array, buildingID){
     var result=false;
     
@@ -311,9 +325,17 @@ function checkBuildingInArray(array, buildingID){
     return result;
 }
 
+/**
+ * Fill a category at the home page
+ * 
+ * @param   name    The name of the category that should be filled 
+ */
 function fillCategory(name) {
     $('#' + name + '_content').empty();
         
+    /**    
+     * If the localstorage[name] exists, fill the home content 
+     */
     if(localStorage[name] != null) {
         var list = $("<ul />");
    
@@ -341,27 +363,45 @@ function fillCategory(name) {
     }
 }
 
+/**
+ * Play the movie with the phonegap plugin
+ * 
+ * @param   building    The building object of which the movie should be played 
+ */
 function playMovie(building) {    
     $.getJSON(server + '/Device.json?device='+deviceUUID,function(data) {
         if(data.exists==true) {
             var seenArray = getLocalStorageArray('seen');
             
+            /**
+             * If you see a movie that is in the look later array, remove it from the 'look later' local storage array. 
+             */
             var lookLaterArray = getLocalStorageArray('lookLater');
             lookLaterArray.remove(building);
             
             localStorage['lookLater'] = JSON.stringify(lookLaterArray);
             
+            /**
+             * If the building is NOT in the 'seen' local storage, add him to the array.
+             */
             if(!checkBuildingInArray(seenArray, building.id)) {
                 seenArray.push(building);    
                 
                 localStorage['seen'] = JSON.stringify(seenArray);
             } 
             
-            window.plugins.videoPlayer.play('http://tali.irail.be/REST/Movie/qrID/' + building.token + '.gp3?device=' + deviceUUID);
+            /**
+             * The phonegap plugin is used to play the movie 
+             */
+            window.plugins.videoPlayer.play(server + '/Movie/qrID/' + building.token + '.gp3?device=' + deviceUUID);
        
+            /**
+             * Reload the content of the homepage.
+             * false    the mustsee could should not be loaded 
+             */
             initHomeContent(false);
        
-            $.getJSON('http://tali.irail.be/REST/building.json?select=category.name as catName&join=category&buildingID='+building.id, function(data){
+            $.getJSON(server + '/building.json?select=category.name as catName&join=category&buildingID='+building.id, function(data){
                 var catName = data.building[0].catName;
                 
                 updateIcon(building.id, catName.toLowerCase());
@@ -369,8 +409,11 @@ function playMovie(building) {
                 window.location.href = '#map'; 
             });
         }
-        else{
-            navigator.notification.alert("Video is only playable from a mobile device.", null, "Device not registered", "OK");;          
+        else {
+            /**
+             * Alertbox if the mobile device is not registered in the database
+             */
+            navigator.notification.alert("Video is only playable from a mobile device.", null, "Error", "Ok");;          
         }
     });  
 }
