@@ -29,9 +29,9 @@ This project consists of 4 major parts:
 - The app itself
     can be found in the app folder
 - The mobile website version of the app, without video functionallity but provides a link to the google play store
-    can be found in the Site folder
+    can be found in the site folder
 - An administration application to add/edit/remove different buildings and movies to the database
-    can be found in the Admin folder
+    can be found in the admin folder
     
 
 
