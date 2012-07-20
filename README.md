@@ -36,7 +36,7 @@ This project consists of 4 major parts:
 
 
 
-Developed during #iSoc12 by:
+Development started during #iSoc12 by:
 
 Code:
 - Benoot Lieven     <lieven.benoot@iRail.be>    

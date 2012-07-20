@@ -17,13 +17,14 @@ if(!isset($_SESSION['ip']) || !isset($_SESSION['user']) || !isset($_SESSION['rol
         <th>Longitude</th>
         <th>Latitude</th>
         <th>Movie</th>
+        <th>Token</th>
         <th></th>
     </tr>
     <tr>
     <?php
-        $resultset = mysql_query("SELECT buildingID, adres, b.name, longitude, latitude, c.name AS category, movie
+        $resultset = mysql_query("SELECT buildingID, adres, b.name, longitude, latitude, c.name AS category, movie, qrID AS token
                                   FROM building b JOIN category c ON b.categoryID=c.categoryID
-                                                  JOIN movie m ON b.movieID=m.movieID
+                                                  LEFT JOIN movie m ON b.movieID=m.movieID
                                   ORDER BY b.name");
         
         while($data = mysql_fetch_assoc($resultset)) {
@@ -34,6 +35,7 @@ if(!isset($_SESSION['ip']) || !isset($_SESSION['user']) || !isset($_SESSION['rol
             echo '<td>' . $data['longitude'] . '</td>';  
             echo '<td>' . $data['latitude'] . '</td>';  
             echo '<td>' . $data['movie'] . '</td>';
+            echo '<td>' . $data['token'] . '</td>';
             echo '<td><a href="Edit?id=' . $data['buildingID'] . '">Edit</a> <a href="Delete?id=' . $data['buildingID'] . '">Delete</a></td>';
             echo '</tr>';
         }

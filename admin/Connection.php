@@ -9,7 +9,7 @@ require_once('exceptions/SQLException.php');
  */
 class Connection {
 	
-	private $db;
+    private $db;
 	
     /**
      * Connecting to the database.
@@ -44,8 +44,8 @@ class Connection {
      *
      * @return  database    $db         The database
      */
-	public function getConnection() {
-		return $this->db;
-	}
+    public function getConnection() {
+        return $this->db;
+    }
 }
 ?>
