@@ -1,0 +1,16 @@
+#
+# Take A Look Inside .htaccess
+#
+# Sam Verschueren
+# Lieven Benoot
+# Nicolas Dierckx
+#
+
+addType audio/3gpp 3gp
+addType video/3gpp 3gp
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*) index.php
