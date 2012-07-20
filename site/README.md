@@ -2,7 +2,7 @@ iRail Summer of Code project
 ============================
 
 <h1> TakeALookInside </h1>
-<h2> Leightweight webapp HTML5 application </h2>
+<h2> Lightweight webapp HTML5 application </h2>
 
 
 This is the same code as in the app directory but with less features and all code which calls native methods is removed.
