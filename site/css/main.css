@@ -588,17 +588,29 @@ h3 {
 .screen {
 	width: 120px;
 	float:left;
-	margin-right: 12%;
+	margin-right:10px;
+}
+
+#personalhome {
+	margin-top: 18px;
+}
+
+#scanqr {
+	margin-top: 36px;
 }
 
 article {
 	margin-top:20px;
+	height:120px;
+	float:left;
+	margin: 20 auto 0;
+	width: 100%;
 }
 
 .info {
 	float:left;
 	text-align:left;
-	width: 53%;
+	width:70%;
 }
 
 .screeninfo {
@@ -647,6 +659,14 @@ article {
         background: url('../img/smartphone/menu/normal/map-orange.png') no-repeat;
     }
 	
+	.info {
+float: left;
+text-align: left;
+width: 52%;
+}
+
+#googleplay {
+	width: 120px;
 	
 	
 	
@@ -726,9 +746,17 @@ article {
 	#menu .scan.active {
 	background:url('../img/smartphone/menu/down_active.png') no-repeat;
 	}
+	
+	.info {
+float: left;
+text-align: left;
+width: 52%;
+}
 }
 
 @media screen and (max-width: 300px) {
+	
+	
 	
     /**
      * Menu
