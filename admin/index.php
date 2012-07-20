@@ -4,9 +4,14 @@ session_start();
 require_once('Connection.php');
 require_once('Config.php');
 
-$connection = new Connection();
-$connection->connect(Config::$DB_HOST, Config::$DB_USER, Config::$DB_PASSWORD);
-$connection->selectDatabase(Config::$DB);
+try {
+        $connection = new Connection();
+        $connection->connect(Config::$DB_HOST, Config::$DB_USER, Config::$DB_PASSWORD);
+        $connection->selectDatabase(Config::$DB);
+}
+catch(Exception $ex) {
+    echo $ex->getMessage();
+}
 
 $cleanURI = str_replace(Config::$SUBDIR, '', $_SERVER['REQUEST_URI']);
 $cleanURI = preg_replace('/\?.*/i', '', $cleanURI);
