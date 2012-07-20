@@ -76,6 +76,7 @@ else if($file == 'create') {
         <td>Movie:</td>
         <td>
             <select name="txtMovie">
+                <option value=""></option>
                 <?php
                     $movieResultset = mysql_query("SELECT * FROM movie");
                     

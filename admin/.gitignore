@@ -1,0 +1,4 @@
+# Files that should be ignored by github #
+##########################################
+Config.php
+.project
