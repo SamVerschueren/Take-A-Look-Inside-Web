@@ -1,0 +1,295 @@
+@font-face {
+    font-family: "Quicksandbook";
+    src: url("Quicksand_Book.otf") format("opentype");
+}
+
+@font-face {
+	font-family: "Quicksandbold";
+    src: url("Quicksand_Bold.ttf") format("truetype");
+}
+
+/*reset*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	text-shadow: none;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*--------------------------------------------*/
+
+body {
+	background-color:#EBECE3;
+}
+
+#topheader {
+	height: 40px;
+	width:100%;
+	background-color:#EBECE3;
+}
+
+#questionMark {
+    background: url('../img/About.png') no-repeat center; 
+ 	float:right;
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 21px;
+    height: 21px;
+}
+
+#creditsicon {
+	margin-top: 10px;
+	margin-right:20px;
+	float:right;
+	width: 20px;
+    height: 20px;
+}	
+
+.titelcredits {
+	font-family:'quicksandbold';
+	color:#EF9722;
+	font-size:14px;
+	text-transform:uppercase;
+	float:left;
+	text-align:center;
+	width: 100%;
+	margin-bottom:5px;
+}
+
+#backgroundimg {
+	background-image:url(../img/skylinedark.png);
+	background-repeat:repeat;
+	height: 65px;
+	float:left;
+	width:100%;
+}
+	
+
+#whobackground {
+	background-color:#474646;
+	width:100%;
+	float:left;
+}
+
+section {
+	float: left;
+	width: 80%;
+	margin-left: 10%;
+}
+
+#what{
+	float:left;
+	text-align:center;
+	font-family:'quicksandbook';
+	color:#474646;
+	font-size:14px;
+	margin-top: 14px;
+}
+
+#who {
+	font-family: 'quicksandbook';
+	font-size:14px;
+	color:#EBECE3;	
+}
+
+li {
+	list-style: none;
+}
+
+.left {
+	float:left;
+	width:50%;
+	margin-top:5px;
+}
+
+.right {
+	float:right;
+	width:50%;
+	margin-top:5px;
+}
+
+.full {
+	width:100%;
+	float:left;
+	margin-top: 5px;
+}
+
+#whatis {
+	margin-top: 7px;
+	float:left;
+}
+
+.sponsorlogo {
+	margin-left:5px;
+}
+
+#sponsors {
+	margin-bottom: 20px;
+}
+
+/**
+ * Menu
+ */
+
+ 
+#menu .home {
+    display: inline-block;
+    background: url('../img/tablet/menu/Home.png') no-repeat;
+    width: 191px;
+    height: 72px;
+    margin-bottom: 6px;
+}
+
+#menu .home.active {
+    background: url('../img/tablet/menu/Home-orange.png') no-repeat;
+}
+#menu .scan {
+    display: inline-block;
+    background: url('../img/tablet/menu/scan.png') no-repeat;
+    width: 144px;
+    height: 118px;
+    vertical-align: bottom;
+}
+#menu .map {
+    display: inline-block;
+    background: url('../img/tablet/menu/map.png') no-repeat;
+    width: 192px;
+    height: 72px;
+}
+#menu .map.active {
+    background: url('../img/tablet/menu/map-orange.png') no-repeat;
+}
+
+#nav {
+	position: fixed;
+  bottom: 0px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #EBECE3;
+}
+
+
+#creditslogo {
+		margin-left:44%;
+		float:left;
+		width: 88px;
+		text-align:center;
+	}
+
+@media screen and (max-width: 550px) {
+	
+	#creditslogo {
+		margin-left:41%;
+		float:left;
+		width: 88px;
+	}
+	 
+
+	/**
+     * Menu
+     */
+    #menu .home {
+        background: url('../img/smartphone/menu/normal/Home.png') no-repeat;
+        width: 107px;
+        height: 41px;
+    }
+    #menu .home.active {
+        background: url('../img/smartphone/menu/normal/Home-orange.png') no-repeat;
+    }
+    #menu .scan {
+        background: url('../img/smartphone/menu/scan.png') no-repeat;
+        width: 81px;
+        height: 67px;
+    }
+    #menu .map {
+        background: url('../img/smartphone/menu/normal/map.png') no-repeat;
+        width: 109px;
+        height: 41px;
+    }
+    #menu .map.active {
+        background: url('../img/smartphone/menu/normal/map-orange.png') no-repeat;
+    }
+	
+
+
+}
+
+
+/**
+ * Smartphone
+ */
+@media screen and (max-width: 450px) {
+	
+	#creditslogo {
+		margin-left:40%;
+	}
+	
+    
+    
+
+}
+
+@media screen and (max-width: 300px) {
+	
+	/**
+     * Menu
+     */
+    #menu .home {
+        background: url('../img/smartphone/menu/small/Home.png') no-repeat;
+        width: 59px;
+        height: 41px;
+    }
+    #menu .home.active {
+        background: url('../img/smartphone/menu/small/Home-orange.png') no-repeat;
+    }
+    #menu .map {
+        background: url('../img/smartphone/menu/small/map.png') no-repeat;
+        width: 59px;
+        height: 41px;
+    }
+    #menu .map.active {
+        background: url('../img/smartphone/menu/small/map-orange.png') no-repeat;
+    }
+	
+    
+
+}
