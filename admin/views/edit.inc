@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 if(!isset($_SESSION['ip']) || !isset($_SESSION['user']) || !isset($_SESSION['role']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
     header('Location: Home');        
 }
@@ -68,7 +66,7 @@ else if($file == 'create') {
     </tr>
     <tr>
         <td>Longitude:</td>
-        <td><input type="text" name="txtLongitude" value="<?php echo $longitude; ?>" /></td>
+        <td><input type="text" name="txtLongitude" value="<?php echo $longitude; ?>" /> <a href="http://universimmedia.pagesperso-orange.fr/geo/loc.htm">Find</a></td>
     </tr>
     <tr>
         <td>Latitude:</td>
