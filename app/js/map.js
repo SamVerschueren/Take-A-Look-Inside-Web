@@ -1,3 +1,4 @@
+//declaring variables
 var myLat;
 var myLon; 
 var buildingLayer;
@@ -6,13 +7,22 @@ var activePopup;
 var iconSize = new OpenLayers.Size(25,41);
 var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
-$("div#map").live('pagebeforeshow', function() {  
-    if(localStorage['favorites']==null)
+/**
+ * Eevent executed eacht time before the map page is shown
+ 
+ * Fills the filter with the different categorys
+ * Clears the routing graphics
+ */
+$("div#map").live('pagebeforeshow', function() {
+    //if favorites array is not yet initialized, initialize it
+    if(localStorage['favorites']==null)    
         localStorage['favorites']=  JSON.stringify(new Array());
+    //clears vector if it shouldnt be displayed
     if(mapLoaded){ 
         if(typeof myRouteVector!='undefined')
             myRouteVector.destroyFeatures();
     }else{
+        //fills filter with categorys from webservice
         $.getJSON('http://tali.irail.be/REST/Category.json',function(data){
             $.each(data.category, function (key,val){
                 var checkbox = $("<input />").attr({type: 'checkbox', id: 'filter' + val.categoryID, checked: 'checked'});
@@ -25,8 +35,12 @@ $("div#map").live('pagebeforeshow', function() {
         });
     }              
 });    
-
+/**
+ * Loads the map if not yet loaded
+ * Show popup of selected buildign when mapdirect is set
+ */
 $("div#map").live('pageshow', function() {
+    //check if maploaded, if not, load it    
     if(!mapLoaded) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
@@ -38,12 +52,13 @@ $("div#map").live('pageshow', function() {
         }
     }
     else {
-        showMapDirectPopup();        
-        //markerArray[mapDirect].erase();             
+        showMapDirectPopup();                  
     }
-    //showMapDirectPopup(); 
 });
 
+/**
+ * Click event of the filter 
+ */
 var filterClick = function(evt) {
     var target = evt.target;
     var id = target.id.replace('filter', '');

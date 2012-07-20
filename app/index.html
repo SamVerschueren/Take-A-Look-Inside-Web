@@ -45,9 +45,10 @@
     
     <div id="triangle"><img src="img/triangle.png" width="21" height="21"></div>
     
-<div data-role="page" id="home">  
-        <!-- <header></header> -->  
-        
+<!-- Home page -->
+    <div data-role="page" id="home">  
+            <!-- <header></header> -->  
+            
         <div id="content" data-role="content">  
          	
             <div id="creditsicon">
@@ -82,7 +83,7 @@
                 </div>
            </div>
         </div> 
-        
+        <!-- Fixed footer, data-tap-toggle="false" is needed to disable some strange bugs-->
         <div data-position="fixed" data-tap-toggle="false">
             <div id="menu" align="center">
                 <a href="#home" class="home active"><img src="img/px.gif" alt="Home" /></a>
@@ -92,6 +93,7 @@
         </div>
     </div>
    
+<!-- Home page: 1 selected category, content is dynamically added using jQuery mobile -->
     <div data-role="page" id="home_category"> 
         <!-- <header></header> -->
          
@@ -140,7 +142,7 @@
                 </div>
             </div>   
         </div> 
-        
+        <!-- Fixed footer, data-tap-toggle="false" is needed to disable some strange bugs-->
         <div data-position="fixed" data-tap-toggle="false">
             <div id="menu" align="center">
                 <a href="#home" class="home active"><img src="img/px.gif" alt="Home" /></a>
@@ -150,6 +152,7 @@
         </div>
     </div>
     
+<!-- Map page -->
     <div data-role="page" id="map">
         <div id="header">
             <div id="fireFilterSection"> 
@@ -168,6 +171,7 @@
         </div>
         <div id="mapview"></div>
         
+        <!-- Fixed footer, data-tap-toggle="false" is needed to disable some strange bugs-->
         <div data-position="fixed" data-tap-toggle="false">
             <div id="menu" align="center">
                 <a href="#home" class="home"><img src="img/px.gif" alt="Home" /></a>
@@ -176,7 +180,8 @@
             </div>
         </div>
     </div>
-    
+
+<!-- Credits page -->    
     <div data-role="page" id="credits">
     
     	
@@ -230,7 +235,7 @@
                         
                   <p class="full">Made possible by:</p>
                         
-<div class="full" id="sponsors">                            
+                        <div class="full" id="sponsors">                            
                            <img class="sponsorlogo" src="img/sponsors/gentzoveelstad.png"  alt="zoveelstad">
                            <img class="sponsorlogo" src="img/sponsors/digipolis-01.png"  alt="Digipolis"> 
                            <img class="sponsorlogo" src="img/sponsors/stadgent.png"  alt="stadgent">
@@ -238,7 +243,7 @@
                             
                </section>
           </div>
-              
+              <!-- Fixed footer, data-tap-toggle="false" is needed to disable some strange bugs-->
               <div data-position="fixed">
                     <div id="menu" align="center">
                         <a href="#home" class="home"><img src="img/px.gif" alt="Home" /></a>
