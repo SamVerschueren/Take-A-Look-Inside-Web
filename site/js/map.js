@@ -1,4 +1,3 @@
-//declaring variables
 var myLat;
 var myLon; 
 var buildingLayer;
@@ -8,14 +7,44 @@ var iconSize = new OpenLayers.Size(25,41);
 var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
 /**
+ * Redirects the website to a specific building on the map after scanning a link with a external QR-scanner
+ */
+$(function() {
+    var hash = window.location.hash;
+    
+    if(hash != '#home' && hash != '#download' && hash!= '') {
+        var buildingToken = hash.replace('#', '', hash);
+       
+        $.getJSON(server+'/REST/Building.json?select=building.buildingID&join=movie&qrID='+buildingToken,function(data){
+            mapDirect=data.building[0].buildingID;
+            window.location.href = '#map';
+        });
+        
+    }
+}); 
+
+/**
+ * Event that is fired each time the map div is being shown.
+ * Loads the map if not yet loaded. * 
+ */
+$("div#map").live('pageshow', function() {
+    if(!mapLoaded) {
+         if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(loadMap, function() {
+                    alert('Could not detect');
+                });    
+        }  
+    }else{
+        showMapDirectPopup();  
+    }        
+});
+
+/**
  * Event that is fired each time before the map div is being shown.
- * Initializes the favorites
  * Clears the route to vector if it's no longer needed to show it
  * Loads the categories in the filter.
  */
 $("div#map").live('pagebeforeshow', function() {  
-    if(localStorage['favorites']==null)
-        localStorage['favorites']=  JSON.stringify(new Array());
     if(mapLoaded){ 
         if(typeof myRouteVector!='undefined')
             myRouteVector.destroyFeatures();
@@ -31,131 +60,7 @@ $("div#map").live('pagebeforeshow', function() {
             });
         });
     }              
-});    
-
-/**
- * Event that is fired each time the map div is being shown.
- * Loads the map if not yet loaded. * 
- */
-$("div#map").live('pageshow', function() {
-    if(!mapLoaded) {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(loadMap, function() {
-                navigator.notification.alert("Your position cannot be determined, the korenmarkt is used as your location now.", null, "No geolocation", "OK");  
-                
-            });            
-        }else{
-            navigator.notification.alert("Your position cannot be determined, the korenmarkt is used as your location now.", null, "No geolocation", "OK");  
-        }
-    }
-    else {
-        showMapDirectPopup();        
-        //markerArray[mapDirect].erase();             
-    }
-    //showMapDirectPopup(); 
-});
-
-/**
- * Event that is fired after selecting or unselecting a filter in the filter menu. * 
- */
-var filterClick = function(evt) {
-    var target = evt.target;
-    var id = target.id.replace('filter', '');
-    //Get all buildings in the category
-    $.getJSON(server+'/REST/Building/categoryID/' + id + '.json', function(data) {
-        //for each category        
-        $.each(data.building, function(key, value) {
-            //if it is checked, display it
-            if($(target).is(':checked')) {
-                markerFeatures[value.buildingID].marker.display(true);
-            }
-            //if not checked, don't display
-            else {
-                markerFeatures[value.buildingID].marker.display(false);
-            }       
-        }); 
-    });
-}
-
-/**
- * Method that should be called after setting the mapDirect variable
- * 
- * It makes it possible to move to the map page and show
- * a popup of the building with the buildingID that is stored in 'mapDirect'.
- * Sets center of the map to the target building.
- * Clears mapDirect afterwards
- */
-function showMapDirectPopup(){    
-    if(typeof mapDirect!='undefined'){
-        //create popup        
-        if(markerFeatures[mapDirect].popup==null )
-            fillPopup(markerFeatures[mapDirect]);
-        //if popup not shown
-        if(markerFeatures[mapDirect].popup !=null && !markerFeatures[mapDirect].popup.visible())
-            //show it       
-            showPopup(markerFeatures[mapDirect].popup)
-        $.getJSON(server+'/REST/Building.json?buildingID='+mapDirect , function(data) {
-            //get lonlat of building to set center
-            var lonlatBuilding= new OpenLayers.LonLat(
-                data.building[0].longitude,data.building[0].latitude
-                ).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
-            map.setCenter(lonlatBuilding);
-            //map.setCenter(markerFeatures[mapDirect].) 
-            
-        });
-        //unset mapDirect
-        mapDirect=undefined;
-    } 
-    else map.setCenter(lonlat);   
-}
-
-/**
- * Show a popup or close it if it was already shown
- * Closes other opened popup
- * Shows or hides corresponding right side buttons.
- * Also saves the popup that is shown in the activePopup variable. This is used thoughout the application
- * to determine which building that is 'active'.
- */
-function showPopup(popup){
-    if(typeof activePopup!='undefined'){
-        if(activePopup.id==popup.id)
-            activePopup.toggle();
-        else{
-            activePopup.hide();
-            popup.show();
-        }
-    }
-    else
-        popup.show();
-    activePopup=popup;
-    if(typeof activePopup!='undefined' && activePopup.visible()){
-        updateRightSideButtons(activePopup.id);
-        $('div#mapButtons').show();
-    }
-    else
-        $('div#mapButtons').hide();
-}
-/**
- * Update the right side buttons according to a specific building
- * Shows the must see button if the user has seen the movie, otherwise it is not shown 
- */
-function updateRightSideButtons(buildingID){
-    if(buildingID==activePopup.id){
-        var buildingList;
-        buildingList=JSON.parse(localStorage["favorites"]);
-        if(localStorage["seen"]!=null && checkBuildingInArray(JSON.parse(localStorage["seen"]),buildingID)){
-            if(buildingList[activePopup.id]!=null  )
-                $("img#mustSeeButton").attr("src","img/favorites-selected.png");
-            else
-                $("img#mustSeeButton").attr("src","img/favorites.png");
-            $("img#mustSeeButton").show(); 
-        }
-        else{
-            $("img#mustSeeButton").css('display', 'none');
-            $("img#mustSeeButton").attr("src","");
-        }   
-    }
-}
+});  
 
 /**
  * Method to load the map
@@ -163,9 +68,6 @@ function updateRightSideButtons(buildingID){
  * @param       position        The position of the device
  */
 function loadMap(position) {
-    /**
-     * This is the mapbox tileset, this one is used. 
-     */
     var mapBoxTiles = new OpenLayers.Layer.XYZ(
                                             "MapBox Streets",
                                             [
@@ -181,16 +83,9 @@ function loadMap(position) {
                                                 numZoomLevels: 18
                                             }
                                          );
-                   
-    /**
-     * The openstreetmap tileset, this one is not used. 
-     * If you want to use this tileset, changes the layers property of the map.
-     */                                    
-    var openStreetMapTiles = new OpenLayers.Layer.OSM("OpenStreetMap", null, { transitionEffect: "resize" });
-
-    mapLoaded = true;    
+    mapLoaded = true;   
     map = new OpenLayers.Map({
-        div: "mapview",
+        div: "map",
         theme: null,
         controls: [
             new OpenLayers.Control.Attribution(),
@@ -201,27 +96,18 @@ function loadMap(position) {
             }),
             new OpenLayers.Control.Zoom()
         ],
-        layers: [mapBoxTiles]                   /* Change this in [openStreetMapTiles] to change the tileset to default */
-    });
+        layers: [mapBoxTiles]
+    }); 
     
-    if(navigator.geolocation){
-        //set center to the users geolocation
-        myLon=position.coords.longitude;
-        myLat=position.coords.latitude;
-    }
-    else{
-        //set center to korenmarkt coordinates
-        myLon=3.7219830;
-        myLat=51.0546200;
-    }
+    myLon=position.coords.longitude;
+    myLat=position.coords.latitude;
     
     lonlat = new OpenLayers.LonLat(myLon, myLat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
     
-    
     map.setCenter(lonlat);
-    map.zoomTo(16);
+    map.zoomTo(16);    
     
-    var locationLayer = new OpenLayers.Layer.Markers('LocationLayer');
+       var locationLayer = new OpenLayers.Layer.Markers('LocationLayer');
     locationLayer.id = 'LocationLayer';
     
     buildingLayer = new OpenLayers.Layer.Markers('BuildingLayer');
@@ -250,42 +136,30 @@ function loadMap(position) {
         });
         showMapDirectPopup();                
     });   
+     
 }
 
+
 /**
- * Method that sets the correct icon of a building
- * These can be: unseen, seen & favorited.
- * Should be called after watching the movie of a building or after favoriting/unfavoriting a building.
- * 
- * @param {Object} buildingID       building ID of the building
- * @param {Object} category         category NAME of the category to which the building belongs to, it is the NAME
- *                                  because the name is used in the iconname.
+ * Event that is fired after selecting or unselecting a filter in the filter menu. * 
  */
-function getIcon(buildingID,category){
-   var icon;
-   //check if building is favorited
-   if(localStorage["favorites"]!=null){
-        $.each(JSON.parse(localStorage["favorites"]), function(key, building) {            
-            if(building!=null && building.id==buildingID)
-               //if yes, use favorited icon
-               icon = 'img/markers/'+category.toLowerCase()+'[fav].png';     
-        });
-    }
-    //check if building is seen
-    if(JSON.parse(localStorage["seen"]!=null)){
-        if(icon==null){
-            $.each(JSON.parse(localStorage["seen"]), function(key, building) {
-                if(building.id==buildingID)
-                    //if yes, use seen icon
-                    icon = 'img/markers/'+category.toLowerCase()+'[seen].png';     
-            });        
-        }
-    }
-    //if not favorited and not seen, use unseen icon
-    if(icon==null){
-        icon = 'img/markers/'+category.toLowerCase()+'.png';    
-    }     
-    return icon;
+var filterClick = function(evt) {
+    var target = evt.target;
+    var id = target.id.replace('filter', '');
+    //Get all buildings in the category
+    $.getJSON(server+'/REST/Building/categoryID/' + id + '.json', function(data) {
+        //for each category        
+        $.each(data.building, function(key, value) {
+            //if it is checked, display it
+            if($(target).is(':checked')) {
+                markerFeatures[value.buildingID].marker.display(true);
+            }
+            //if not checked, don't display
+            else {
+                markerFeatures[value.buildingID].marker.display(false);
+            }       
+        }); 
+    });
 }
 
 /**
@@ -325,6 +199,37 @@ var markerClick = function (evt) {
     else showPopup(caller.popup);
     OpenLayers.Event.stop(evt);
 }
+/**
+ * Method that should be called after setting the mapDirect variable
+ * 
+ * It makes it possible to move to the map page and show
+ * a popup of the building with the buildingID that is stored in 'mapDirect'.
+ * Sets center of the map to the target building.
+ * Clears mapDirect afterwards
+ */
+function showMapDirectPopup(){    
+    if(typeof mapDirect!='undefined'){
+        //create popup        
+        if(markerFeatures[mapDirect].popup==null )
+            fillPopup(markerFeatures[mapDirect]);
+        //if popup not shown
+        if(markerFeatures[mapDirect].popup !=null && !markerFeatures[mapDirect].popup.visible())
+            //show it       
+            showPopup(markerFeatures[mapDirect].popup)
+        $.getJSON(server+'/REST/Building.json?buildingID='+mapDirect , function(data) {
+            //get lonlat of building to set center
+            var lonlatBuilding= new OpenLayers.LonLat(
+                data.building[0].longitude,data.building[0].latitude
+                ).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+            map.setCenter(lonlatBuilding);
+            //map.setCenter(markerFeatures[mapDirect].) 
+            
+        });
+        //unset mapDirect
+        mapDirect=undefined;
+    } 
+    else map.setCenter(lonlat);   
+}
 
 /**
  * Fills the popup of a specific feature (=~ marker)
@@ -355,56 +260,70 @@ function fillPopup (feature){
 }
 
 /**
- * Event that is fired when the must see button is clicked.
- * Stores the building in or removes the building from the 'favorited' localStorage
- * Posts to the webservice with the corresponding like or dislike method
- * 
+ * Show a popup or close it if it was already shown
+ * Closes other opened popup
+ * Shows or hides corresponding right side buttons.
+ * Also saves the popup that is shown in the activePopup variable. This is used thoughout the application
+ * to determine which building that is 'active'.
  */
-function mustSeeClick(){
-    var buildingID=activePopup.id;
-    var method;     
-    var building;    
-    //get info of the selected building
-    $.getJSON(server+"/REST/Building.json?join=category&select=buildingID;building.name;category.name AS catName&buildingID="+activePopup.id,function (data){        
-        //create building object used in localStorage
-        building=new Building(data.building[0].buildingID,data.building[0].name); 
-        var buildingList={};
-        //get favorites from localstorage
-        if(localStorage["favorites"]!=null){
-            buildingList=JSON.parse(localStorage["favorites"]);
-        }
-        //determine method base on if the building is in the favorites or not
-        //if in favorites --> unlike
-        //if not in favorites --> like
-        method=(buildingList[building.id]==null)? 'like':'unlike'; 
-        
-        //post method to webserice, this is stored in database to be able to count the # of must sees and give a top must see
-        //list on the home screen
-        $.post(server+'/REST/Building', {buildingID: buildingID, method: method, device: deviceUUID}, function(data) {
-              
-        });
-        //like --> add it to favorites in localstorage
-        if(method=='like'){
-            buildingList[building.id]=building;        
-            localStorage["favorites"]=JSON.stringify(buildingList);       
-        }
+function showPopup(popup){
+    if(typeof activePopup!='undefined'){
+        if(activePopup.id==popup.id)
+            activePopup.toggle();
         else{
-        //unlike --> remove it from favorites in localstorage    
-            buildingList[building.id]=undefined;            
-            localStorage["favorites"]=JSON.stringify(buildingList);    
+            activePopup.hide();
+            popup.show();
         }
-        //set corresponding icon
-        if(buildingList[building.id]!=null)
-            $("img#mustSeeButton").attr("src","img/favorites-selected.png")
-        else
-            $("img#mustSeeButton").attr("src","img/favorites.png"); 
-        //update homescreen favorites
-        fillCategory('favorites');
-        //update icon of the selected building
-        updateIcon(data.building[0].buildingID,data.building[0].catName);
-        //update homescreen favorites
-        initHomeContent(true);
-    })     
+    }
+    else
+        popup.show();
+    activePopup=popup;
+    if(typeof activePopup!='undefined' && activePopup.visible()){
+        updateRightSideButtons(activePopup.id);
+        $('div#mapButtons').show();
+    }
+    else
+        $('div#mapButtons').hide();
+}
+
+/**
+ * Update the right side buttons according to a specific building
+ * Must See button should never be visible on mobile site, user cannot watch movies so they can 't favorite
+ */
+function updateRightSideButtons(buildingID){
+    if(buildingID==activePopup.id){
+       /* var buildingList;
+        buildingList=JSON.parse(localStorage["favorites"]);
+        if(localStorage["seen"]!=null && checkBuildingInArray(JSON.parse(localStorage["seen"]),buildingID)){
+            if(buildingList[activePopup.id]!=null  )
+                $("img#mustSeeButton").attr("src","img/favorites-selected.png");
+            else
+                $("img#mustSeeButton").attr("src","img/favorites.png");
+            $("img#mustSeeButton").show(); 
+        }*/
+       // else{
+            $("img#mustSeeButton").css('display', 'none');
+            $("img#mustSeeButton").attr("src","");
+       // }   
+    }
+}
+
+/**
+ * Method that sets the correct icon of a building
+ * 
+ * @param {Object} buildingID       building ID of the building
+ * @param {Object} category         category NAME of the category to which the building belongs to, it is the NAME
+ *                                  because the name is used in the iconname.
+ */
+function getIcon(buildingID,category){
+   var icon;
+    // no seen/favorited in mobile site
+    
+    //if not favorited and not seen, use unseen icon
+    if(icon==null){
+        icon = 'img/markers/'+category.toLowerCase()+'.png';    
+    }     
+    return icon;
 }
 
 /**
