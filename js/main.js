@@ -73,6 +73,10 @@ $(function() {
      */
     //$('.scan').click(scanCode);  
     
+    $('#routeToButton').click(function(event){
+        routeToClick();
+    })
+    
     $('div#fireFilterSection').click(function(event) {
         
         $('div#filter').slideToggle('slow', function() {
