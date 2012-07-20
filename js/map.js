@@ -41,7 +41,7 @@ $("div#map").live('pagebeforeshow', function() {
         if(typeof myRouteVector!='undefined')
             myRouteVector.destroyFeatures();
     }else{
-        $.getJSON('http://tali.irail.be/REST/Category.json',function(data){
+        $.getJSON(server+'/REST/Category.json',function(data){
             $.each(data.category, function (key,val){
                 var checkbox = $("<input />").attr({type: 'checkbox', id: 'filter' + val.categoryID, checked: 'checked'});
                 $(checkbox).change(filterClick);
@@ -117,7 +117,7 @@ function loadMap(position) {
     var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
     var icon = new OpenLayers.Icon('img/my-location.png', size, offset);
     locationLayer.addMarker(new OpenLayers.Marker(lonlat,icon));
-    $.getJSON('http://tali.irail.be/REST/Building.json?select=buildingID;longitude;latitude,building.categoryID,category.name&join=category', function(data) {
+    $.getJSON(server+'/REST/Building.json?select=buildingID;longitude;latitude,building.categoryID,category.name&join=category', function(data) {
        // var latDestination;
        // var lonDestination;
        markerFeatures=new Array();
@@ -139,7 +139,7 @@ var filterClick = function(evt) {
     var target = evt.target;
     var id = target.id.replace('filter', '');
     //Get all buildings in the category
-    $.getJSON('http://tali.irail.be/REST/Building/categoryID/' + id + '.json', function(data) {
+    $.getJSON(server+'/REST/Building/categoryID/' + id + '.json', function(data) {
         //for each category        
         $.each(data.building, function(key, value) {
             //if it is checked, display it
@@ -208,7 +208,7 @@ function showMapDirectPopup(){
         if(markerFeatures[mapDirect].popup !=null && !markerFeatures[mapDirect].popup.visible())
             //show it       
             showPopup(markerFeatures[mapDirect].popup)
-        $.getJSON('http://tali.irail.be/REST/Building.json?buildingID='+mapDirect , function(data) {
+        $.getJSON(server+'/REST/Building.json?buildingID='+mapDirect , function(data) {
             //get lonlat of building to set center
             var lonlatBuilding= new OpenLayers.LonLat(
                 data.building[0].longitude,data.building[0].latitude
@@ -230,7 +230,7 @@ function showMapDirectPopup(){
  */
 function fillPopup (feature){    
     //get building info JSON
-    $.getJSON('http://tali.irail.be/REST/Building/buildingID/' + feature.id + '.json?select=building.*;category.name%20AS%20catName&join=category', function(data) {         
+    $.getJSON(server+'/REST/Building/buildingID/' + feature.id + '.json?select=building.*;category.name%20AS%20catName&join=category', function(data) {         
         var lonlat = new OpenLayers.LonLat(data.building[0].longitude, data.building[0].latitude).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));         
         var popup= new OpenLayers.Popup(feature.id,
                   lonlat,
@@ -335,7 +335,7 @@ function updateIcon(buildingID,category) {
  */
 function routeToClick(){
     
-    $.getJSON('http://tali.irail.be/REST/Building/buildingID/' + activePopup.id + '.json', function(data) {  
+    $.getJSON(server+'/REST/Building/buildingID/' + activePopup.id + '.json', function(data) {  
         routeTo(data.building[0].longitude,data.building[0].latitude);
         closePopup();
     });
@@ -361,7 +361,7 @@ function closePopup(){
  */
 function routeTo (lon,lat) {
     //get route JSON
-      var url = 'http://tali.irail.be/REST/transport.json?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
+      var url = server+'/REST/transport.json?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+myLat+'&'+
         'flon='+myLon+'&'+
         'tlat='+lat+'&'+
