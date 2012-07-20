@@ -1,19 +1,41 @@
 <?php
-$buildingID = $_GET['id'];
+if($file == 'edit') {
+    $buildingID = $_GET['id'];
 
-$resultset = mysql_query("SELECT * FROM building WHERE buildingID='" . mysql_real_escape_string($buildingID) . "'");
-$data = mysql_fetch_assoc($resultset);
+    $resultset = mysql_query("SELECT * FROM building WHERE buildingID='" . mysql_real_escape_string($buildingID) . "'");
+    $data = mysql_fetch_assoc($resultset);
+    
+    $title          =   $data['name'];
+    
+    $buildingID     =   $data['buildingID'];
+    $name           =   $data['name'];
+    $adres          =   $data['adres'];
+    $longitude      =   $data['longitude'];
+    $latitude       =   $data['latitude'];
+    $description    =   $data['description'];   
+}
+else if($file == 'create') {
+    $title = 'New building';
+    
+    $buildingID     =   '';
+    $name           =   '';
+    $adres          =   '';
+    $longitude      =   '';
+    $latitude       =   '';
+    $description    =   '';     
+}
 ?>
 
-<h1><?php echo $data['name']; ?></h1>
+<h1><?php echo $title; ?></h1>
 
 <form action="handlers/Edit.handler.php" method="post">
-    <input type="hidden" name="txtBuilding" value="<?php echo $data['buildingID']; ?>" />
+    <input type="hidden" name="caller" value="<?php echo $file; ?>" />
+    <input type="hidden" name="txtBuilding" value="<?php echo $buildingID ?>" />
     
     <table align="center">
     <tr>
         <td>Name:</td>
-        <td><input type="text" name="txtName" value="<?php echo $data['name']; ?>" /></td>
+        <td><input type="text" name="txtName" value="<?php echo $name; ?>" /></td>
     </tr>
     <tr>
         <td>Category:</td>
@@ -24,7 +46,7 @@ $data = mysql_fetch_assoc($resultset);
                     
                     while($category = mysql_fetch_assoc($categoryResultset)) {
                         $selected='';
-                        if($category['categoryID'] == $data['categoryID']) {
+                        if($file=='edit' && $category['categoryID'] == $data['categoryID']) {
                             $selected = ' selected="selected"';
                         }
                         
@@ -36,15 +58,15 @@ $data = mysql_fetch_assoc($resultset);
     </tr>
     <tr>
         <td>Adres:</td>
-        <td><input type="text" name="txtAdres" value="<?php echo $data['adres']; ?>" /></td>
+        <td><input type="text" name="txtAdres" value="<?php echo $adres; ?>" /></td>
     </tr>
     <tr>
         <td>Longitude:</td>
-        <td><input type="text" name="txtLongitude" value="<?php echo $data['longitude']; ?>" /></td>
+        <td><input type="text" name="txtLongitude" value="<?php echo $longitude; ?>" /></td>
     </tr>
     <tr>
         <td>Latitude:</td>
-        <td><input type="text" name="txtLatitude" value="<?php echo $data['latitude']; ?>" /></td>
+        <td><input type="text" name="txtLatitude" value="<?php echo $latitude; ?>" /></td>
     </tr>
     <tr>
         <td>Movie:</td>
@@ -55,7 +77,7 @@ $data = mysql_fetch_assoc($resultset);
                     
                     while($movie = mysql_fetch_assoc($movieResultset)) {
                         $selected='';
-                        if($movie['movieID'] == $data['movieID']) {
+                        if($file=='edit' && $movie['movieID'] == $data['movieID']) {
                             $selected = ' selected="selected"';
                         }
                         
@@ -67,7 +89,7 @@ $data = mysql_fetch_assoc($resultset);
     </tr>
     <tr>
         <td>Description:</td>
-        <td><textarea name="txtDescription" rows="5" cols="30"><?php echo $data['description']; ?></textarea></td>
+        <td><textarea name="txtDescription" rows="5" cols="30"><?php echo $description; ?></textarea></td>
     </tr>
     <tr>
         <td colspan="2"><input type="submit" value="Save" /></td>
