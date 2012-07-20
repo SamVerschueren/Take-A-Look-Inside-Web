@@ -12,7 +12,7 @@ $connection = new Connection();
 $connection->connect(Config::$DB_HOST, Config::$DB_USER, Config::$DB_PASSWORD);
 $connection->selectDatabase(Config::$DB);
 
-$target_path = "../mov/";
+$target_path = "../../mov/";
 $fileName = basename($_FILES['txtFile']['name']);
 $target_path = $target_path . $fileName;
 
