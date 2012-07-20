@@ -6,15 +6,20 @@ var activePopup;
 var iconSize = new OpenLayers.Size(25,41);
 var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
+/**
+ * Redirects the website to a specific building on the map after scanning a link with a external QR-scanner
+ */
 $(function() {
     var hash = window.location.hash;
     
     if(hash != '#home' && hash != '#download' && hash!= '') {
-       building = hash.replace('#', '', hash);
+        var buildingToken = hash.replace('#', '', hash);
        
-       alert(building);
-       
-       window.location.href = '#map';
+        $.getJSON(server+'/REST/Building.json?select=building.buildingID&join=movie&qrID='+buildingToken,function(data){
+            mapDirect=data.building[0].buildingID;
+            window.location.href = '#map';
+        });
+        
     }
 }); 
 
@@ -29,7 +34,9 @@ $("div#map").live('pageshow', function() {
                     alert('Could not detect');
                 });    
         }  
-    }         
+    }else{
+        showMapDirectPopup();  
+    }        
 });
 
 /**
@@ -127,7 +134,7 @@ function loadMap(position) {
             latDestination=val.latitude;
             lonDestination=val.longitude;
         });
-       // showMapDirectPopup();                
+        showMapDirectPopup();                
     });   
      
 }
