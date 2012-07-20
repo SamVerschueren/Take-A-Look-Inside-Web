@@ -1,4 +1,10 @@
-<form action="" method="post">
+<?php
+if(isset($_SESSION['ip']) && isset($_SESSION['user']) && isset($_SESSION['role']) && $_SESSION['ip'] == $_SERVER['REMOTE_ADDR']) {
+    header('Location: Admin');
+}
+?>
+
+<form action="handlers/Login.handler.php" method="post">
     <fieldset>
         <legend>Login</legend>
         

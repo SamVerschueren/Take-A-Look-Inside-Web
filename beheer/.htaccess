@@ -6,8 +6,7 @@
 # Nicolas Dierckx
 #
 
-addType audio/3gpp 3gp
-addType video/3gpp 3gp
+AddType application/x-httpd-php .php .inc
 
 RewriteEngine On
 

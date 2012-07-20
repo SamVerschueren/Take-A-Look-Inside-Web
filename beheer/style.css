@@ -1,0 +1,9 @@
+header {
+    clear: both;
+}
+header a {
+    float: right;
+}
+table {
+    border-spacing: 20px 5px;
+}
