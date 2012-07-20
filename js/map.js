@@ -7,14 +7,15 @@ var iconSize = new OpenLayers.Size(25,41);
 var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
 $(function() {
-    if(window.location.hash == '') {
-       // alert('Go to index page');
-    }
-    else {
-     //   alert('Go to the map, token -> ' + window.location.hash);
-    }
+    var hash = window.location.hash;
     
- 
+    if(hash != '#home' && hash != '#download' && hash!= '') {
+       building = hash.replace('#', '', hash);
+       
+       alert(building);
+       
+       window.location.href = '#map';
+    }
 }); 
 
 /**
