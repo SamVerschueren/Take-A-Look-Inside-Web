@@ -36,6 +36,7 @@
     </table>
     
     <p>
+        <a href="Create">Create</a><br />
         <a href="#">Upload movie</a>
     </p>
 </div>
