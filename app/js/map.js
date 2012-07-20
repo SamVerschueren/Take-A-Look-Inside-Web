@@ -1,3 +1,4 @@
+//declaring variables
 var myLat;
 var myLon; 
 var buildingLayer;
@@ -6,6 +7,12 @@ var activePopup;
 var iconSize = new OpenLayers.Size(25,41);
 var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
+/**
+ * Event that is fired each time before the map div is being shown.
+ * Initializes the favorites
+ * Clears the route to vector if it's no longer needed to show it
+ * Loads the categories in the filter.
+ */
 $("div#map").live('pagebeforeshow', function() {  
     if(localStorage['favorites']==null)
         localStorage['favorites']=  JSON.stringify(new Array());
@@ -26,6 +33,10 @@ $("div#map").live('pagebeforeshow', function() {
     }              
 });    
 
+/**
+ * Event that is fired each time the map div is being shown.
+ * Loads the map if not yet loaded. * 
+ */
 $("div#map").live('pageshow', function() {
     if(!mapLoaded) {
         if (navigator.geolocation) {
@@ -44,14 +55,21 @@ $("div#map").live('pageshow', function() {
     //showMapDirectPopup(); 
 });
 
+/**
+ * Event that is fired after selecting or unselecting a filter in the filter menu. * 
+ */
 var filterClick = function(evt) {
     var target = evt.target;
     var id = target.id.replace('filter', '');
-    $.getJSON('http://tali.irail.be/REST/Building/categoryID/' + id + '.json', function(data) {        
+    //Get all buildings in the category
+    $.getJSON('http://tali.irail.be/REST/Building/categoryID/' + id + '.json', function(data) {
+        //for each category        
         $.each(data.building, function(key, value) {
+            //if it is checked, display it
             if($(target).is(':checked')) {
                 markerFeatures[value.buildingID].marker.display(true);
             }
+            //if not checked, don't display
             else {
                 markerFeatures[value.buildingID].marker.display(false);
             }       
@@ -59,14 +77,25 @@ var filterClick = function(evt) {
     });
 }
 
+/**
+ * Method that should be called after setting the mapDirect variable
+ * 
+ * It makes it possible to move to the map page and show
+ * a popup of the building with the buildingID that is stored in 'mapDirect'.
+ * Sets center of the map to the target building.
+ * Clears mapDirect afterwards
+ */
 function showMapDirectPopup(){    
     if(typeof mapDirect!='undefined'){
+        //create popup        
         if(markerFeatures[mapDirect].popup==null )
             fillPopup(markerFeatures[mapDirect]);
-        if(markerFeatures[mapDirect].popup !=null && !markerFeatures[mapDirect].popup.visible())       
+        //if popup not shown
+        if(markerFeatures[mapDirect].popup !=null && !markerFeatures[mapDirect].popup.visible())
+            //show it       
             showPopup(markerFeatures[mapDirect].popup)
         $.getJSON('http://tali.irail.be/REST/Building.json?buildingID='+mapDirect , function(data) {
-            
+            //get lonlat of building to set center
             var lonlatBuilding= new OpenLayers.LonLat(
                 data.building[0].longitude,data.building[0].latitude
                 ).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
@@ -74,12 +103,19 @@ function showMapDirectPopup(){
             //map.setCenter(markerFeatures[mapDirect].) 
             
         });
-        
+        //unset mapDirect
         mapDirect=undefined;
     } 
     else map.setCenter(lonlat);   
 }
 
+/**
+ * Show a popup or close it if it was already shown
+ * Closes other opened popup
+ * Shows or hides corresponding right side buttons.
+ * Also saves the popup that is shown in the activePopup variable. This is used thoughout the application
+ * to determine which building that is 'active'.
+ */
 function showPopup(popup){
     if(typeof activePopup!='undefined'){
         if(activePopup.id==popup.id)
@@ -99,12 +135,14 @@ function showPopup(popup){
     else
         $('div#mapButtons').hide();
 }
-
+/**
+ * Update the right side buttons according to a specific building
+ * Shows the must see button if the user has seen the movie, otherwise it is not shown 
+ */
 function updateRightSideButtons(buildingID){
     if(buildingID==activePopup.id){
         var buildingList;
         buildingList=JSON.parse(localStorage["favorites"]);
-        //console.log("in seen list: " +checkBuildingInArray(JSON.parse(localStorage["seen"]),buildingID));
         if(localStorage["seen"]!=null && checkBuildingInArray(JSON.parse(localStorage["seen"]),buildingID)){
             if(buildingList[activePopup.id]!=null  )
                 $("img#mustSeeButton").attr("src","img/favorites-selected.png");
@@ -165,8 +203,9 @@ function loadMap(position) {
         ],
         layers: [mapBoxTiles]                   /* Change this in [openStreetMapTiles] to change the tileset to default */
     });
-
+    
     if(navigator.geolocation){
+        //set center to the users geolocation
         myLon=position.coords.longitude;
         myLat=position.coords.latitude;
     }
@@ -213,28 +252,51 @@ function loadMap(position) {
     });   
 }
 
+/**
+ * Method that sets the correct icon of a building
+ * These can be: unseen, seen & favorited.
+ * Should be called after watching the movie of a building or after favoriting/unfavoriting a building.
+ * 
+ * @param {Object} buildingID       building ID of the building
+ * @param {Object} category         category NAME of the category to which the building belongs to, it is the NAME
+ *                                  because the name is used in the iconname.
+ */
 function getIcon(buildingID,category){
    var icon;
+   //check if building is favorited
    if(localStorage["favorites"]!=null){
         $.each(JSON.parse(localStorage["favorites"]), function(key, building) {            
             if(building!=null && building.id==buildingID)
+               //if yes, use favorited icon
                icon = 'img/markers/'+category.toLowerCase()+'[fav].png';     
         });
     }
+    //check if building is seen
     if(JSON.parse(localStorage["seen"]!=null)){
         if(icon==null){
             $.each(JSON.parse(localStorage["seen"]), function(key, building) {
                 if(building.id==buildingID)
+                    //if yes, use seen icon
                     icon = 'img/markers/'+category.toLowerCase()+'[seen].png';     
             });        
         }
     }
+    //if not favorited and not seen, use unseen icon
     if(icon==null){
         icon = 'img/markers/'+category.toLowerCase()+'.png';    
     }     
     return icon;
 }
 
+/**
+ * Adds marker to the specified layer.
+ * 
+ * @param {Object} layer        layer to add the marker to
+ * @param {Object} lon          longitude of the marker
+ * @param {Object} lat          latitude of the marker
+ * @param {Object} id           id of the building
+ * @param {Object} category     category NAME of the category
+ */
 function addMarker(layer, lon, lat, id,category) {
     var lonlat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));    
     var icon=new OpenLayers.Icon(getIcon(id,category),iconSize,iconOffset);         
@@ -244,11 +306,18 @@ function addMarker(layer, lon, lat, id,category) {
     feature.id = id;              
     var marker = feature.createMarker();   
     markerFeatures[id] = feature;
+    //register touchstart & click event
+    //click is needed for PC
+    //touch is needed for mobile devices
     marker.events.register('touchstart', feature, markerClick);  
     marker.events.register('click', feature, markerClick);     
     layer.addMarker(marker);
 }
 
+/**
+ * Event that is call when a marker is clicked, it shows the popup.
+ * 
+ */
 var markerClick = function (evt) {
     var caller = this;
     if(caller.popup==null)
@@ -256,67 +325,103 @@ var markerClick = function (evt) {
     else showPopup(caller.popup);
     OpenLayers.Event.stop(evt);
 }
+
+/**
+ * Fills the popup of a specific feature (=~ marker)
+ * 
+ * @param {Object} feature
+ */
 function fillPopup (feature){    
-     $.getJSON('http://tali.irail.be/REST/Building/buildingID/' + feature.id + '.json?select=building.*;category.name%20AS%20catName&join=category', function(data) {         
-         var lonlat = new OpenLayers.LonLat(data.building[0].longitude, data.building[0].latitude).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));         
-         var popup= new OpenLayers.Popup(feature.id,
-                   lonlat,
-                   null,
-                   data.building[0].name,
-                   true,
-                   function(){closePopup()});
+    //get building info JSON
+    $.getJSON('http://tali.irail.be/REST/Building/buildingID/' + feature.id + '.json?select=building.*;category.name%20AS%20catName&join=category', function(data) {         
+        var lonlat = new OpenLayers.LonLat(data.building[0].longitude, data.building[0].latitude).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));         
+        var popup= new OpenLayers.Popup(feature.id,
+                  lonlat,
+                  null,
+                  data.building[0].name,
+                  true,
+                  function(){closePopup()});
         popup.autoSize=true;
         popup.setBackgroundColor('#EBECE3');
         feature.popup=popup; 
         feature.popup.contentHTML='<h1 class="' + data.building[0].catName + '">' + data.building[0].name + '</h1><p class="description">' + data.building[0].description + '<br /><br /><br /></p><p class="adres ' + data.building[0].catName + '">' + data.building[0].adres + '</p>';
         
         map.addPopup(feature.popup);
+        
         showPopup(feature.popup);
+        //array to store all popups in to, stores every popup in the array when they are created.
         markerFeatures[feature.id]=feature;              
     });        
 }
 
+/**
+ * Event that is fired when the must see button is clicked.
+ * Stores the building in or removes the building from the 'favorited' localStorage
+ * Posts to the webservice with the corresponding like or dislike method
+ * 
+ */
 function mustSeeClick(){
     var buildingID=activePopup.id;
     var method;     
     var building;    
+    //get info of the selected building
     $.getJSON("http://tali.irail.be/REST/Building.json?join=category&select=buildingID;building.name;category.name AS catName&buildingID="+activePopup.id,function (data){        
-
+        //create building object used in localStorage
         building=new Building(data.building[0].buildingID,data.building[0].name); 
         var buildingList={};
+        //get favorites from localstorage
         if(localStorage["favorites"]!=null){
             buildingList=JSON.parse(localStorage["favorites"]);
         }
+        //determine method base on if the building is in the favorites or not
+        //if in favorites --> unlike
+        //if not in favorites --> like
         method=(buildingList[building.id]==null)? 'like':'unlike'; 
-
+        
+        //post method to webserice, this is stored in database to be able to count the # of must sees and give a top must see
+        //list on the home screen
         $.post('http://tali.irail.be/REST/Building', {buildingID: buildingID, method: method, device: deviceUUID}, function(data) {
               
         });
-        
+        //like --> add it to favorites in localstorage
         if(method=='like'){
             buildingList[building.id]=building;        
             localStorage["favorites"]=JSON.stringify(buildingList);       
-        }else{
+        }
+        else{
+        //unlike --> remove it from favorites in localstorage    
             buildingList[building.id]=undefined;            
             localStorage["favorites"]=JSON.stringify(buildingList);    
         }
-        
+        //set corresponding icon
         if(buildingList[building.id]!=null)
             $("img#mustSeeButton").attr("src","img/favorites-selected.png")
         else
             $("img#mustSeeButton").attr("src","img/favorites.png"); 
-
+        //update homescreen favorites
         fillCategory('favorites');
+        //update icon of the selected building
         updateIcon(data.building[0].buildingID,data.building[0].catName);
+        //update homescreen favorites
         initHomeContent(true);
     })     
 }
 
+/**
+ * Updates the icon of a specific building according to it's category.
+ * 
+ * @param       buildingID      ID of the location that should be updated
+ * @param       category        NAME of the category to use as icon
+ */
 function updateIcon(buildingID,category) {
     if(mapLoaded)
         markerFeatures[buildingID].marker.setUrl(getIcon(buildingID,category));  
 }
 
+/**
+ * Click event of the route button. Uses the location of the selected building to call
+ * the routeTo method. 
+ */
 function routeToClick(){
     
     $.getJSON('http://tali.irail.be/REST/Building/buildingID/' + activePopup.id + '.json', function(data) {  
@@ -324,6 +429,10 @@ function routeToClick(){
         closePopup();
     });
 }
+
+/**
+ * Closes the active popup & hides corresponding buttons on the right side of the map.
+ */
 function closePopup(){
     $('div#mapButtons').hide();
     if(typeof activePopup!='undefined'){
@@ -333,6 +442,12 @@ function closePopup(){
     
 }
 
+/**
+ * Gets the route from external navigation webservice and draws the route to the target location on the map.
+ *  
+ * @param       lon     longitue of the destination
+ * @param       lat     latitude of the destination
+ */
 function routeTo (lon,lat) {
     //get route JSON
       var url = 'http://tali.irail.be/REST/transport.json?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
