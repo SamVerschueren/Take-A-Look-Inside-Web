@@ -214,9 +214,8 @@ div#filter li {
 div#information {
     position:relative;
 	margin: 40px auto 0;
-    width: 80%;
+    width: 100%;
     z-index: 100;
-    border-radius: 10px;
     color: #474646;
     font-family: Quicksandbook;
     font-size: 14px;
@@ -545,6 +544,7 @@ h3 {
 /**
  * Menu
  */
+ 
 #menu .home {
     display: inline-block;
     background: url('../img/tablet/menu/Home.png') no-repeat;
@@ -555,6 +555,7 @@ h3 {
 #menu .home.active {
     background: url('../img/tablet/menu/Home-orange.png') no-repeat;
 }
+
 #menu .scan {
     display: inline-block;
     background: url('../img/tablet/menu/scan.png') no-repeat;
@@ -562,6 +563,9 @@ h3 {
     height: 118px;
     vertical-align: bottom;
 }
+
+
+
 #menu .map {
     display: inline-block;
     background: url('../img/tablet/menu/map.png') no-repeat;
@@ -572,11 +576,55 @@ h3 {
     background: url('../img/tablet/menu/map-orange.png') no-repeat;
 }
 
+#advantage {
+	float:left;
+	text-align:center;
+	font-family:'quicksandbook';
+	color:#474646;
+	font-size:14px;
+	margin-top: 14px;
+}
+
+.screen {
+	width: 120px;
+	float:left;
+	margin-right: 12%;
+}
+
+article {
+	margin-top:20px;
+}
+
+.info {
+	float:left;
+	text-align:left;
+	width: 53%;
+}
+
+.screeninfo {
+	display:block;
+}
+
+.titeldown {
+	font-family:'quicksandbold';
+	color:#EF9722;
+	font-size:14px;
+	text-transform:uppercase;
+	float:left;
+	text-align:center;
+	width: 100%;
+	margin-bottom:15px;
+	
+}
+	
+
+
 @media screen and (max-width: 550px) { 
 	    
     /**
      * Menu
      */
+	 
     #menu .home {
         background: url('../img/smartphone/menu/normal/Home.png') no-repeat;
         width: 107px;
@@ -598,9 +646,12 @@ h3 {
     #menu .map.active {
         background: url('../img/smartphone/menu/normal/map-orange.png') no-repeat;
     }
-}
+	
+	
+	
 	
 }
+	
 /**
  * Smartphone
  */
@@ -660,6 +711,7 @@ h3 {
         background: url('../img/smartphone/small-orange-seen-icon.png') no-repeat center; 
     }
 	
+	
 	/*-----Menu------*/
 
     .titel {
@@ -670,6 +722,10 @@ h3 {
     .page ul {
     	margin-left: 3%;
     }
+	
+	#menu .scan.active {
+	background:url('../img/smartphone/menu/down_active.png') no-repeat;
+	}
 }
 
 @media screen and (max-width: 300px) {
@@ -693,6 +749,7 @@ h3 {
     #menu .map.active {
         background: url('../img/smartphone/menu/small/map-orange.png') no-repeat;
     }
+
 	
     /**
      * Overlay
