@@ -38,7 +38,6 @@ class Router {
         $cleanURI = str_replace(Config::$SUBDIR, '', $_SERVER['REQUEST_URI']);
         $cleanURI = trim($cleanURI, '/');
         
-        
         $found = false;
         
         foreach($this->routes as $route => $controller) {
