@@ -317,5 +317,76 @@ function showPopup(popup){
     }
     else {
         $('div#mapButtons').show();
-    }    
+    }
+    
+    $('#routeToButton').click(function(event){
+        routeToClick();
+    })
+}
+
+/**
+ * Closes the active popup & hides corresponding buttons on the right side of the map.
+ */
+function closePopup(){
+    $('div#mapButtons').hide();
+    
+    if(typeof activePopup!='undefined'){
+        activePopup.hide();
+        activePopup=undefined;
+    }
+}
+
+/**
+ * Click event of the route button. Uses the location of the selected building to call
+ * the routeTo method. 
+ */
+function routeToClick(){
+    $.getJSON(server+'/Building?id=' + activePopup.id, function(building) {  
+        routeTo(building.location.longitude, building.location.latitude);
+        closePopup();
+    });
+}
+
+/**
+ * Gets the route from external navigation webservice and draws the route to the target location on the map.
+ *  
+ * @param       lon     longitue of the destination
+ * @param       lat     latitude of the destination
+ */
+function routeTo (lon,lat) {
+    //get route JSON
+      var url = server+'/Map/Route?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
+        'flat='+myLat+'&'+
+        'flon='+myLon+'&'+
+        'tlat='+lat+'&'+
+        'tlon='+lon+
+        '&v=foot&fast=0&layer=mapnik';      
+       
+        //draw route   
+    myRouteVector.destroyFeatures();   
+    var routeStyle = { 
+            strokeColor: '#0000ff', 
+            strokeOpacity: 0.5,
+            strokeWidth: 5
+    };
+      
+    $.get(url, function(data) { 
+        var previouslonpos=0;
+        var previouslatpos=0; 
+         $.each(data.coordinates, function(num,latlonpos) {
+            if(previouslatpos==0){
+                previouslonpos=latlonpos[0];
+                previouslatpos=latlonpos[1];
+            }
+            else{               
+                var start_point = new OpenLayers.Geometry.Point(previouslonpos,previouslatpos); 
+                var end_point = new OpenLayers.Geometry.Point(latlonpos[0],latlonpos[1]);
+                previouslonpos=latlonpos[0];
+                previouslatpos=latlonpos[1];
+                
+                myRouteVector.style=routeStyle;
+                myRouteVector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);     
+            }
+         });
+    });
 }

@@ -15,12 +15,12 @@ footer {
     font-size: 12px;
     background-color: #EDEDE4;
 }
-div#creditsicon {
-    margin-top: 10px;
-    margin-right:20px;
-    float:right;
-    width: 21px;
-    height: 21px;
+span#creditsicon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 24px;
+    height: 24px;
 }
 div#information {
     margin: 40px auto 118px;
@@ -87,7 +87,7 @@ p.explanation {
  * Menu
  */
 nav {
-    width: 535px;
+    width: 536px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -104,9 +104,12 @@ nav .home.active {
 nav .download {
     display: inline-block;
     background: url('images/tablet/menu/download.png') no-repeat;
-    width: 144px;
-    height: 118px;
+    width: 145px;
+    height: 119px;
     vertical-align: bottom;
+}
+nav .download.active {
+    background: url('images/tablet/menu/download-orange.png') no-repeat;
 }
 nav .map {
     display: inline-block;
@@ -278,9 +281,12 @@ div#admin td {
         background: url('images/smartphone/menu/normal/Home-orange.png') no-repeat;
     }
     nav .download {
-        background: url('images/smartphone/menu/scan.png') no-repeat;
+        background: url('images/smartphone/menu/download.png') no-repeat;
         width: 81px;
         height: 67px;
+    }
+    nav .download.active {
+        background: url('images/smartphone/menu/download-orange.png') no-repeat;
     }
     nav .map {
         background: url('images/smartphone/menu/normal/map.png') no-repeat;

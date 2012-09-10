@@ -14,8 +14,7 @@ span.moreInfo {
     color: #EF9722;
 }
 .olPopupCloseBox{
-    background-color: green;
-    background: url('../img/close.png') no-repeat center;  
+    background: url('images/close.png') no-repeat center;  
     margin: 5px;
 }
 .olPopup {
