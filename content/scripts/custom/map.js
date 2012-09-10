@@ -6,7 +6,7 @@ var activePopup;
 var iconSize = new OpenLayers.Size(25,41);
 var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
-var server = "http://localhost/tali";
+var server = "http://localhost/";
 
 $(function() {
     if($("div#map").length > 0) {

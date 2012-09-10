@@ -1,5 +1,5 @@
 <?php
-require_once('system/web/mvc/JSonRequestBehaviour.php');
+require_once('system/web/mvc/JsonRequestBehaviour.php');
 require_once('system/web/mvc/Controller.php');
 
 require_once('models/DAL/BuildingMapper.php');
