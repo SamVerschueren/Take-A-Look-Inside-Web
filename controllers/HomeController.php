@@ -24,5 +24,9 @@ class HomeController extends Controller {
         
         return $this->view();
     }
+    public function credits(){
+        $this->viewData['title'] = 'Credits - Take A Look Inside';        
+        return $this->view();
+    }
 }
 ?>
