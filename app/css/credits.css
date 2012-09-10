@@ -125,6 +125,8 @@ section {
 	margin-top: 14px;
 }
 
+
+
 #who {
 	font-family: 'quicksandbook';
 	font-size:14px;
@@ -133,6 +135,15 @@ section {
 
 li {
 	list-style: none;
+}
+
+.clear {
+    clear:both;
+}
+
+.creditsblock {  
+    margin-bottom:15px;     
+    
 }
 
 .left {
