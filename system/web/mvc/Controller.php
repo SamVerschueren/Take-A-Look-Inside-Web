@@ -6,6 +6,7 @@ require_once('FilePathResult.php');
 require_once('ViewResult.php');
 require_once('PartialViewResult.php');
 require_once('RedirectToRouteResult.php');
+require_once('FileStreamResult.php');
 require_once('system/web/routing/RouteValueDictionary.php');
 
 /**
@@ -106,6 +107,16 @@ class Controller {
         $fileResult->setFileDownloadName($fileDownloadName);
         
         return $fileResult;
+    }
+    
+    /**
+     * Creates a FileStreamResult object by using the filepath and content type.
+     * 
+     * @param   filePath            The path of the file to send to the response.
+     * @param   contentType         The content type (MIME type).
+     */
+    public function stream($filePath, $contentType) {
+        return new FileStreamResult($filePath, $contentType);
     }
     
     /**

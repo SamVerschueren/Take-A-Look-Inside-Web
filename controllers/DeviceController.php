@@ -9,8 +9,6 @@ class DeviceController extends Controller {
     private $deviceMapper;
     
     public function __construct() {
-        parent::__construct();
-        
         $this->deviceMapper = new DeviceMapper();
     }
     

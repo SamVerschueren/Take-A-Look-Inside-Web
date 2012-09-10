@@ -1,25 +1,3 @@
-@font-face {
-    font-family: "Quicksandbook";
-    src: url("Quicksand_Book.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "Quicksandbold";
-    src: url("Quicksand_Bold.ttf") format("truetype");
-}
-
-
-body {
-	background-color:#EBECE3;
-}
-
-#topheader {
-	height: 40px;
-	width:100%;
-	background-color:#EBECE3;
-}
-
-
 .titelcredits {
 	font-family:'quicksandbold';
 	color:#EF9722;
@@ -33,14 +11,12 @@ body {
 }
 
 #backgroundimg {
-	background-image:url('../../content/images/skylinedark.png');
+	background-image:url('images/skylinedark.png');
 	background-repeat:repeat;
 	height: 65px;
 	float:left;
 	width:100%;
 }
-	
-
 #whobackground {
     text-align:left;
 	background-color:#474646;

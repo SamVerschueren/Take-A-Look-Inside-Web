@@ -65,5 +65,24 @@ class MovieMapper extends Mapper {
         
         return $movie;
     }
+    
+    public function findByQrId($id) {
+        $resultset = mysql_query("SELECT movieID, movie, dateTime, qrID FROM movie WHERE qrID='" . mysql_real_escape_string($id) . "'");
+        
+        if(!$resultset) {
+            throw new SQLException('Error while retrieving the movie with id ' . $id . '.');
+        }
+        
+        if(mysql_num_rows($resultset) == 0) {
+            throw new SQLException('No movie found with id ' . $id . '.');
+        }
+        
+        $data = mysql_fetch_assoc($resultset);
+        
+        $movie = new Movie($data['movie'], $data['qrID'], new DateTime($data['dateTime']));
+        $movie->setId($data['movieID']);
+        
+        return $movie;
+    }
 }
 ?>

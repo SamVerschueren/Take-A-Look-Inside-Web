@@ -19,8 +19,11 @@ span#creditsicon {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 24px;
-    height: 24px;
+    background: url('images/info.png') no-repeat center;
+}
+span#creditsicon img {
+    width: 40px;
+    height: 40px;
 }
 div#information {
     margin: 40px auto 118px;
@@ -29,6 +32,11 @@ div#information {
     background-repeat:repeat-x;
     background-color:#EBECE3;
     background-position:bottom;
+    padding-bottom: 118px;
+}
+div#credits {
+    margin: 40px auto 118px;
+    width: 100%;
     padding-bottom: 118px;
 }
 h1 {

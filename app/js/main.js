@@ -11,12 +11,11 @@ var siteUrl = 'http://tali.irail.be';
 var server = 'http://localhost';
 
 /*
- * TODO: map -> liken/unliken (php)
- *       map -> route berekenen (zou moeten werken, gosmore werkt momenteel niet)
+ * TODO: map -> route berekenen (zou moeten werken, gosmore werkt momenteel niet)
  * 
  * Remove deviceUUID hieronder
  */
-deviceUUID = 'lievenANDROID';
+//deviceUUID = 'lievenANDROID';
 
 /**
  * Extension to arrays:
@@ -205,7 +204,7 @@ function initCarrousel() {
 var scanCode = function() {
     window.plugins.barcodeScanner.scan(function(result) {        
         if(result.text != '') {
-            var url = result.text.split('#');
+            var url = result.text.split('=');
             
             if(url[0] != siteUrl) {
                 navigator.notification.alert('You scanned a QR-code that not belongs to Take A Look Inside.', function() { }, 'Wrong QR-code', 'Ok');
@@ -213,7 +212,7 @@ var scanCode = function() {
                 return;       
             }
             
-            $.getJSON(server + '/Movie/qrID/' + url[1] + '.json?device=' + deviceUUID, function(data) {                
+            $.getJSON(server + '/Movie/Size/' + url[1] + '?device=' + deviceUUID, function(data) {                
                 navigator.notification.confirm('The video is ' + $.trim(data.size) + ' KB big. When do you want to see the video?', function(button) {
                     
                     var building = new Building(data.buildingID, data.buildingName, data.token);
@@ -402,11 +401,11 @@ function playMovie(building) {
             /**
              * The phonegap plugin is used to play the movie 
              */
-            window.plugins.videoPlayer.play(server + '/Movie/qrID/' + building.token + '.gp3?device=' + deviceUUID);
+            window.plugins.videoPlayer.play(server + '/Movie/Play/' + building.token + '?device=' + deviceUUID);
        
             /**
              * Reload the content of the homepage.
-             * false    the mustsee could should not be loaded 
+             * false    the mustsee should not be loaded 
              */
             initHomeContent(false);
        
