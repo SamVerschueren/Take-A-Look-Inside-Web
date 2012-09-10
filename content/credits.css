@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "Quicksandbook";
+    src: url("Quicksand_Book.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Quicksandbold";
+    src: url("Quicksand_Bold.ttf") format("truetype");
+}
 
 
 body {
@@ -68,7 +77,7 @@ li {
 }
 
 .creditsblock {  
-    margin-bottom:35px;     
+    margin-bottom:15px;     
     
 }
 
