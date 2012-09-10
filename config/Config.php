@@ -8,13 +8,13 @@
  */
 class Config {
     // Database variables
-    public static $DB = 'tali';
+    public static $DB = 'TakeALookInside';
     public static $DB_HOST = 'localhost';
     public static $DB_USER = 'root';
-    public static $DB_PASSWORD = '';
+    public static $DB_PASSWORD = 'root';
     
     // Fill this in if website is placed in subfolder
-    public static $SUBDIR = 'tali';
+    public static $SUBDIR = '';
     
     // The name of the session
     public static $SESSION_NAME = '';

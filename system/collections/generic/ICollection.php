@@ -1,5 +1,5 @@
 <?php
-require_once('System/Collections/IEnumerable.php');
+require_once('system/collections/IEnumerable.php');
 
 /**
  * Defines methods to manipulate generic collections.
