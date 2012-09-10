@@ -34,7 +34,7 @@ class BuildingMapper extends Mapper {
         $resultset = mysql_query("SELECT b.buildingID, name, description, infoLink, COUNT(m.deviceID) AS mustSee, longitude, latitude, adres, movieID, categoryID FROM building b LEFT JOIN must_sees m ON b.buildingID=m.buildingID GROUP BY b.buildingID, name, description, infoLink, longitude, latitude, adres, movieID, categoryID ORDER BY mustSee DESC");
      
         if(!$resultset) {
-            throw new SQLException('Error while retrieving the buildings.');
+            throw new SQLException('Error while retrieving the buildings.'. mysql_error() );
         }
         
         if(mysql_num_rows($resultset) == 0) {

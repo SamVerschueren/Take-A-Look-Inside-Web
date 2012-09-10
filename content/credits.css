@@ -1,0 +1,105 @@
+
+
+body {
+	background-color:#EBECE3;
+}
+
+#topheader {
+	height: 40px;
+	width:100%;
+	background-color:#EBECE3;
+}
+
+
+.titelcredits {
+	font-family:'quicksandbold';
+	color:#EF9722;
+	font-size:14px;
+	text-transform:uppercase;
+	float:left;
+	text-align:center;
+	width: 100%;
+	margin-bottom:5px;
+
+}
+
+#backgroundimg {
+	background-image:url('../../content/images/skylinedark.png');
+	background-repeat:repeat;
+	height: 65px;
+	float:left;
+	width:100%;
+}
+	
+
+#whobackground {
+    text-align:left;
+	background-color:#474646;
+	width:100%;
+	float:left;
+}
+
+section {
+	float: left;
+	width: 80%;
+	margin-left: 10%;
+}
+
+#what{
+	float:left;
+	text-align:center;
+	font-family:'quicksandbook';
+	color:#474646;
+	font-size:14px;
+	margin-top: 14px;
+}
+
+#who {
+	font-family: 'quicksandbook';
+	font-size:14px;
+	color:#EBECE3;	
+}
+
+li {
+	list-style: none;
+}
+.clear{
+    clear: both;
+}
+
+.creditsblock {  
+    margin-bottom:35px;     
+    
+}
+
+.clear{
+    clear:both;
+}
+
+.left {
+	float:left;
+	width:50%;
+}
+
+.right {
+	float:right;
+	width:50%;
+}
+
+.full {
+	width:100%;
+	float:left;
+}
+
+#whatis {
+	margin-top: 7px;
+	float:left;
+}
+
+.sponsorlogo {
+	margin-left:5px;
+}
+
+#sponsors {
+	margin-bottom: 20px;
+}

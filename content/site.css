@@ -15,6 +15,13 @@ footer {
     font-size: 12px;
     background-color: #EDEDE4;
 }
+div#creditsicon {
+    margin-top: 10px;
+    margin-right:20px;
+    float:right;
+    width: 21px;
+    height: 21px;
+}
 div#information {
     margin: 40px auto 118px;
     width: 100%;
@@ -284,7 +291,7 @@ div#admin td {
         background: url('images/smartphone/menu/normal/map-orange.png') no-repeat;
     }    
     
-    div#information, div#download {
+    div#information, div#download, div#credits {
         margin: 20px auto 67px;
     }
     div#mapview {
@@ -320,7 +327,7 @@ div#admin td {
         font-size: 18px;
         margin: 25px auto 0;
     }
-    div#information, div#download {
+    div#information, div#download, div#credits {
         margin: 5px auto 67px;
     }
 }
