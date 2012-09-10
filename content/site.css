@@ -1,0 +1,326 @@
+body {
+    background-color: #EDEDE4;
+    font-family: Quicksandbook;
+    color: #474646;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+}
+footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    color: #999;
+    font-size: 12px;
+    background-color: #EDEDE4;
+}
+div#information {
+    margin: 40px auto 118px;
+    width: 100%;
+    background-image:url('images/skylinelicht.png');
+    background-repeat:repeat-x;
+    background-color:#EBECE3;
+    background-position:bottom;
+    padding-bottom: 118px;
+}
+h1 {
+    font-family: "quicksandbook";
+    font-size: 21px;
+    line-height: 1.2;
+    width: 80%;
+    margin: 15px auto 0;
+    color:#EF9722;
+}
+h2 {
+    font-family:"quicksandbold";
+    color:#EF9722;
+    font-size:14px;
+    text-transform:uppercase;
+    float:left;
+    text-align:center;
+    width: 100%;
+    margin-bottom:15px;
+}
+div#download {
+    width: 70%;
+    margin: 40px auto 118px;
+}
+div#download article {
+    float: left;
+    width: 33.3333%;
+}
+div#download article span {
+    display: inline-block;
+    height: 125px;
+    line-height: 125px;
+}
+div#download article span img {
+    vertical-align: middle;
+}
+div#download div {
+    clear: both;
+    padding-top: 30px;
+}
+div#information h6 {
+    font-family:"quicksandbold";
+    font-size: 16px;
+    margin-top: 15px;
+}
+p.explanation {
+    width: 80%;
+    margin: 11px auto 0;
+}
+.screen {
+    width: 120px;
+}
+
+
+/**
+ * Menu
+ */
+nav {
+    width: 535px;
+    margin-left: auto;
+    margin-right: auto;
+}
+nav .home {
+    display: inline-block;
+    background: url('images/tablet/menu/Home.png') no-repeat;
+    width: 191px;
+    height: 72px;
+    margin-bottom: 6px;
+}
+nav .home.active {
+    background: url('images/tablet/menu/Home-orange.png') no-repeat;
+}
+nav .download {
+    display: inline-block;
+    background: url('images/tablet/menu/download.png') no-repeat;
+    width: 144px;
+    height: 118px;
+    vertical-align: bottom;
+}
+nav .map {
+    display: inline-block;
+    background: url('images/tablet/menu/map.png') no-repeat;
+    width: 192px;
+    height: 72px;
+}
+nav .map.active {
+    background: url('images/tablet/menu/map-orange.png') no-repeat;
+}
+div#mapview {
+    top: 30px; 
+    left: 0; 
+    bottom: 118px; 
+    right: 0; 
+    position: fixed;
+}
+
+/**
+ * Filter
+ */
+#header {
+    background: #EDEDE4;
+    color: #484646;
+    text-align: left;
+    width: 100%;
+}
+#mapButtons{
+    position: absolute;
+    right: 2%;
+    margin-top: 20%;
+    padding:10px 10px 5px 10px;
+    border-radius: 15px;
+    vertical-align:text-top;
+    z-index: 1000;
+    display: none;
+    text-align:center;
+}
+.rightMapButton {
+    margin-bottom: 5px;
+}
+#mustSeeButton {
+    display: block;
+}
+#filterSection {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    padding-top: 10px;
+    width: 100%;
+}
+#filterSection li {
+    margin-left: 10px;
+    padding: 5px;
+    text-align: left;
+}
+#filter {
+    background-color: #D4D4CC;
+    border: 1px solid #D4D4CC;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    z-index: 10000;
+}
+.filter {
+    border-radius: 10px;
+}
+div#fireFilterSection {
+    padding: 6px;
+    font-family: Quicksandbold;
+    font-size: 16pt;
+    cursor: pointer;
+}
+div#fireFilterSection img {
+    float: left;
+    margin-right: 5px;
+}
+div#filter li {
+    border-radius: 15px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    color: white;
+    font-family: Quicksandbold;
+    font-size: 14pt;
+}
+div#filter li label {
+    cursor: pointer;
+}
+
+/**
+ * Categorieen
+ */
+.cultuur {
+    background-color: #107FA1;
+}
+.historisch {
+    background-color: #D4003E;
+}
+.wifi {
+    background-color: #350F94;
+}
+.sport {
+    background-color: #A15810;
+}
+.horeca {
+    background-color: #00870F;
+}
+
+/**
+ * Admin page
+ */
+div#admin table {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    margin-top: 20px;
+}
+div#admin th {
+    background-color: #919395;
+    font-weight: bold;
+    color: white;
+    padding: 5px;
+}
+div#admin th:first-child {
+    border-radius: 10px 0 0 0;
+}
+div#admin th:last-child {
+    border-radius: 0 10px 0 0;
+}
+div#admin td {
+    padding-top: 5px;
+    padding-right: 30px;
+    padding-left: 5px;
+}
+
+
+@media screen and (max-width: 700px) {
+    div#download article {
+        float: none;
+        width: 100%;
+        margin-bottom: 30px;
+        clear: both;
+    }
+    div#download article span {
+        float: left;
+        margin-right: 10px;
+    }
+    div#download article span img {
+        vertical-align: top;
+    }
+    div#download article p {
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 550px) {  
+    /**
+     * Menu
+     */
+    nav {
+        width: 305px;
+    }
+    nav .home {
+        background: url('images/smartphone/menu/normal/Home.png') no-repeat;
+        width: 107px;
+        height: 41px;
+    }
+    nav .home.active {
+        background: url('images/smartphone/menu/normal/Home-orange.png') no-repeat;
+    }
+    nav .download {
+        background: url('images/smartphone/menu/scan.png') no-repeat;
+        width: 81px;
+        height: 67px;
+    }
+    nav .map {
+        background: url('images/smartphone/menu/normal/map.png') no-repeat;
+        width: 109px;
+        height: 41px;
+    }
+    nav .map.active {
+        background: url('images/smartphone/menu/normal/map-orange.png') no-repeat;
+    }    
+    
+    div#information, div#download {
+        margin: 20px auto 67px;
+    }
+    div#mapview {
+        bottom: 67px; 
+    }
+}
+
+@media screen and (max-width: 300px) {
+    /**
+     * Menu
+     */
+    nav {
+        width: 207px;
+    }
+    nav .home {
+        background: url('images/smartphone/menu/small/Home.png') no-repeat;
+        width: 59px;
+        height: 41px;
+    }
+    nav .home.active {
+        background: url('images/smartphone/menu/small/Home-orange.png') no-repeat;
+    }
+    nav .map {
+        background: url('images/smartphone/menu/small/map.png') no-repeat;
+        width: 59px;
+        height: 41px;
+    }
+    nav .map.active {
+        background: url('images/smartphone/menu/small/map-orange.png') no-repeat;
+    }
+    
+    h1 {
+        font-size: 18px;
+        margin: 25px auto 0;
+    }
+    div#information, div#download {
+        margin: 5px auto 67px;
+    }
+}

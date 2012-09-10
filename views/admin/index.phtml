@@ -1,0 +1,30 @@
+<div id="admin">
+    <h1>Admin page</h1>
+    
+    <table class="center">
+    <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Adres</th>
+        <th>Longitude</th>
+        <th>Latitude</th>
+        <th>Movie</th>
+        <th>Token</th>
+        <th></th>
+    </tr>
+    <?php
+    foreach($model as $building) {
+        echo '<tr>';
+        echo '<td>' . $building->getName() . '</td>';
+        echo '<td>' . $building->getCategory() . '</td>';
+        echo '<td>' . $building->getAdress() . '</td>';
+        echo '<td>' . $building->getLongitude() . '</td>';
+        echo '<td>' . $building->getLatitude() . '</td>';
+        echo '<td>' . $building->getMovie() . '</td>';
+        echo '<td>' . $building->getToken() . '</td>';
+        echo '<td><a href="Admin/Edit/' . $building->getId() . '">Edit</a> <a href="Admin/Delete/' . $building->getId() . '">Delete</a></td>';
+        echo '</tr>';
+    }
+    ?>
+    </table>  
+</div>

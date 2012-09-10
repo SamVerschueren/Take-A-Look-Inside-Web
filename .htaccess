@@ -1,0 +1,14 @@
+#
+# HiStranger .htaccess
+#
+# Sam Verschueren
+# Matts Devriendt
+#
+
+AddType application/x-httpd-php .php .phtml
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*) index.php

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    
+    <meta name="viewport" content="width=device-width, maximum-scale=1.5" />
+  
+    <title><?php echo $viewData['title']; ?></title>
+
+    <base href="http://localhost/tali/" />
+    
+    <meta name="description" content="It's an experience inside beautiful buildings in Ghent." />
+    <meta name="keywords" content="Ghent, Take A Look Inside, Tourists, code9000, iRail" />
+    <meta name="author" content="Sam Verschueren, Lieven Benoot, Nicolas Dierck">
+
+    <script type="text/javascript" src="content/scripts/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="content/scripts/OpenLayers.js"></script>
+    <script type="text/javascript" src="content/scripts/custom/map.js"></script>
+    
+    <link href="content/reset.css" rel="stylesheet" type="text/css" />
+    <link href="content/site.css" rel="stylesheet" type="text/css" />
+    <link href="content/font.css" rel="stylesheet" type="text/css" />
+    <link href="content/openLayers.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div id="page">
+    <div id="main" class="center">
+        <?php renderBody(); ?>
+    </div>
+    
+    <footer>
+        <nav>
+            <a href="Home" class="home <?php echo $viewData['menu']=='home'?'active':''; ?>"><img src="content/images/px.gif" alt="Home" /></a>
+            <a href="Download" class="download <?php echo $viewData['menu']=='download'?'active':''; ?>"><img src="content/images/px.gif" alt="Download" /></a>
+            <a href="Map" class="map <?php echo $viewData['menu']=='map'?'active':''; ?>"><img src="content/images/px.gif" alt="Map" /></a>   
+        </nav>
+    </footer>
+</div>
+
+</body>
+</html>
