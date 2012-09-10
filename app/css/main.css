@@ -1,0 +1,751 @@
+@font-face {
+    font-family: "Quicksandbook";
+    src: url("Quicksand_Book.otf") format("opentype");
+}
+
+@font-face {
+	font-family: "Quicksandbold";
+    src: url("Quicksand_Bold.ttf") format("truetype");
+}
+
+/*reset*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	text-shadow: none;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*---------*/
+
+
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+li.button {
+	background-color: #D4D4cc;
+	font-family:"quicksandbold";
+	font-size:16px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    height: 45px;
+}
+
+
+
+li.button:hover {
+    background-color: #EF9722;
+}
+.icon {
+    display: inline-block; 
+}
+.icon span {
+    position:relative; 
+    top: 88%;
+    color: #EF9823;
+}
+.smallIcon {
+    display: inline-block;
+}
+.smallIcon span {
+    position:relative; 
+    top: 100%;
+    color: #EF9823;
+}
+span.category {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('../img/slot-xsmall.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 8px;
+    margin-right: 10px;
+    float: left;
+}
+span.star {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    background-image: url('../img/mustsee-star.png');
+    background-repeat: no-repeat;
+    background-position: center right;
+    float: right;
+    text-align: center;
+    font-size: 14px;
+}
+div.middleDiv {
+    float: left;
+}
+span.adresSpan {
+    display: inline-block;
+    color: #888;
+    font-size: 14px;
+    margin-top: 5px;
+}
+#map {
+    height: 90%;
+}
+#mapButtons{
+    position: absolute;
+    right: 2%;
+    margin-top: 20%;
+    padding:10px 10px 5px 10px;
+    border-radius: 15px;
+    vertical-align:text-top;
+    z-index: 1000;
+    display:none;
+    text-align:center;
+   
+}
+.rightMapButton {
+    margin-bottom: 5px;
+}
+#mustSeeButton{
+    display:block;
+}
+#filterSection {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    padding-top: 10px;
+    width: 100%;
+}
+#filterSection li {
+    margin-left: 10px;
+    padding: 5px;
+}
+#header {
+    position: absolute;
+    z-index: 2000;
+    background: #EDEDE4;
+    color: #484646;
+    width: 100%;
+}
+#filter {
+    background-color: #D4D4CC;
+    border: 1px solid #D4D4CC;
+}
+.filter {
+    border-radius: 10px;
+}
+#menu {
+    background: #EDEDE4;
+}
+#menu div {
+    float: left;
+}
+div#fireFilterSection {
+    margin: 5px;
+    font-family: Quicksandbold;
+    font-size: 16pt;
+}
+div#filter li {
+    border-radius: 15px;
+    margin-bottom: 10px;
+    color: white;
+    font-family: Quicksandbold;
+    font-size: 14pt;
+}
+/**
+ * Categoriën
+ */
+.cultuur {
+    background-color: #107FA1;
+}
+.historisch {
+    background-color: #D4003E;
+}
+.wifi {
+    background-color: #350F94;
+}
+.sport {
+    background-color: #A15810;
+}
+.horeca {
+    background-color: #00870F;
+}
+
+/**
+ * Overlay
+ */
+div#information {
+    position:relative;
+	margin: 40px auto 0;
+    width: 80%;
+    z-index: 100;
+    border-radius: 10px;
+    color: #474646;
+    font-family: Quicksandbook;
+    font-size: 14px;
+    line-height: 17px;
+	text-align:center;
+	padding-bottom:64px;
+	background-image:url(../img/skylinelicht.png);
+	background-repeat:repeat-x;
+	background-color:#EBECE3;
+	background-position:bottom;
+}
+
+#logo {
+	padding-top:18px;
+}
+
+#experience {
+	font-family: "quicksandbook";
+	font-size: 21px;
+	line-height: 1.2;
+	width: 80%;
+	margin: 15px auto 0;
+	color:#EF9722;
+}
+
+#how {
+	font-family:"quicksandbold";
+	font-size: 14px;
+	margin-top: 15px;
+}
+
+#uitleg {
+	width: 80%;
+	margin: 11px auto 0;
+}
+
+.center {
+    text-align: center;
+}
+span#closeInformation {
+    position: absolute;
+    right: 5px;
+    clear: both;
+    padding: 5px 7px 5px 7px;
+    color: white;
+}
+
+#triangle {
+	z-index: 100;
+	position:relative;
+	text-align:center;
+	margin-top:-2px;
+}
+
+/**
+ * Carrousel
+ */
+div#carrouselWrapper {
+    overflow: hidden;
+}
+div#carrousel {
+    height: 100%;
+    width: 99999px;
+    overflow: hidden;
+}
+.page {
+    position: relative;
+    float: left;
+}
+.page h1 {
+    text-align: center;
+    color: #EF9823;
+    font-family:"quicksandbook";
+	font-size:25px;
+	text-transform:uppercase;
+	margin-top:25px;
+	margin-bottom: 10px;
+}
+.page ol{
+    width: 90%;
+    margin-left: auto;
+	
+    margin-right: auto;
+}
+
+ul {
+	width:90%;
+}
+
+.page ul {
+    list-style-type: none;
+    padding: 0px;
+	margin-left: 5%;
+}
+
+.page ul li {
+    float: left;
+    width: 100%;
+}
+
+ul li.button {
+	height:17px;
+}
+
+/**
+ * Checkbox
+ */
+.checkBox
+{
+    background-position: 0px 0px;
+}
+
+.checkBoxClear
+{
+    background-position: -21px 0px;
+}
+
+.checkBox, .checkBoxClear
+{
+    background-image: url('../img/checkbox.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+    float: left;
+    width: 21px;
+    height: 21px;
+    padding: 0px;
+    margin: 0px;
+    cursor: hand;
+}
+
+/**
+ * JQuery styling
+ */
+.ui-page {
+    background: #EDEDE4;
+}
+.ui-content {
+    /* Clearing the margin and padding of jQuery Mobile */
+    margin: 0px;
+    padding: 0px;
+    font-family: Quicksand;
+}
+/**
+ * OpenLayers styling
+ */
+.olPopup {
+    background-color: #EBECE3;
+    border-radius: 0px 10px 10px 10px;
+
+    text-shadow: none;
+    color: white;
+    width: 200px;
+    overflow: scroll;
+}
+span.moreInfo {
+    display: block;
+    text-align: right;
+    padding-top: 10px;
+    color: #EF9722;
+}
+.olPopupCloseBox{
+    background-color: green;
+    background: url('../img/close.png') no-repeat center;  
+    margin: 5px;
+}
+.olPopup h1 {
+    font-size: 16px;
+    margin-top: 0px;
+    padding: 5px 10px 5px 10px;
+    width: 100%;
+    border-top-right-radius: 14px;
+    font-weight: bold;
+}
+.olPopup p.description {
+    font-size: 12px;
+    padding: 5px 10px 0px 10px;
+    line-height: 14px;
+	color:#474646;
+}
+.olPopup p.adres {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    padding: 5px 10px 5px 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 15px;
+    font-size: 10px;
+}
+div.olControlZoom {
+    position: absolute;
+    top: 40px;
+    left: 8px;
+    background: #DCDCD4; /*rgba(255,255,255,0.4);*/
+    border-radius: 4px;
+    padding:2px;
+}
+*{
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+div.olControlZoom a {
+    display:block;
+    color:#FFF;
+    font-size:28px;
+    font-family:sans-serif;
+    font-weight:700;
+    text-decoration:none;
+    text-align:center;
+    height:32px;
+    width:32px;
+    line-height:28px;
+    background:#8E9092;
+    filter:alpha(opacity=80);
+    margin:1px;
+    padding:0;
+}
+a.olControlZoomIn {
+    border-radius:4px 4px 0 0;
+}
+a.olControlZoomOut {
+    border-radius:0 0 4px 4px;
+}
+div.olControlZoom a:hover {
+    background:#474646;
+    filter:alpha(opacity=100);
+}
+/**
+ * Tablet standard version
+ */
+header {
+    background: url('../img/tablet/ipad-logo.png') no-repeat center;
+    height: 149px;
+    padding-top: 20px;
+}
+.icon {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+}
+.smallIcon {
+    width: 100px;
+    height: 75px;  
+    font-size: 11px;
+    display: inline-block;
+    text-align: center;
+}
+#mustSee.icon {
+    background: url('../img/tablet/ipad-mustsee-icon.png') no-repeat center;
+}
+#favorites.icon {
+    background: url('../img/tablet/ipad-Fav-icon.png') no-repeat center;
+}
+#lookLater.icon {
+    background: url('../img/tablet/ipad-LookLater-icon.png') no-repeat center; 
+}
+#seen.icon {
+    background: url('../img/tablet/ipad-seen-icon.png') no-repeat center; 
+}
+#mustSee.smallIcon {
+    background: url('../img/smartphone/mustsee-icon.png') no-repeat center;
+}
+#mustSee.active {
+    background: url('../img/tablet/mustsee-orange.png') no-repeat center;    
+}
+#favorites.smallIcon {
+    background: url('../img/smartphone/fav-icon.png') no-repeat center;
+}
+#favorites.active {
+    background: url('../img/tablet/Fav-orange.png') no-repeat center;    
+}
+#lookLater.smallIcon {
+    background: url('../img/smartphone/lookLater-icon.png') no-repeat center; 
+}
+#lookLater.active {
+    background: url('../img/tablet/Looklater-orange.png') no-repeat center;    
+}
+#seen.smallIcon {
+    background: url('../img/smartphone/Seen-icon.png') no-repeat center; 
+}
+#seen.active {
+    background: url('../img/tablet/Seen-orange.png') no-repeat center; 
+}
+#questionMark {
+    background: url('../img/About.png') no-repeat center; 
+ 	float:right;
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 21px;
+    height: 21px;
+}
+
+#creditsicon {
+	margin-top: 10px;
+	margin-right:20px;
+	float:right;
+	width: 21px;
+    height: 21px;
+}
+
+.buttonRow {
+	margin-top:40px;
+}
+
+.titel {
+	font-family: "quicksandbook";
+	font-size:25px;
+	margin-top:10px;
+}
+
+h3 {
+	float:left;
+	width:70px;
+	}
+
+#legendarrow {
+	width:20px;
+}
+
+.rotate {
+	transform:rotate(90deg);
+	-ms-transform:rotate(90deg); /* IE 9 */
+	-moz-transform:rotate(90deg); /* Firefox */
+	-webkit-transform:rotate(90deg); /* Safari and Chrome */
+	-o-transform:rotate(90deg); /* Opera */
+} 
+
+/**
+ * Menu
+ */
+#menu .home {
+    display: inline-block;
+    background: url('../img/tablet/menu/Home.png') no-repeat;
+    width: 191px;
+    height: 72px;
+    margin-bottom: 6px;
+}
+#menu .home.active {
+    background: url('../img/tablet/menu/Home-orange.png') no-repeat;
+}
+#menu .scan {
+    display: inline-block;
+    background: url('../img/tablet/menu/scan.png') no-repeat;
+    width: 144px;
+    height: 118px;
+    vertical-align: bottom;
+}
+#menu .map {
+    display: inline-block;
+    background: url('../img/tablet/menu/map.png') no-repeat;
+    width: 192px;
+    height: 72px;
+}
+#menu .map.active {
+    background: url('../img/tablet/menu/map-orange.png') no-repeat;
+}
+
+@media screen and (max-width: 550px) { 
+	    
+    /**
+     * Menu
+     */
+    #menu .home {
+        background: url('../img/smartphone/menu/normal/Home.png') no-repeat;
+        width: 107px;
+        height: 41px;
+    }
+    #menu .home.active {
+        background: url('../img/smartphone/menu/normal/Home-orange.png') no-repeat;
+    }
+    #menu .scan {
+        background: url('../img/smartphone/menu/scan.png') no-repeat;
+        width: 81px;
+        height: 67px;
+    }
+    #menu .map {
+        background: url('../img/smartphone/menu/normal/map.png') no-repeat;
+        width: 109px;
+        height: 41px;
+    }
+    #menu .map.active {
+        background: url('../img/smartphone/menu/normal/map-orange.png') no-repeat;
+    }
+}
+	
+
+/**
+ * Smartphone
+ */
+@media screen and (max-width: 450px) {
+	
+    header {
+        background: url('../img/smartphone/logo.png') no-repeat center;
+        height: 93px;
+        padding-top: 20px;
+    }
+    .icon {
+        width: 120px;
+        height: 120px;  
+        font-size: 11px;
+    }
+    .smallIcon {
+        width: 60px;
+        height: 60px;
+        display: inline-block;
+        font-size: 8px;
+        text-align: center;
+    }
+    #mustSee.icon {
+        background: url('../img/smartphone/mustsee-icon.png') no-repeat center;
+    }
+    #favorites.icon {
+        background: url('../img/smartphone/fav-icon.png') no-repeat center;
+    }
+    #lookLater.icon {
+        background: url('../img/smartphone/lookLater-icon.png') no-repeat center; 
+    }
+    #seen.icon {
+        background: url('../img/smartphone/Seen-icon.png') no-repeat center; 
+    }
+    #mustSee.smallIcon {
+        background: url('../img/smartphone/small-must-icon.png') no-repeat center;
+    }
+    #mustSee.active {
+        background: url('../img/smartphone/small-orange-must-icon.png') no-repeat center;
+    }
+    #favorites.smallIcon {
+        background: url('../img/smartphone/small-fav-icon.png') no-repeat center;
+    }
+    #favorites.active {
+        background: url('../img/smartphone/small-orange-fav-icon.png') no-repeat center;
+    }
+    #lookLater.smallIcon {
+        background: url('../img/smartphone/small-LookLater-icon.png') no-repeat center; 
+    }
+    #lookLater.active {
+        background: url('../img/smartphone/small-orange-LookLater-icon.png') no-repeat center; 
+    }
+    #seen.smallIcon {
+        background: url('../img/smartphone/small-seen-icon.png') no-repeat center; 
+    }
+    #seen.active {
+        background: url('../img/smartphone/small-orange-seen-icon.png') no-repeat center; 
+    }
+	
+	/*-----Menu------*/
+
+    .titel {
+    	font-size:14px;
+    	font-family:"quicksandbold";
+    }
+      
+    .page ul {
+    	margin-left: 3%;
+    }
+}
+
+@media screen and (max-width: 300px) {
+	
+    /**
+     * Menu
+     */
+    #menu .home {
+        background: url('../img/smartphone/menu/small/Home.png') no-repeat;
+        width: 59px;
+        height: 41px;
+    }
+    #menu .home.active {
+        background: url('../img/smartphone/menu/small/Home-orange.png') no-repeat;
+    }
+    #menu .map {
+        background: url('../img/smartphone/menu/small/map.png') no-repeat;
+        width: 59px;
+        height: 41px;
+    }
+    #menu .map.active {
+        background: url('../img/smartphone/menu/small/map-orange.png') no-repeat;
+    }
+	
+    /**
+     * Overlay
+     */
+    div#information {
+        
+    	margin: 18px auto 0;
+        width: 100%;
+        line-height: 17px;
+    	text-align:center;
+    }
+    
+    #logo {
+    	padding-top:18px;
+    }
+    
+    #experience {
+    	font-size: 18px;
+    	line-height: 1.2;
+    	width: 220px;
+    	margin: 25 auto 0;
+    	color:#EF9722;
+    }
+    
+    h6 {
+    	font-family:"quicksandbold";
+    	font-size: 14px;
+    	margin-top: 30px;
+    }
+    
+    #uitleg {
+    	width: 220px;
+    	margin: 11 auto 0;
+    }
+    
+    #skyline {
+    	width:240px;
+    }
+    	
+    
+    
+    .center {
+        text-align: center;
+    }
+    span#closeInformation {
+        position: absolute;
+        right: 5px;
+        clear: both;
+        padding: 5px 7px 5px 7px;
+        color: white;
+    	width: 25px;
+    }
+    
+    /*-----Menu------*/
+
+}
