@@ -3,15 +3,18 @@ require_once('system/web/mvc/JsonRequestBehaviour.php');
 require_once('system/web/mvc/Controller.php');
 
 require_once('models/DAL/BuildingMapper.php');
+require_once('models/DAL/DeviceMapper.php');
 
 class BuildingController extends Controller {
 
     private $buildingMapper;
+    private $deviceMapper;
 
     public function __construct() {
         parent::__construct();
         
         $this->buildingMapper = new BuildingMapper();
+        $this->deviceMapper = new DeviceMapper();
     }
     
     public function index($id=null, $token=null) {
@@ -76,12 +79,25 @@ class BuildingController extends Controller {
     }
     
     public function favorite() {
-        if($_SERVER['REQUEST_METHOD'] == 'post') {
-            if($_POST['method'] == 'like') {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            try {
+                $device = $this->deviceMapper->findByDeviceId($_POST['device']);
+                $building = $this->buildingMapper->findByUniqueId($_POST['id']);
+ 
+                $method = $_POST['method'];
                 
+                if($method == 'like') {
+                    $device->addMustSee($building);
+                }
+                else {
+                    $device->removeMustSee($building);
+                }
+                
+                $this->deviceMapper->update($device);
             }
-            else {
-                
+            catch(SQLException $ex) {
+                // Failed to retreive the device or the building
+                echo $ex->getMessage();
             }
         }
         

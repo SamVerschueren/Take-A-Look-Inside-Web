@@ -12,7 +12,7 @@ var server = 'http://localhost';
 
 /*
  * TODO: map -> liken/unliken (php)
- *       map -> route berekenen
+ *       map -> route berekenen (zou moeten werken, gosmore werkt momenteel niet)
  * 
  * Remove deviceUUID hieronder
  */

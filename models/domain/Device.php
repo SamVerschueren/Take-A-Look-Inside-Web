@@ -29,6 +29,14 @@ class Device {
         $this->mustSees[] = $building;
     }
     
+    public function removeMustSee(Building $building) {
+        foreach($this->mustSees as $key => $value) {
+            if($value->getId() == $building->getId()) {
+                unset($this->mustSees[$key]);   
+            }
+        }
+    }
+    
     public function getMustSees() {
         return $this->mustSees;
     }

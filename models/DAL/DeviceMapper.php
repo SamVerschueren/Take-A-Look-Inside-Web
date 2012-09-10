@@ -134,5 +134,31 @@ class DeviceMapper extends Mapper {
         
         return $device;
     }
+    
+    /**
+     * Update the given object in the data store.
+     * 
+     * @param   object      The object that should be updated.
+     * @throws  exception   UnsupportedOperationException if method is not overriden
+     */
+    public function update($object) {
+        if(!($object instanceof Device)) {
+            throw new ClassCastException("Could not cast this class to Device.");
+        }
+        
+        mysql_query("DELETE FROM must_sees WHERE deviceID='" . mysql_real_escape_string($object->getId()) . "'");
+        
+        $string = '';
+        
+        foreach($object->getMustSees() as $building) {
+            $string .= '(' . mysql_real_escape_string($building->getId()) .  ', ' . mysql_real_escape_string($object->getId()) . '),';
+        }
+        
+        if($string != '') {
+            $string = trim($string, ',');
+            
+            mysql_query("INSERT INTO must_sees(buildingID, deviceID) VALUES " . $string);
+        }
+    }
 }
 ?>

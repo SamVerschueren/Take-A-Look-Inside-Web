@@ -385,13 +385,11 @@ function mustSeeClick(){
         //if not in favorites --> like
         method=(buildingList[building.id]==null)?'like':'unlike'; 
         
-        alert(method);
-        
         //post method to webserice, this is stored in database to be able to count the # of must sees and give a top must see
         //list on the home screen
         $.post(server+'/Building/Favorite', {id: building.id, method: method, device: deviceUUID}, function(data) {
-            alert(data);
-            // TODO
+            //update homescreen favorites
+            initHomeContent(true);    
         });
         
         //like --> add it to favorites in localstorage
@@ -412,9 +410,7 @@ function mustSeeClick(){
         //update homescreen favorites
         fillCategory('favorites');
         //update icon of the selected building
-        updateIcon(data.building[0].buildingID,data.building[0].catName);
-        //update homescreen favorites
-        initHomeContent(true);
+        updateIcon(buildingData.id,buildingData.category.name);
     })     
 }
 
