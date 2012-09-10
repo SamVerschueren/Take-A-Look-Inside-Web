@@ -23,15 +23,24 @@ $("div#map").live('pagebeforeshow', function() {
         $.getJSON(server+'/Category', function(categories){
             $.each(categories, function (key, category) {
                 var checkbox = $("<input />").attr({type: 'checkbox', id: 'filter' + category.id, checked: 'checked'});
-                $(checkbox).change(filterClick);
-                
+                $(checkbox).change(filterClick);             
                 var label = $("<label />").attr('for', 'filter' + category.id).html(category.name);
-                var li = $("<li />").attr('class', category.name.toLowerCase()).append(checkbox).append(' ').append(label); 
+                var li = $("<li />").attr('class', category.name.toLowerCase()).append(checkbox).append(' ').append(label);
+                //Make whole label clickable
+                $(li).click(function(evt) {
+                    //find the checkbox
+                    var c=$(this).find('input:first');
+                    //change checked state
+                    c.attr('checked',!c.is(':checked'));
+                    //call the filterclick method
+                    c.trigger('change');                    
+                });                
                 $('ul#filterSection').append(li);  
             });
         });
     }              
 });    
+
 
 /**
  * Event that is fired each time the map div is being shown.
