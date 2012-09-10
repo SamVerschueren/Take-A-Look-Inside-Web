@@ -13,5 +13,11 @@ class MapController extends Controller {
         
         return $this->view();
     }
+    
+    public function route($myLat, $myLon, $destLat, $destLon) {
+        
+        
+        exit();
+    }
 }
 ?>
