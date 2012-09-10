@@ -39,7 +39,7 @@ function loadFilter() {
             $(checkbox).change(filterClick);
             
             var label = $("<label />").attr('for', 'filter' + category.id).html(category.name);
-            var li = $("<li />").attr('class', category.name.toLowerCase()).append(checkbox).append(' ').append(label); 
+            var li = $("<li />").attr('class',category.name.toLowerCase()).append(checkbox).append(' ').append(label); 
             //Make whole label clickable
             $(li).click(function(evt) {
                 //find the checkbox
