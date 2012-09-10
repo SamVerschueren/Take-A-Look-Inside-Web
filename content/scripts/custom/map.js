@@ -6,7 +6,7 @@ var activePopup;
 var iconSize = new OpenLayers.Size(25,41);
 var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
-var server = "http://localhost/";
+var server = "http://localhost";
 
 $(function() {
     if($("div#map").length > 0) {
@@ -90,7 +90,7 @@ var filterClick = function(evt) {
  * Clears mapDirect afterwards
  */
 function showMapDirectPopup(){    
-    if(mapDirect === undefined || markerFeatures[mapDirect] === 'undefined') {
+    if(typeof mapDirect == 'undefined' || typeof markerFeatures[mapDirect] == 'undefined') {
         map.setCenter(lonlat);  
     }
     else {
@@ -296,7 +296,7 @@ function fillPopup(feature) {
  * to determine which building that is 'active'.
  */
 function showPopup(popup){
-    if(activePopup === undefined) {
+    if(typeof activePopup == 'undefined') {
         popup.show();
     }
     else {
@@ -312,7 +312,7 @@ function showPopup(popup){
     
     map.panTo(popup.lonlat);
     
-    if(activePopup === undefined || !activePopup.visible()) {
+    if(typeof activePopup == 'undefined' || !activePopup.visible()) {
         $('div#mapButtons').hide();
     }
     else {

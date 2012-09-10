@@ -40,7 +40,7 @@ class ViewResult extends ViewResultBase {
         
         $folderName = str_replace('controller', '', $controllerName);
         
-        $file = $this->getViewName() . '.phtml';
+        $file = strtolower($this->getViewName()) . '.phtml';
         
         if(file_exists('views/' . $folderName . '/' . $file)) {
             return 'views/' . $folderName . '/' . $file;
