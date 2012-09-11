@@ -27,6 +27,31 @@ class BuildingMapper extends Mapper {
     }
     
     /**
+     * Create the given object in a persistent data store.
+     * 
+     * @param   object      The object that should be created in the database.
+     * @throws  exception   InvalidArgumentException if parameter is not an object.
+     */
+    public function create($object) {
+        if(!($object instanceof Building)) {
+            throw new ClassCastException('Could not cast the object to Building');
+        }
+
+        $movie = $object->getMovie();
+
+        $name = mysql_real_escape_string($object->getName());
+        $description = mysql_real_escape_string($object->getDescription());
+        $infoLink = mysql_real_escape_string($object->getInfoLink());
+        $category = mysql_real_escape_string($object->getCategory()->getId());
+        $movieId = isset($movie)?mysql_real_escape_string($movie->getId()):null;
+        $adress = mysql_real_escape_string($object->getLocation()->getAdress());
+        $longitude = mysql_real_escape_string($object->getLocation()->getLongitude());
+        $latitude = mysql_real_escape_string($object->getLocation()->getLatitude());
+        
+        mysql_query("INSERT INTO building(name, infoLink, description, " . (isset($movie)?"movieID,":"") . " longitude, latitude, categoryID, adres) VALUES('" . $name .  "', '" . $infoLink .  "', '" . $description .  "', " . (isset($movie)?"'" . $movieId . "',":"") . " '" . $longitude .  "', '" . $latitude .  "', '" . $category .  "', '" . $adress .  "')");
+     }
+    
+    /**
      * Returns a Collection of all objects for the given mapper.
      * 
      * @return  objects     Array of all the objects.
@@ -134,7 +159,7 @@ class BuildingMapper extends Mapper {
         $longitude = mysql_real_escape_string($object->getLocation()->getLongitude());
         $latitude = mysql_real_escape_string($object->getLocation()->getLatitude());
         
-        mysql_query("UPDATE building SET name='" . $name . "', description='" . $description . "', infoLink='" . $infoLink . "', categoryID='" . $category . "', " . (isset($movie)?"movieID='" . $movieId . "',":"") . " adres='" . $adress . "', longitude='" . $longitude . "', latitude='" . $latitude . "' WHERE id='" . $id . "'");
+        mysql_query("UPDATE building SET name='" . $name . "', description='" . $description . "', infoLink='" . $infoLink . "', categoryID='" . $category . "', movieID=" . (isset($movie)?"'" . $movieId . "'":"NULL") . ", adres='" . $adress . "', longitude='" . $longitude . "', latitude='" . $latitude . "' WHERE id='" . $id . "'") or die(mysql_error());
     }
 
     private function createBuilding(array $data) {
