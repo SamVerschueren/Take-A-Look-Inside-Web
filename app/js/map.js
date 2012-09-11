@@ -445,11 +445,12 @@ function routeToClick(){
         routeDrawnToLocation=-1;
     }
     else $.getJSON(server+'/Building?id=' + activePopup.id, function(building) {  
-        routeTo(building.location.longitude, building.location.latitude,building.id);        
-        wpid = navigator.geolocation.watchPosition(function(){
-            geo_success(building.location.longitude,building.location.latitude,building.id);
-        }, geo_error, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
-       
+        routeTo(building.location.longitude, building.location.latitude,building.id);      
+        updateRouteDraw=false;  
+        if(navigator.geolocation)
+            wpid = navigator.geolocation.watchPosition(function(){
+                geo_success(building.location.longitude,building.location.latitude,building.id);
+            }, geo_error, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});       
         closePopup();
     });
 }
@@ -458,8 +459,9 @@ function geo_success(buildinglon,buildinglat,buildingid){
     navigator.geolocation.getCurrentPosition(function(position) {
         alert('updated geoloc & redraw routing');
         myLon=position.coords.longitude;
-        myLat=position.coords.latitude;       
-        routeTo(buildinglon,buildinglat,buildingid);
+        myLat=position.coords.latitude;  
+        if(updateRouteDraw)     
+            routeTo(buildinglon,buildinglat,buildingid);
     });
          
 }
@@ -517,7 +519,8 @@ function routeTo (lon,lat,locationID) {
                 
                 myRouteVector.style=routeStyle;
                 myRouteVector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);
-                routeDrawnToLocation=locationID;          
+                routeDrawnToLocation=locationID;     
+                updateRouteDraw=true;     
             }
          });
     });
