@@ -4,6 +4,7 @@ var myLon;
 var buildingLayer;
 var markerFeatures;
 var activePopup;
+var routeDrawnToLocation=-1;
 var iconSize = new OpenLayers.Size(25,41);
 var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
@@ -18,7 +19,7 @@ $("div#map").live('pagebeforeshow', function() {
         localStorage['favorites']=  JSON.stringify(new Array());
     if(mapLoaded){ 
         if(typeof myRouteVector!='undefined')
-            myRouteVector.destroyFeatures();
+            myRouteVector.destroyFeatures();            
     }else{
         $.getJSON(server+'/Category', function(categories){
             $.each(categories, function (key, category) {
@@ -351,7 +352,7 @@ function fillPopup(feature) {
         popup.autoSize=true;
         popup.setBackgroundColor('#EBECE3');
         feature.popup=popup; 
-        var linkHTML=building.infoLink!=null?'<p class="moreInfo"> More info: <a href="' +building.infoLink +'"><img class="linkButton" src="img/legend-arrow.png"/></a></p>':'';
+        var linkHTML=(building.infoLink!=null && building.infoLink!='')?'<p class="moreInfo"> More info: <a href="' +building.infoLink +'"><img class="linkButton" src="img/legend-arrow.png"/></a></p>':'';
         
         feature.popup.contentHTML='<h1 class="' + building.category.name + '">' + building.name + 
         '</h1><p class="description">' + building.description 
@@ -436,10 +437,40 @@ function updateIcon(buildingID,category) {
  * the routeTo method. 
  */
 function routeToClick(){
-    $.getJSON(server+'/Building?id=' + activePopup.id, function(building) {  
-        routeTo(building.location.longitude, building.location.latitude);
+    if(typeof wpid!='undefined')
+        navigator.geolocation.clearWatch(wpid);
+    console.log(routeDrawnToLocation);
+    if(routeDrawnToLocation==activePopup.id){
+        myRouteVector.destroyFeatures();
+        routeDrawnToLocation=-1;
+    }
+    else $.getJSON(server+'/Building?id=' + activePopup.id, function(building) {  
+        routeTo(building.location.longitude, building.location.latitude,building.id);      
+        updateRouteDraw=false;  
+        if(navigator.geolocation)
+            wpid = navigator.geolocation.watchPosition(function(){
+                geo_success(building.location.longitude,building.location.latitude,building.id);
+            }, geo_error, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});       
         closePopup();
     });
+}
+
+function geo_success(buildinglon,buildinglat,buildingid){
+    navigator.geolocation.getCurrentPosition(function(position) {
+        alert('updated geoloc & redraw routing');
+        myLon=position.coords.longitude;
+        myLat=position.coords.latitude;  
+        if(updateRouteDraw)     
+        {
+            routeTo(buildinglon,buildinglat,buildingid);
+            lonlat = new OpenLayers.LonLat(myLon, myLat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+            map.setCenter(lonlat);
+        }
+    });
+         
+}
+function geo_error(){    
+    navigator.geolocation.clearWacth(wpid);    
 }
 
 /**
@@ -460,7 +491,7 @@ function closePopup(){
  * @param       lon     longitue of the destination
  * @param       lat     latitude of the destination
  */
-function routeTo (lon,lat) {
+function routeTo (lon,lat,locationID) {
     //get route JSON
       var url = server+'/Map/Route?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+myLat+'&'+
@@ -491,7 +522,9 @@ function routeTo (lon,lat) {
                 previouslatpos=latlonpos[1];
                 
                 myRouteVector.style=routeStyle;
-                myRouteVector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);     
+                myRouteVector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);
+                routeDrawnToLocation=locationID;     
+                updateRouteDraw=true;     
             }
          });
     });
