@@ -456,6 +456,7 @@ function routeToClick(){
 
 function geo_success(buildinglon,buildinglat,buildingid){
     navigator.geolocation.getCurrentPosition(function(position) {
+        alert('updated geoloc & redraw routing');
         myLon=position.coords.longitude;
         myLat=position.coords.latitude;       
         routeTo(buildinglon,buildinglat,buildingid);
