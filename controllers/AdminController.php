@@ -56,40 +56,56 @@ class AdminController extends Controller {
     }
     
     public function edit($id, $name, $category, $infolink, $adress, $longitude, $latitude, $movie, $description, $action) {
-        try {
-            $building = $this->buildingMapper->findByUniqueId($id);
-        }
-        catch(SQLException $ex) {
-            echo $ex->getMessage();
-            exit();
-        }
-        
-        
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             if($action == 'Save') {
-                $building = $this->buildingMapper->findByUniqueId($id);
-                $building->setName($name);
-                $building->setCategory($this->categoryMapper->findByUniqueId($category));
-                $building->setInfoLink($infolink);
-                $building->setLocation(new Location($longitude, $latitude, $adress));
-                $building->setMovie($this->movieMapper->findByUniqueId($movie));
-                $building->setDescription($description);
+                $location = new Location($longitude, $latitude, $adress);
+                $category = $this->categoryMapper->findByUniqueId($category);
                 
-                $this->buildingMapper->update($building);
+                try {
+                    $movie = $this->movieMapper->findByUniqueId($movie);
+                }
+                catch(SQLException $ex) {
+                    $movie = null;
+                }
+                
+                try {
+                    $building = $this->buildingMapper->findByUniqueId($id);
+                    $building->setName($name);
+                    $building->setCategory($category);
+                    $building->setInfoLink($infolink);
+                    $building->setLocation($location);
+                    $building->setMovie($movie);
+                    $building->setDescription($description);
+                    
+                    $this->buildingMapper->update($building);
+                }
+                catch(SQLException $ex) {
+                    $building = new Building($name, $description, $infolink, 0, $location, $category, $movie);
+                    
+                    $this->buildingMapper->create($building);
+                }
             }
             
             return $this->redirectToAction('Index');    
         }
         else {
             $editViewModel = new EditViewModel();
-            $editViewModel->setBuildingViewModel(new BuildingViewModel($building));
- 
+            
             foreach($this->categoryMapper->findAllObjects() as $category) {
                 $editViewModel->addCategoryViewModel(new CategoryViewModel($category));
             }
             
             foreach($this->movieMapper->findAllObjects() as $movie) {
                 $editViewModel->addMovieViewModel(new MovieViewModel($movie));
+            }
+            
+            try {
+                $building = $this->buildingMapper->findByUniqueId($id);
+                
+                $editViewModel->setBuildingViewModel(new BuildingViewModel($building));
+            }
+            catch(SQLException $ex) {
+
             }
  
             return $this->view($editViewModel);            

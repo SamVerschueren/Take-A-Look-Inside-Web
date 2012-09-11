@@ -122,17 +122,19 @@ class BuildingMapper extends Mapper {
             throw new ClassCastException('Could not cast the object to Building');
         }
         
+        $movie = $object->getMovie();
+        
         $id = mysql_real_escape_string($object->getId());
         $name = mysql_real_escape_string($object->getName());
         $description = mysql_real_escape_string($object->getDescription());
         $infoLink = mysql_real_escape_string($object->getInfoLink());
         $category = mysql_real_escape_string($object->getCategory()->getId());
-        $movie = mysql_real_escape_string($object->getMovie()->getId());
+        $movieId = isset($movie)?mysql_real_escape_string($movie->getId()):null;
         $adress = mysql_real_escape_string($object->getLocation()->getAdress());
         $longitude = mysql_real_escape_string($object->getLocation()->getLongitude());
         $latitude = mysql_real_escape_string($object->getLocation()->getLatitude());
         
-        mysql_query("UPDATE building SET name='" . $name . "', description='" . $description . "', infoLink='" . $infoLink . "', categoryID='" . $category . "', movieID='" . $movie . "', adres='" . $adress . "', longitude='" . $longitude . "', latitude='" . $latitude . "' WHERE id='" . $id . "'");
+        mysql_query("UPDATE building SET name='" . $name . "', description='" . $description . "', infoLink='" . $infoLink . "', categoryID='" . $category . "', " . (isset($movie)?"movieID='" . $movieId . "',":"") . " adres='" . $adress . "', longitude='" . $longitude . "', latitude='" . $latitude . "' WHERE id='" . $id . "'");
     }
 
     private function createBuilding(array $data) {

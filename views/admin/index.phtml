@@ -1,6 +1,6 @@
-<div id="admin">
+<div id="admin" class="page">
     <h1>Admin page</h1>
-    
+   
     <table class="center">
     <tr>
         <th>Name</th>
@@ -14,8 +14,14 @@
         <th></th>
     </tr>
     <?php
+    $i=0;
     foreach($model as $building) {
-        echo '<tr>';
+        $class = '';
+        if((++$i)%2==0) {
+            $class = ' class="odd"';
+        }
+        
+        echo '<tr' . $class . '>';
         echo '<td>' . $building->getName() . '</td>';
         echo '<td>' . $building->getCategory() . '</td>';
         echo '<td>' . ($building->getInfoLink()==''?'':'<a href="' . $building->getInfoLink() . '">Link</a>') . '</td>';
@@ -24,9 +30,20 @@
         echo '<td>' . $building->getLatitude() . '</td>';
         echo '<td>' . $building->getMovie() . '</td>';
         echo '<td>' . ($building->getToken()==''?'':'<a href="Admin/GenerateQR/' . $building->getToken() . '">Generate</a>') . '</td>';
-        echo '<td><a href="Admin/Edit/' . $building->getId() . '">Edit</a> <a href="Admin/Delete/' . $building->getId() . '">Delete</a></td>';
+        echo '<td><a href="Admin/Edit/' . $building->getId() . '"><img src="content/images/admin/edit.png" alt="Edit" /></a> <a href="Admin/Delete/' . $building->getId() . '"><img src="content/images/admin/delete.png" alt="Delete" /></a></td>';
         echo '</tr>';
     }
     ?>
-    </table>  
+    <tr<?php echo ($i%2)!=0?' class="odd"':''; ?>>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a href="Admin/Edit"><img src="content/images/admin/add.png" alt="New" /></a></td>
+    </tr>
+    </table>
 </div>

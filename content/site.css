@@ -254,6 +254,9 @@ div#admin td {
     padding-right: 30px;
     padding-left: 5px;
 }
+tr.odd {
+    background-color: #d4D3cb;
+}
 td {
     vertical-align: top;
 }

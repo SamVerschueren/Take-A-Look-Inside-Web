@@ -1,13 +1,18 @@
 <div class="page" id="edit">
-    <h1><?php echo $model->getBuildingViewModel()->getName(); ?></h1>
+    
+    <?php
+        $buildingViewModel = $model->getBuildingViewModel();
+    ?>
+    
+    <h1><?php echo isset($buildingViewModel)?$buildingViewModel->getName():'New building'; ?></h1>
     
     <form action="Admin/Edit" method="post">
-        <input type="hidden" name="id" value="<?php echo $model->getBuildingViewModel()->getId(); ?>" />
+        <input type="hidden" name="id" value="<?php echo isset($buildingViewModel)?$buildingViewModel->getId():'0'; ?>" />
         
         <table class="center">
         <tr>
             <td>Name:</td>
-            <td><input type="text" name="name" value="<?php echo $model->getBuildingViewModel()->getName(); ?>" /></td>
+            <td><input type="text" name="name" value="<?php echo isset($buildingViewModel)?$buildingViewModel->getName():''; ?>" /></td>
         </tr>
         <tr>
             <td>Category:</td>
@@ -17,7 +22,7 @@
                    foreach($model->getCategoryViewModels() as $categoryViewModel) {
                        $select = '';
                        
-                       if($model->getBuildingViewModel()->getCategory() == $categoryViewModel->getName()) {
+                       if(isset($buildingViewModel) && $buildingViewModel->getCategory() == $categoryViewModel->getName()) {
                            $select = 'selected="selected"';
                        }
                        
@@ -29,19 +34,19 @@
         </tr>
         <tr>
             <td>Infolink:</td>
-            <td><input type="text" name="infolink" value="<?php echo $model->getBuildingViewModel()->getInfoLink(); ?>"</td>
+            <td><input type="text" name="infolink" value="<?php echo isset($buildingViewModel)?$buildingViewModel->getInfoLink():''; ?>"</td>
         </tr>
         <tr>
             <td>Adress:</td>
-            <td><input type="text" name="adress" value="<?php echo $model->getBuildingViewModel()->getAdress(); ?>" /></td>
+            <td><input type="text" name="adress" value="<?php echo isset($buildingViewModel)?$buildingViewModel->getAdress():''; ?>" /></td>
         </tr>
         <tr>
             <td>Longitude:</td>
-            <td><input type="text" name="longitude" value="<?php echo $model->getBuildingViewModel()->getLongitude(); ?>" /> <a href="http://universimmedia.pagesperso-orange.fr/geo/loc.htm">Find</a></td>
+            <td><input type="text" name="longitude" value="<?php echo isset($buildingViewModel)?$buildingViewModel->getLongitude():''; ?>" /> <a href="http://universimmedia.pagesperso-orange.fr/geo/loc.htm">Find</a></td>
         </tr>
         <tr>
             <td>Latitude:</td>
-            <td><input type="text" name="latitude" value="<?php echo $model->getBuildingViewModel()->getLatitude(); ?>" /></td>
+            <td><input type="text" name="latitude" value="<?php echo isset($buildingViewModel)?$buildingViewModel->getLatitude():''; ?>" /></td>
         </tr>
         <tr>
             <td>Movie:</td>
@@ -52,7 +57,7 @@
                    foreach($model->getMovieViewModels() as $movieViewModel) {
                        $select = '';
                        
-                       if($model->getBuildingViewModel()->getMovie() == $movieViewModel->getFileName()) {
+                       if(isset($buildingViewModel) && $buildingViewModel->getMovie() == $movieViewModel->getFileName()) {
                            $select = 'selected="selected"';
                        }
                        
@@ -64,7 +69,7 @@
         </tr>
         <tr>
             <td>Description:</td>
-            <td><textarea name="description" rows="5" cols="30"><?php echo $model->getBuildingViewModel()->getDescription(); ?></textarea></td>
+            <td><textarea name="description" rows="5" cols="30"><?php echo isset($buildingViewModel)?$buildingViewModel->getDescription():''; ?></textarea></td>
         </tr>
         <tr>
             <td></td>
