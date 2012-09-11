@@ -461,7 +461,11 @@ function geo_success(buildinglon,buildinglat,buildingid){
         myLon=position.coords.longitude;
         myLat=position.coords.latitude;  
         if(updateRouteDraw)     
+        {
             routeTo(buildinglon,buildinglat,buildingid);
+            lonlat = new OpenLayers.LonLat(myLon, myLat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+            map.setCenter(lonlat);
+        }
     });
          
 }
