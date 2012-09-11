@@ -5,6 +5,7 @@ class BuildingViewModel {
     
     private $id;
     private $name;
+    private $infoLink;
     private $category;
     private $adress;
     private $longitude;
@@ -16,6 +17,7 @@ class BuildingViewModel {
     public function __construct(Building $building) {
         $this->setId($building->getId());
         $this->setName($building->getName());
+        $this->setInfoLink($building->getInfoLink());
         $this->setCategory($building->getCategory()->getName());
         $this->setAdress($building->getLocation()->getAdress());
         $this->setLongitude($building->getLocation()->getLongitude());
@@ -41,6 +43,14 @@ class BuildingViewModel {
     
     public function getName() {
         return $this->name;
+    }
+    
+    private function setInfoLink($infoLink) {
+        $this->infoLink = $infoLink;
+    }
+    
+    public function getInfoLink() {
+        return $this->infoLink;
     }
     
     private function setCategory($category) {

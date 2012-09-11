@@ -231,7 +231,7 @@ div#filter li label {
 /**
  * Admin page
  */
-div#admin table {
+div#admin table, div#edit table {
     margin-left: auto;
     margin-right: auto;
     text-align: left;
@@ -254,7 +254,9 @@ div#admin td {
     padding-right: 30px;
     padding-left: 5px;
 }
-
+td {
+    vertical-align: top;
+}
 
 @media screen and (max-width: 700px) {
     div#download article {

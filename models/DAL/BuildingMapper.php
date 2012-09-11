@@ -1,4 +1,6 @@
 <?php
+require_once('system/exceptions/runtime/ClassCastException.php');
+
 require_once('models/domain/Building.php');
 require_once('models/domain/Location.php');
 
@@ -107,6 +109,30 @@ class BuildingMapper extends Mapper {
         $data = mysql_fetch_assoc($resultset);
         
         return $this->createBuilding($data);
+    }
+    
+    /**
+     * Update the given object in the data store.
+     * 
+     * @param   object      The object that should be updated.
+     * @throws  exception   UnsupportedOperationException if method is not overriden
+     */
+    public function update($object) {
+        if(!($object instanceof Building)) {
+            throw new ClassCastException('Could not cast the object to Building');
+        }
+        
+        $id = mysql_real_escape_string($object->getId());
+        $name = mysql_real_escape_string($object->getName());
+        $description = mysql_real_escape_string($object->getDescription());
+        $infoLink = mysql_real_escape_string($object->getInfoLink());
+        $category = mysql_real_escape_string($object->getCategory()->getId());
+        $movie = mysql_real_escape_string($object->getMovie()->getId());
+        $adress = mysql_real_escape_string($object->getLocation()->getAdress());
+        $longitude = mysql_real_escape_string($object->getLocation()->getLongitude());
+        $latitude = mysql_real_escape_string($object->getLocation()->getLatitude());
+        
+        mysql_query("UPDATE building SET name='" . $name . "', description='" . $description . "', infoLink='" . $infoLink . "', categoryID='" . $category . "', movieID='" . $movie . "', adres='" . $adress . "', longitude='" . $longitude . "', latitude='" . $latitude . "' WHERE id='" . $id . "'");
     }
 
     private function createBuilding(array $data) {

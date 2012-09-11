@@ -5,11 +5,12 @@
     <tr>
         <th>Name</th>
         <th>Category</th>
-        <th>Adres</th>
+        <th>Info</th>
+        <th>Adress</th>
         <th>Longitude</th>
         <th>Latitude</th>
         <th>Movie</th>
-        <th>Token</th>
+        <th>QR Code</th>
         <th></th>
     </tr>
     <?php
@@ -17,11 +18,12 @@
         echo '<tr>';
         echo '<td>' . $building->getName() . '</td>';
         echo '<td>' . $building->getCategory() . '</td>';
+        echo '<td>' . ($building->getInfoLink()==''?'':'<a href="' . $building->getInfoLink() . '">Link</a>') . '</td>';
         echo '<td>' . $building->getAdress() . '</td>';
         echo '<td>' . $building->getLongitude() . '</td>';
         echo '<td>' . $building->getLatitude() . '</td>';
         echo '<td>' . $building->getMovie() . '</td>';
-        echo '<td>' . $building->getToken() . '</td>';
+        echo '<td>' . ($building->getToken()==''?'':'<a href="Admin/GenerateQR/' . $building->getToken() . '">Generate</a>') . '</td>';
         echo '<td><a href="Admin/Edit/' . $building->getId() . '">Edit</a> <a href="Admin/Delete/' . $building->getId() . '">Delete</a></td>';
         echo '</tr>';
     }

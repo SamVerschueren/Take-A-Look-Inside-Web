@@ -28,7 +28,7 @@ class Building {
         return $this->id;
     }
     
-    private function setName($name) {
+    public function setName($name) {
         $this->name = $name;
     }
     
@@ -36,7 +36,7 @@ class Building {
         return $this->name;
     }
     
-    private function setDescription($description) {
+    public function setDescription($description) {
         $this->description = $description;
     }
     
@@ -44,7 +44,7 @@ class Building {
         return $this->description;
     }
     
-    private function setInfoLink($infoLink) {
+    public function setInfoLink($infoLink) {
         $this->infoLink = $infoLink;
     }
     
@@ -52,7 +52,7 @@ class Building {
         return $this->infoLink;
     }
     
-    private function setMustSee($mustSee) {
+    public function setMustSee($mustSee) {
         $this->mustSee = $mustSee;
     }
     
@@ -60,7 +60,7 @@ class Building {
         return $this->mustSee;
     }
         
-    private function setLocation(Location $location) {
+    public function setLocation(Location $location) {
         $this->location = $location;
     }
     
@@ -68,7 +68,7 @@ class Building {
         return $this->location;
     }
     
-    private function setCategory(Category $category) {
+    public function setCategory(Category $category) {
         $this->category = $category;
     }
     
@@ -76,7 +76,7 @@ class Building {
         return $this->category;
     }
     
-    private function setMovie(Movie $movie=null) {
+    public function setMovie(Movie $movie=null) {
         $this->movie = $movie;
     }
     
