@@ -240,7 +240,8 @@ function loadMap(position) {
     locationLayer.addMarker(myLocationMarker);
     
     if(navigator.geolocation){
-        wpid = navigator.geolocation.watchPosition(geo_success, geo_error, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
+        wpid = navigator.geolocation.watchPosition(geo_success, geo_error);
+            //, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
 
     }
 
