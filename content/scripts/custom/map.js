@@ -287,10 +287,16 @@ function fillPopup(feature) {
         popup.autoSize=true;
         popup.setBackgroundColor('#EBECE3');
         feature.popup=popup; 
-        feature.popup.contentHTML='<h1 class="' + building.category.name.toLowerCase() + '">' + building.name + '</h1><p class="description">' + building.description + '<br /><br /><br /></p><p class="adres ' + building.category.name.toLowerCase() + '">' + building.location.adress + '</p>';
+         var linkHTML=building.infoLink!=null?'<p class="moreInfo"> More info: <a href="' +building.infoLink +'"><img class="linkButton" src="content/images/legend-arrow.png"/></a></p>':'';
+        
+        feature.popup.contentHTML='<h1 class="' + building.category.name.toLowerCase() + '">' + building.name + 
+        '</h1><p class="description">' + building.description 
+        +linkHTML +'<br\><br\><br\>'
+        +'<p class="adres ' 
+        + building.category.name.toLowerCase() + '">' + building.location.adress + '</p>';
         
         map.addPopup(feature.popup);
-        
+        console.log(building.category.name.toLowerCase());
         showPopup(feature.popup);
         //array to store all popups in to, stores every popup in the array when they are created.
         markerFeatures[feature.id]=feature;              
