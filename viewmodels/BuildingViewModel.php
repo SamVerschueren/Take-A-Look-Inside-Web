@@ -11,6 +11,7 @@ class BuildingViewModel {
     private $latitude;
     private $movie;
     private $token;
+    private $description;
     
     public function __construct(Building $building) {
         $this->setId($building->getId());
@@ -23,6 +24,7 @@ class BuildingViewModel {
             $this->setMovie($building->getMovie()->getFile());
             $this->setToken($building->getMovie()->getQrToken());    
         }
+        $this->setDescription($building->getDescription());
     }
     
     private function setId($id) {
@@ -87,6 +89,14 @@ class BuildingViewModel {
     
     public function getToken() {
         return $this->token;
+    }
+    
+    private function setDescription($description) {
+        $this->description = $description;
+    }
+    
+    public function getDescription() {
+        return $this->description;
     }
 }
 ?>

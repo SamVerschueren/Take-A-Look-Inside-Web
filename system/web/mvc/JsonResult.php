@@ -98,6 +98,7 @@ class JsonResult extends ActionResult {
      * Enables processing of the result of an action method by a custom type that inherits from the ActionResult class.
      */
     public function executeResult() {
+        header('Access-Control-Allow-Origin: *');
         header('Accept-Encoding: ' . $this->getContentEncoding());
         header('Content-type: ' . $this->getContentType());
         

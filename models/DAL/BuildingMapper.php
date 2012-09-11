@@ -31,7 +31,7 @@ class BuildingMapper extends Mapper {
      * @throws  exception   UnsupportedOperationException if method is not overriden
      */
     public function findAllObjects() {
-        $resultset = mysql_query("SELECT b.buildingID, name, description, infoLink, COUNT(m.deviceID) AS mustSee, longitude, latitude, adres, movieID, categoryID FROM building b LEFT JOIN must_sees m ON b.buildingID=m.buildingID GROUP BY b.buildingID, name, description, infoLink, longitude, latitude, adres, movieID, categoryID ORDER BY mustSee DESC");
+        $resultset = mysql_query("SELECT b.id, name, description, infoLink, COUNT(m.buildingID) AS mustSee, longitude, latitude, adres, movieID, categoryID FROM building b LEFT JOIN must_sees m ON b.id=m.buildingID GROUP BY b.id, name, description, infoLink, longitude, latitude, adres, movieID, categoryID ORDER BY mustSee DESC");
      
         if(!$resultset) {
             throw new SQLException('Error while retrieving the buildings.'. mysql_error() );
@@ -58,14 +58,14 @@ class BuildingMapper extends Mapper {
      * @throws  exception   UnsupportedOperationException if method is not overriden
      */
     public function findByUniqueId($id) {
-        $resultset = mysql_query("SELECT b.buildingID, name, description, infoLink, COUNT(m.deviceID) AS mustSee, longitude, latitude, adres, movieID, categoryID FROM building b LEFT JOIN must_sees m ON b.buildingID=m.buildingID WHERE b.buildingID='" . mysql_real_escape_string($id) . "' GROUP BY b.buildingID, name, description, infoLink, longitude, latitude, adres, movieID, categoryID");
+        $resultset = mysql_query("SELECT b.id, name, description, infoLink, COUNT(m.buildingID) AS mustSee, longitude, latitude, adres, movieID, categoryID FROM building b LEFT JOIN must_sees m ON b.id=m.buildingID WHERE b.id='" . mysql_real_escape_string($id) . "' GROUP BY b.id, name, description, infoLink, longitude, latitude, adres, movieID, categoryID");
         
         if(!$resultset) {
-            throw new SQLException('Error while retrieving the movie with id ' . $id . '.');
+            throw new SQLException('Error while retrieving the building with id ' . $id . '.' . mysql_error() );
         }
         
         if(mysql_num_rows($resultset) == 0) {
-            throw new SQLException('No building found with id ' . $id . '.');
+            throw new SQLException('No building found with id ' . $id . '.' . mysql_error());
         }
         
         $data = mysql_fetch_assoc($resultset);
@@ -74,7 +74,7 @@ class BuildingMapper extends Mapper {
     }
 
     public function findByCategoryId($id) {
-        $resultset = mysql_query("SELECT b.buildingID, name, description, infoLink, COUNT(m.deviceID) AS mustSee, longitude, latitude, adres, movieID, categoryID FROM building b LEFT JOIN must_sees m ON b.buildingID=m.buildingID WHERE b.categoryID='" . mysql_real_escape_string($id) . "' GROUP BY b.buildingID, name, description, infoLink, longitude, latitude, adres, movieID, categoryID");
+        $resultset = mysql_query("SELECT b.id, name, description, infoLink, COUNT(m.deviceID) AS mustSee, longitude, latitude, adres, movieID, categoryID FROM building b LEFT JOIN must_sees m ON b.id=m.buildingID WHERE b.categoryID='" . mysql_real_escape_string($id) . "' GROUP BY b.id, name, description, infoLink, longitude, latitude, adres, movieID, categoryID");
         
         if(!$resultset) {
             throw new SQLException('Error while retrieving the movie with categoryid ' . $id . '.');
@@ -94,7 +94,7 @@ class BuildingMapper extends Mapper {
     }
 
     public function findByQrToken($token) {
-        $resultset = mysql_query("SELECT b.buildingID, name, description, infoLink, COUNT(m.deviceID) AS mustSee, longitude, latitude, adres, b.movieID, categoryID FROM building b LEFT JOIN must_sees m ON b.buildingID=m.buildingID JOIN movie mv ON b.movieID=mv.movieID WHERE mv.qrID='" . mysql_real_escape_string($token) .  "' GROUP BY b.buildingID, name, description, infoLink, longitude, latitude, adres, movieID, categoryID");
+        $resultset = mysql_query("SELECT b.id, name, description, infoLink, COUNT(m.deviceID) AS mustSee, longitude, latitude, adres, b.movieID, categoryID FROM building b LEFT JOIN must_sees m ON b.id=m.buildingID JOIN movie mv ON b.movieID=mv.id WHERE mv.qrID='" . mysql_real_escape_string($token) .  "' GROUP BY b.id, name, description, infoLink, longitude, latitude, adres, movieID, categoryID");
         
         if(!$resultset) {
             throw new SQLException('Error while retrieving the movie with qrtoken ' . $token . '.');
@@ -115,7 +115,7 @@ class BuildingMapper extends Mapper {
         $category = $this->categoryMapper->findByUniqueId($data['categoryID']);
         
         $building = new Building($data['name'], $data['description'], $data['infoLink'], $data['mustSee'], $location, $category, $movie);
-        $building->setId($data['buildingID']);
+        $building->setId($data['id']);
         
         return $building;
     }

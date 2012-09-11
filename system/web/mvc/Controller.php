@@ -88,6 +88,7 @@ class Controller {
         
         if($routeValues == null) {
             $routeValues = new RouteValueDictionary();
+            $routeValues->add('controller', str_replace("Controller", "", get_class($this->actionInvoker->getInvokedController())));
         }
         
         $routeValues->add('action', $actionName);

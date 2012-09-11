@@ -31,7 +31,7 @@ class ControllerActionInvoker implements IActionInvoker {
      * @param   actionName      The action that should be invoked.
      */
     public function invokeAction(Controller $controller, $actionName) {
-        return $this->invokeActionMethod($controller, $actionName, $_GET);
+        return $this->invokeActionMethod($controller, $actionName, $_SERVER['REQUEST_METHOD']=='GET'?$_GET:$_POST);
     }  
     
     /**

@@ -11,6 +11,7 @@ require_once('Mapper.php');
  * @author Sam Verschueren  <sam.verschueren@gmail.com>
  */
 class MovieMapper extends Mapper {
+    
     /**
      * Returns a Collection of all objects for the given mapper.
      * 
@@ -18,7 +19,7 @@ class MovieMapper extends Mapper {
      * @throws  exception   UnsupportedOperationException if method is not overriden
      */
     public function findAllObjects() {
-        $resultset = mysql_query("SELECT movieID, movie, dateTime, qrID FROM movie");
+        $resultset = mysql_query("SELECT id, movie, dateTime, qrID FROM movie");
         
         if(!$resultset) {
             throw new SQLException('Error while retrieving the movies.');
@@ -32,7 +33,7 @@ class MovieMapper extends Mapper {
         
         while($data = mysql_fetch_assoc($resultset)) {
             $movie = new Movie($data['movie'], $data['qrID'], new DateTime($data['dateTime']));
-            $movie->setId($data['movieID']);
+            $movie->setId($data['id']);
             
             $result[] = $movie;
         }
@@ -48,7 +49,7 @@ class MovieMapper extends Mapper {
      * @throws  exception   UnsupportedOperationException if method is not overriden
      */
     public function findByUniqueId($id) {
-        $resultset = mysql_query("SELECT movieID, movie, dateTime, qrID FROM movie WHERE movieID='" . mysql_real_escape_string($id) . "'");
+        $resultset = mysql_query("SELECT id, movie, dateTime, qrID FROM movie WHERE id='" . mysql_real_escape_string($id) . "'");
         
         if(!$resultset) {
             throw new SQLException('Error while retrieving the movie with id ' . $id . '.');
@@ -61,13 +62,13 @@ class MovieMapper extends Mapper {
         $data = mysql_fetch_assoc($resultset);
         
         $movie = new Movie($data['movie'], $data['qrID'], new DateTime($data['dateTime']));
-        $movie->setId($data['movieID']);
+        $movie->setId($data['id']);
         
         return $movie;
     }
     
     public function findByQrId($id) {
-        $resultset = mysql_query("SELECT movieID, movie, dateTime, qrID FROM movie WHERE qrID='" . mysql_real_escape_string($id) . "'");
+        $resultset = mysql_query("SELECT id, movie, dateTime, qrID FROM movie WHERE qrID='" . mysql_real_escape_string($id) . "'");
         
         if(!$resultset) {
             throw new SQLException('Error while retrieving the movie with id ' . $id . '.');
@@ -80,7 +81,7 @@ class MovieMapper extends Mapper {
         $data = mysql_fetch_assoc($resultset);
         
         $movie = new Movie($data['movie'], $data['qrID'], new DateTime($data['dateTime']));
-        $movie->setId($data['movieID']);
+        $movie->setId($data['id']);
         
         return $movie;
     }

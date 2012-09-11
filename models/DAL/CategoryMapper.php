@@ -19,7 +19,7 @@ class CategoryMapper extends Mapper {
      * @throws  exception   UnsupportedOperationException if method is not overriden
      */
     public function findAllObjects() {
-        $resultset = mysql_query("SELECT categoryID, name FROM category");
+        $resultset = mysql_query("SELECT id, name FROM category");
         
         if(!$resultset) {
             throw new SQLException('Error while retrieving the categories.');
@@ -33,7 +33,7 @@ class CategoryMapper extends Mapper {
         
         while($data = mysql_fetch_assoc($resultset)) {
             $category = new Category($data['name']);
-            $category->setId($data['categoryID']);
+            $category->setId($data['id']);
             
             $result[] = $category;
         }
@@ -49,7 +49,7 @@ class CategoryMapper extends Mapper {
      * @throws  exception   UnsupportedOperationException if method is not overriden
      */
     public function findByUniqueId($id) {
-        $resultset = mysql_query("SELECT categoryID, name FROM category WHERE categoryID='" . mysql_real_escape_string($id) . "'");
+        $resultset = mysql_query("SELECT id, name FROM category WHERE id='" . mysql_real_escape_string($id) . "'");
         
         if(!$resultset) {
             throw new SQLException('Error while retrieving the categories.');
@@ -62,7 +62,7 @@ class CategoryMapper extends Mapper {
         $data = mysql_fetch_assoc($resultset);
         
         $category = new Category($data['name']);
-        $category->setId($data['categoryID']);
+        $category->setId($data['id']);
         
         return $category;
     }

@@ -8,6 +8,8 @@ require_once('system/data/common/DbConnection.php');
 
 require_once('config/Config.php');
 
+header('Access-Control-Allow-Origin: *');
+
 function __autoload($class) {
     /**
      * If the file does not exists, the class does not exists.
