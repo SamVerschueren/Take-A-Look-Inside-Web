@@ -478,7 +478,7 @@ function geo_success(position){
         var myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
         myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
         locationLayer.addMarker(myLocationMarker);
-        alert('new geopos: redrew marker: lon:'+myLon+'lat:'+myLat);
+     //   alert('new geopos: redrew marker: lon:'+myLon+'lat:'+myLat);
    // });
          
          
