@@ -35,6 +35,19 @@ span.moreInfo {
     line-height: 14px;
     color:#474646;
 }
+.olPopup p.moreInfo {
+    float:right;
+    font-size:12px;
+    line-height: 14px;
+    color: #474646;
+    margin-top:8px;
+    vertical-align:center;
+}
+.olPopup img.linkButton {
+    vertical-align:middle;
+}
+
+
 .olPopup p.adres {
     position: absolute;
     bottom: 0px;

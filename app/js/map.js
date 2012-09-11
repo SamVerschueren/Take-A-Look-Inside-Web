@@ -360,7 +360,13 @@ function fillPopup(feature) {
         popup.autoSize=true;
         popup.setBackgroundColor('#EBECE3');
         feature.popup=popup; 
-        feature.popup.contentHTML='<h1 class="' + building.category.name + '">' + building.name + '</h1><p class="description">' + building.description + '<br /><br /><br /></p><p class="adres ' + building.category.name + '">' + building.location.adress + '</p>';
+        var linkHTML=building.infoLink!=null?'<p class="moreInfo"> More info: <a href="' +building.infoLink +'"><img class="linkButton" src="img/legend-arrow.png"/></a></p>':'';
+        
+        feature.popup.contentHTML='<h1 class="' + building.category.name + '">' + building.name + 
+        '</h1><p class="description">' + building.description 
+        +linkHTML +'<br\><br\><br\>'
+        +'<p class="adres ' 
+        + building.category.name + '">' + building.location.adress + '</p>';
         
         map.addPopup(feature.popup);
         
