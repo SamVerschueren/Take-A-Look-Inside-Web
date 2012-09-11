@@ -78,13 +78,11 @@ class BuildingController extends Controller {
         return $json;
     }
     
-    public function favorite() {
+    public function favorite($method) {        
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             try {
                 $device = $this->deviceMapper->findByDeviceId($_POST['device']);
                 $building = $this->buildingMapper->findByUniqueId($_POST['id']);
- 
-                $method = $_POST['method'];
                 
                 if($method == 'like') {
                     $device->addMustSee($building);

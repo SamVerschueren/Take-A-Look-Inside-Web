@@ -5,16 +5,19 @@ class BuildingViewModel {
     
     private $id;
     private $name;
+    private $infoLink;
     private $category;
     private $adress;
     private $longitude;
     private $latitude;
     private $movie;
     private $token;
+    private $description;
     
     public function __construct(Building $building) {
         $this->setId($building->getId());
         $this->setName($building->getName());
+        $this->setInfoLink($building->getInfoLink());
         $this->setCategory($building->getCategory()->getName());
         $this->setAdress($building->getLocation()->getAdress());
         $this->setLongitude($building->getLocation()->getLongitude());
@@ -23,6 +26,7 @@ class BuildingViewModel {
             $this->setMovie($building->getMovie()->getFile());
             $this->setToken($building->getMovie()->getQrToken());    
         }
+        $this->setDescription($building->getDescription());
     }
     
     private function setId($id) {
@@ -39,6 +43,14 @@ class BuildingViewModel {
     
     public function getName() {
         return $this->name;
+    }
+    
+    private function setInfoLink($infoLink) {
+        $this->infoLink = $infoLink;
+    }
+    
+    public function getInfoLink() {
+        return $this->infoLink;
     }
     
     private function setCategory($category) {
@@ -87,6 +99,14 @@ class BuildingViewModel {
     
     public function getToken() {
         return $this->token;
+    }
+    
+    private function setDescription($description) {
+        $this->description = $description;
+    }
+    
+    public function getDescription() {
+        return $this->description;
     }
 }
 ?>

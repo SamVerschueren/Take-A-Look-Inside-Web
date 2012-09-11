@@ -4,6 +4,7 @@ class Movie {
     private $id;
     private $file;
     private $qrToken;
+    private $building;
     private $dateTime;
     
     public function __construct($file, $qrToken, DateTime $dateTime=null) {

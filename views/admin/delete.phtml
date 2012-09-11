@@ -1,0 +1,14 @@
+<div class="page" id="delete">
+    <h1>Confirm</h1>
+    
+    <p>Are you sure you want to delete the location '<?php echo $model->getName(); ?>'?</p>
+    
+    <p>
+        <form action="Admin/Delete" method="post">
+            <input type="hidden" name="id" value="<?php echo $model->getId(); ?>" />
+            
+            <input type="submit" value="Yes" name="action" />
+            <input type="submit" value="Cancel" name="action" />
+        </form>
+    </p>
+</div>

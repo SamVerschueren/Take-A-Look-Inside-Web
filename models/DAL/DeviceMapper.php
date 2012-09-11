@@ -44,7 +44,7 @@ class DeviceMapper extends Mapper {
      * @throws  exception   UnsupportedOperationException if method is not overriden
      */
     public function findAllObjects() {
-        $resultset = mysql_query("SELECT deviceID, device FROM device");
+        $resultset = mysql_query("SELECT id, device FROM device");
         
         if(!$resultset) {
             throw new SQLException('Error while retrieving the devices.');
@@ -58,7 +58,7 @@ class DeviceMapper extends Mapper {
         
         while($data = mysql_fetch_assoc($resultset)) {
             $device = new Device($data['device']);
-            $device->setId($data['deviceID']);
+            $device->setId($data['id']);
             
             $mustSeeResultset = mysql_query("SELECT buildingID FROM must_sees WHERE deviceID='" . mysql_real_escape_string($device->getId()) . "'");
             
@@ -82,7 +82,7 @@ class DeviceMapper extends Mapper {
      * @throws  exception   UnsupportedOperationException if method is not overriden
      */
     public function findByUniqueId($id) {
-        $resultset = mysql_query("SELECT deviceID, device FROM device WHERE deviceID='" . mysql_real_escape_string($id) . "'");
+        $resultset = mysql_query("SELECT id, device FROM device WHERE id='" . mysql_real_escape_string($id) . "'");
         
         if(!$resultset) {
             throw new SQLException('Error while retrieving the device with id ' . $id . '.');
@@ -95,7 +95,7 @@ class DeviceMapper extends Mapper {
         $data = mysql_fetch_assoc($resultset);
         
         $device = new Device($data['device']);
-        $device->setId($data['deviceID']);
+        $device->setId($data['id']);
         
         $mustSeeResultset = mysql_query("SELECT buildingID FROM must_sees WHERE deviceID='" . mysql_real_escape_string($device->getId()) . "'");
             
@@ -109,7 +109,7 @@ class DeviceMapper extends Mapper {
     }
 
     public function findByDeviceId($id) {
-        $resultset = mysql_query("SELECT deviceID, device FROM device WHERE device='" . mysql_real_escape_string($id) . "'");
+        $resultset = mysql_query("SELECT id, device FROM device WHERE device='" . mysql_real_escape_string($id) . "'");
         
         if(!$resultset) {
             throw new SQLException('Error while retrieving the device with deviceid ' . $id . '.');
@@ -122,7 +122,7 @@ class DeviceMapper extends Mapper {
         $data = mysql_fetch_assoc($resultset);
         
         $device = new Device($data['device']);
-        $device->setId($data['deviceID']);
+        $device->setId($data['id']);
         
         $mustSeeResultset = mysql_query("SELECT buildingID FROM must_sees WHERE deviceID='" . mysql_real_escape_string($device->getId()) . "'");
             

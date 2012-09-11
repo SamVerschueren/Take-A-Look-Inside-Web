@@ -103,15 +103,6 @@ function showMapDirectPopup(){
         if(markerFeatures[mapDirect].popup !=null && !markerFeatures[mapDirect].popup.visible())
             //show it       
             showPopup(markerFeatures[mapDirect].popup)
-        $.getJSON(server+'Building?id='+mapDirect , function(data) {
-            //get lonlat of building to set center
-            var lonlatBuilding= new OpenLayers.LonLat(
-                data.building[0].longitude,data.building[0].latitude
-                ).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
-            map.setCenter(lonlatBuilding);
-            //map.setCenter(markerFeatures[mapDirect].) 
-            
-        });
         //unset mapDirect
         mapDirect=undefined;
     } 

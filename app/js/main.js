@@ -8,14 +8,14 @@ var page = 0;
 var siteUrl = 'http://tali.irail.be';
 
 //Link to the webservice
-var server = 'http://localhost';
+var server = 'http://tali.irail.be';
 
 /*
  * TODO: map -> route berekenen (zou moeten werken, gosmore werkt momenteel niet)
  * 
  * Remove deviceUUID hieronder
  */
-//deviceUUID = 'lievenANDROID';
+deviceUUID = 'lievenANDROID';
 
 /**
  * Extension to arrays:
@@ -204,18 +204,20 @@ function initCarrousel() {
 var scanCode = function() {
     window.plugins.barcodeScanner.scan(function(result) {        
         if(result.text != '') {
-            var url = result.text.split('=');
+            var pattern = new RegExp(server + "\\?token=([a-zA-Z0-9]+)");
             
-            if(url[0] != siteUrl) {
+            if(!pattern.test(result.text)) {
                 navigator.notification.alert('You scanned a QR-code that not belongs to Take A Look Inside.', function() { }, 'Wrong QR-code', 'Ok');
                 
                 return;       
             }
             
-            $.getJSON(server + '/Movie/Size/' + url[1] + '?device=' + deviceUUID, function(data) {                
-                navigator.notification.confirm('The video is ' + $.trim(data.size) + ' KB big. When do you want to see the video?', function(button) {
+            var match = pattern.exec(result.text);
+            
+            $.getJSON(server + '/Movie/Size/' + match[1] + '?device=' + deviceUUID, function(data) { 
+                navigator.notification.confirm('The video is ' + data.size + ' KB big. When do you want to see the video?', function(button) {
                     
-                    var building = new Building(data.buildingID, data.buildingName, data.token);
+                    var building = new Building(data.building.id, data.building.name, data.token);
                     
                     if(button==1) {
                         var array;
@@ -230,7 +232,7 @@ var scanCode = function() {
                         
                         localStorage['lookLater'] = JSON.stringify(array);
                         
-                        navigator.notification.alert('The video is saved. You can find it under the Look Later section', function(evt) { }, 'Look Later', 'Ok')
+                        navigator.notification.alert('The video is saved. You can find it under the Look Later section', function(evt) { }, 'Look Later', 'Ok');
                     }
                     else if(button==2) {
                         playMovie(building);
@@ -238,7 +240,7 @@ var scanCode = function() {
                     
                     initHomeContent(false);
                     
-                }, data.buildingName, 'Later,Now');
+                }, data.building.name, 'Later,Now');
             });
         }
 
