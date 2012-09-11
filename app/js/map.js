@@ -233,16 +233,17 @@ function loadMap(position) {
     locationLayer = new OpenLayers.Layer.Markers('LocationLayer');
     locationLayer.id = 'LocationLayer';
     
+    var size = new OpenLayers.Size(25,25);
+    var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
+    var myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
+    myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
+    locationLayer.addMarker(myLocationMarker);
     
     if(navigator.geolocation){
         wpid = navigator.geolocation.watchPosition(geo_success, geo_error, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
 
     }
-    var size = new OpenLayers.Size(25,25);
-    var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
-    var myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
-    var myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
-    locationLayer.addMarker(myLocationMarker);
+
     
     buildingLayer = new OpenLayers.Layer.Markers('BuildingLayer');
     buildingLayer.id = 'BuildingLayer';
@@ -462,7 +463,7 @@ function routeToClick(){
 
 function geo_success(){
     navigator.geolocation.getCurrentPosition(function(position) {
-        alert('updated geoloc');
+        
         myLon=position.coords.longitude;
         myLat=position.coords.latitude;  
         //    routeTo(buildinglon,buildinglat,buildingid);
@@ -474,7 +475,7 @@ function geo_success(){
         var size = new OpenLayers.Size(25,25);
         var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
         var myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
-        var myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
+        myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
         locationLayer.addMarker(myLocationMarker);
     });
          
