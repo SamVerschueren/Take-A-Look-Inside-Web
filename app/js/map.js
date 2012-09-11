@@ -443,11 +443,9 @@ function routeToClick(){
     if(routeDrawnToLocation==activePopup.id){
         myRouteVector.destroyFeatures();
         routeDrawnToLocation=-1;
-
     }
     else $.getJSON(server+'/Building?id=' + activePopup.id, function(building) {  
-        //routeTo(building.location.longitude, building.location.latitude,building.id);
-        
+        routeTo(building.location.longitude, building.location.latitude,building.id);        
         wpid = navigator.geolocation.watchPosition(function(){
             geo_success(building.location.longitude,building.location.latitude,building.id);
         }, geo_error, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
