@@ -53,7 +53,7 @@ $("div#map").live('pageshow', function() {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
                 navigator.notification.alert("Your position cannot be determined, the korenmarkt is used as your location now.", null, "No geolocation", "OK");  
                 
-            });        
+            },{ enableHighAccuracy:true});        
                           
         }else{
             navigator.notification.alert("Your position cannot be determined, the korenmarkt is used as your location now.", null, "No geolocation", "OK");  
@@ -477,6 +477,7 @@ function geo_success(){
         var myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
         myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
         locationLayer.addMarker(myLocationMarker);
+        alert('new geopos: redrew marker: lon:'+myLon+'lat:'+myLat);
     });
          
          
