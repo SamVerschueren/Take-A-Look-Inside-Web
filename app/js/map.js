@@ -240,9 +240,8 @@ function loadMap(position) {
     locationLayer.addMarker(myLocationMarker);
     
     if(navigator.geolocation){
-        wpid = navigator.geolocation.watchPosition(geo_success, geo_error);
-            //, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
-
+        wpid = navigator.geolocation.watchPosition(geo_success, geo_error,
+             {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
     }
 
     
@@ -462,9 +461,10 @@ function routeToClick(){
     });
 }
 
-function geo_success(){
-    navigator.geolocation.getCurrentPosition(function(position) {
-        
+function geo_success(position){
+   // console.log('success');
+    //navigator.geolocation.getCurrentPosition(function(position) {
+     //   console.log('in success');
         myLon=position.coords.longitude;
         myLat=position.coords.latitude;  
         //    routeTo(buildinglon,buildinglat,buildingid);
@@ -479,11 +479,11 @@ function geo_success(){
         myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
         locationLayer.addMarker(myLocationMarker);
         alert('new geopos: redrew marker: lon:'+myLon+'lat:'+myLat);
-    });
+   // });
          
          
 }
-function geo_error(){    
+function geo_error(){       
     alert('geolocation error');
     navigator.geolocation.clearWacth(wpid);    
 }
