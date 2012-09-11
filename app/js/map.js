@@ -4,6 +4,7 @@ var myLon;
 var buildingLayer;
 var markerFeatures;
 var activePopup;
+var routeDrawnToLocation=-1;
 var iconSize = new OpenLayers.Size(25,41);
 var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
@@ -18,7 +19,7 @@ $("div#map").live('pagebeforeshow', function() {
         localStorage['favorites']=  JSON.stringify(new Array());
     if(mapLoaded){ 
         if(typeof myRouteVector!='undefined')
-            myRouteVector.destroyFeatures();
+            myRouteVector.destroyFeatures();            
     }else{
         $.getJSON(server+'/Category', function(categories){
             $.each(categories, function (key, category) {
@@ -436,8 +437,13 @@ function updateIcon(buildingID,category) {
  * the routeTo method. 
  */
 function routeToClick(){
-    $.getJSON(server+'/Building?id=' + activePopup.id, function(building) {  
-        routeTo(building.location.longitude, building.location.latitude);
+    console.log('routeDrawnToLocation: '+routeDrawnToLocation + " activepopupID: "+activePopup.id);
+    if(routeDrawnToLocation==activePopup.id){
+        myRouteVector.destroyFeatures();
+        routeDrawnToLocation=-1;
+    }
+    else $.getJSON(server+'/Building?id=' + activePopup.id, function(building) {  
+        routeTo(building.location.longitude, building.location.latitude,building.id);
         closePopup();
     });
 }
@@ -460,7 +466,7 @@ function closePopup(){
  * @param       lon     longitue of the destination
  * @param       lat     latitude of the destination
  */
-function routeTo (lon,lat) {
+function routeTo (lon,lat,locationID) {
     //get route JSON
       var url = server+'/Map/Route?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+myLat+'&'+
@@ -491,7 +497,8 @@ function routeTo (lon,lat) {
                 previouslatpos=latlonpos[1];
                 
                 myRouteVector.style=routeStyle;
-                myRouteVector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);     
+                myRouteVector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);
+                routeDrawnToLocation=locationID;          
             }
          });
     });

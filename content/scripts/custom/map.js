@@ -3,6 +3,7 @@ var myLon;
 var buildingLayer;
 var markerFeatures;
 var activePopup;
+var routeDrawnToLocation=-1;
 var iconSize = new OpenLayers.Size(25,41);
 var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
@@ -17,7 +18,9 @@ $(function() {
         }
         
         loadFilter();
-        
+        $('#routeToButton').click(function(event){
+            routeToClick();
+        })
         $('div#fireFilterSection').click(fireFilterSection);
         
         if($('input[name=redirect]').val() != '') {
@@ -78,7 +81,7 @@ var filterClick = function(evt) {
     $.getJSON(server+'/Building/Category/' + id, function(buildings) {
         //for each category        
         $.each(buildings, function(key, building) {
-            //if it is checked, display it
+            //if it is checked, display     it
             if($(target).is(':checked')) {
                 markerFeatures[building.id].marker.display(true);
             }
@@ -296,7 +299,7 @@ function fillPopup(feature) {
         + building.category.name.toLowerCase() + '">' + building.location.adress + '</p>';
         
         map.addPopup(feature.popup);
-        console.log(building.category.name.toLowerCase());
+        //console.log(building.category.name.toLowerCase());
         showPopup(feature.popup);
         //array to store all popups in to, stores every popup in the array when they are created.
         markerFeatures[feature.id]=feature;              
@@ -333,10 +336,8 @@ function showPopup(popup){
     else {
         $('div#mapButtons').show();
     }
-    
-    $('#routeToButton').click(function(event){
-        routeToClick();
-    })
+
+
 }
 
 /**
@@ -356,8 +357,12 @@ function closePopup(){
  * the routeTo method. 
  */
 function routeToClick(){
-    $.getJSON(server+'/Building?id=' + activePopup.id, function(building) {  
-        routeTo(building.location.longitude, building.location.latitude);
+    if(routeDrawnToLocation==activePopup.id){
+        myRouteVector.destroyFeatures();
+        routeDrawnToLocation=-1;
+    }
+    else $.getJSON(server+'/Building?id=' + activePopup.id, function(building) {  
+        routeTo(building.location.longitude, building.location.latitude,activePopup.id);
         closePopup();
     });
 }
@@ -368,7 +373,7 @@ function routeToClick(){
  * @param       lon     longitue of the destination
  * @param       lat     latitude of the destination
  */
-function routeTo (lon,lat) {
+function routeTo (lon,lat,locationID) {
     //get route JSON
       var url = server+'/Map/Route?url=http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&'+
         'flat='+myLat+'&'+
@@ -377,7 +382,7 @@ function routeTo (lon,lat) {
         'tlon='+lon+
         '&v=foot&fast=0&layer=mapnik';      
        
-        //draw route   
+    //draw route   
     myRouteVector.destroyFeatures();   
     var routeStyle = { 
             strokeColor: '#0000ff', 
@@ -400,7 +405,8 @@ function routeTo (lon,lat) {
                 previouslatpos=latlonpos[1];
                 
                 myRouteVector.style=routeStyle;
-                myRouteVector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);     
+                myRouteVector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);
+                routeDrawnToLocation=locationID;     
             }
          });
     });
