@@ -64,7 +64,8 @@
                        echo '<option value="' . $movieViewModel->getId() . '"' . $select . '>' . $movieViewModel->getFileName() . '</option>';
                    }
                 ?>
-                </select>    
+                </select>
+                <a href="Admin/Upload<?php echo isset($buildingViewModel)?'/' . $buildingViewModel->getId():''; ?>"><img src="content/images/admin/add.png" alt="Add" /></a>
             </td>
         </tr>
         <tr>

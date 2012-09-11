@@ -117,5 +117,68 @@ class AdminController extends Controller {
         
         return $this->file("http://qr.kaywa.com/?s=8&d=" . Config::$SERVER .  "?token=" . $id, "image/png", strtolower($building->getName()) . "-qr.png");
     }
+    
+    public function upload($id, $file, $name, $action) {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if($action == 'Upload') {
+                try {
+                    $this->uploadFile($name);
+                }
+                catch(Exception $ex) {
+                    $this->viewData['error'] = $ex->getMessage();
+                    
+                    $this->viewData['id'] = $id;
+                    $this->viewData['name'] = $name;
+                    
+                    return $this->view('Upload');
+                }
+            }
+            
+            $routeValueDictionary = new RouteValueDictionary();
+            $routeValueDictionary->add('controller', 'Admin');
+            $routeValueDictionary->add('id', $id);
+            
+            return $this->redirectToAction('Edit', $routeValueDictionary);
+        }
+        else {
+            $this->viewData['id'] = $id;
+            
+            return $this->view();
+        }
+    }
+    
+    private function uploadFile($name) {
+        if(trim($name) == '') {
+            throw new Exception("The name can not be left empty.");
+        }
+        
+        $target_path = "content/movie/";
+        $fileName = preg_replace("/[^a-z0-9]+/i", "-", $name) . ".3gp";
+        
+        $target_path = $target_path . $fileName;
+        
+        if(file_exists($target_path)) {
+            throw new Exception("The filename '" . $name . "' you provided allready exists.");
+        }
+        
+        $extension = strtolower(substr($_FILES['file']['name'], strlen($_FILES['file']['name'])-3));
+    
+        if($extension != '3gp') {
+            throw new Exception("The file you provided has the wrong extension. You can only upload 3gp movies.");
+        }
+
+        if(move_uploaded_file($_FILES['file']['tmp_name'], $target_path)) {
+            $token = base64_encode(date('YmdHi') . $fileName);
+            
+            $movie = new Movie($fileName, $token);
+            
+            $this->movieMapper->create($movie);
+            
+            echo $movie->getId();
+        } 
+        else {
+            throw new Exception("There was an error uploading the file, please try again!");
+        }
+    }
 }
 ?>

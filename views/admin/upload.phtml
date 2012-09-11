@@ -1,0 +1,32 @@
+<div class="page" id="admin">
+    <h1>Upload a movie</h1>
+    
+    <?php
+        if(isset($viewData['error'])) {
+            echo '<p class="error">' . $viewData['error'] . '</p>';
+        }
+    ?>
+    
+    
+    <form action="Admin/Upload" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?php echo $viewData['id']; ?>" />
+        
+        <table class="center">
+        <tr>
+            <td>Movie:</td>
+            <td><input type="file" name="file" /></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" name="name" value="<?php echo $viewData['name'] ?>" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Upload" name="action" />
+                <input type="submit" value="Cancel" name="action" />
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>

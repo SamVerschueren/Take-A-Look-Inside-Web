@@ -39,7 +39,6 @@ class MovieController extends Controller {
             $this->deviceMapper->findByDeviceId($device);
             $building = $this->buildingMapper->findByQrToken($id);
             
-            
             $result = array();
             $result['size'] = round(filesize('content/movie/' . $building->getMovie()->getFile())/1024, 2);
             $result['token'] = $building->getMovie()->getQrToken();

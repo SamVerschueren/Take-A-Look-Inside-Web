@@ -7,16 +7,25 @@ var routeDrawnToLocation=-1;
 var iconSize = new OpenLayers.Size(25,41);
 var iconOffset = new OpenLayers.Pixel(-(iconSize.w/2), -iconSize.h);
 
-var server = "http://localhost";
+var server;
 
 $(function() {
+    server = $("base").attr("href");
+    
     if($("div#map").length > 0) {
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
-                alert("Could not load your location. Your location is set to the Korenmarkt in Ghent.");
+                alert("Can not load your geolocation. The location is set to Korenmarkt Ghent.");
+                
+                loadMap();
             });    
         }
-        
+        else {
+            alert("Geolocation is not supported on your device. The location is set to Korenmarkt Ghent.");
+            
+            loadMap();
+        }
+
         loadFilter();
         $('#routeToButton').click(function(event){
             routeToClick();
@@ -131,7 +140,16 @@ function showMapDirectPopup(){
  *  
  * @param       position        The position of the device
  */
-function loadMap(position) {
+function loadMap(position) {  
+    if(position===undefined) {
+        myLon=3.7219830;
+        myLat=51.0546200;
+    }
+    else {
+        myLon=position.coords.longitude;
+        myLat=position.coords.latitude;
+    }
+      
     /**
      * This is the mapbox tileset, this one is used. 
      */
@@ -172,17 +190,6 @@ function loadMap(position) {
         ],
         layers: [mapBoxTiles]                   /* Change this in [openStreetMapTiles] to change the tileset to default */
     });
-    
-    if(navigator.geolocation){
-        //set center to the users geolocation
-        myLon=position.coords.longitude;
-        myLat=position.coords.latitude;
-    }
-    else{
-        //set center to korenmarkt coordinates
-        myLon=3.7219830;
-        myLat=51.0546200;
-    }
     
     lonlat = new OpenLayers.LonLat(myLon, myLat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
     
@@ -290,7 +297,7 @@ function fillPopup(feature) {
         popup.autoSize=true;
         popup.setBackgroundColor('#EBECE3');
         feature.popup=popup; 
-         var linkHTML=(building.infoLink!=null && building.infoLink!='')?'<p class="moreInfo"> More info: <a href="' +building.infoLink +'"><img class="linkButton" src="content/images/legend-arrow.png"/></a></p>':'';
+         var linkHTML=(building.infoLink!=null && building.infoLink!='')?'<p class="moreInfo"><a href="' +building.infoLink +'"><img class="linkButton" src="content/images/more-info.png"/></a></p>':'';
         
         feature.popup.contentHTML='<h1 class="' + building.category.name.toLowerCase() + '">' + building.name + 
         '</h1><p class="description">' + building.description 

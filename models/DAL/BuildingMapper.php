@@ -49,7 +49,9 @@ class BuildingMapper extends Mapper {
         $latitude = mysql_real_escape_string($object->getLocation()->getLatitude());
         
         mysql_query("INSERT INTO building(name, infoLink, description, " . (isset($movie)?"movieID,":"") . " longitude, latitude, categoryID, adres) VALUES('" . $name .  "', '" . $infoLink .  "', '" . $description .  "', " . (isset($movie)?"'" . $movieId . "',":"") . " '" . $longitude .  "', '" . $latitude .  "', '" . $category .  "', '" . $adress .  "')");
-     }
+     
+        $object->setId(mysql_insert_id());
+    }
     
     /**
      * Returns a Collection of all objects for the given mapper.

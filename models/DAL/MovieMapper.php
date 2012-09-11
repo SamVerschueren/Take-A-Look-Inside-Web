@@ -1,4 +1,6 @@
 <?php
+require_once('system/exceptions/runtime/ClassCastException.php');
+
 require_once('models/domain/Movie.php');
 
 require_once('Mapper.php');
@@ -11,7 +13,22 @@ require_once('Mapper.php');
  * @author Sam Verschueren  <sam.verschueren@gmail.com>
  */
 class MovieMapper extends Mapper {
+    /**
+     * Create the given object in a persistent data store.
+     * 
+     * @param   object      The object that should be created in the database.
+     * @throws  exception   InvalidArgumentException if parameter is not an object.
+     */
+    public function create($object) {
+        if(!($object instanceof Movie)) {
+            throw new ClassCastException('Could not cast the object to Movie');
+        }
+        
+        mysql_query("INSERT INTO movie(movie, dateTime, qrID) VALUES('" . mysql_real_escape_string($object->getFile()) . "', FROM_UNIXTIME('" . $object->getDateTime()->getTimestamp() . "'), '" . mysql_real_escape_string($object->getQrToken()) . "')");
     
+        $object->setId(mysql_insert_id());
+    }
+        
     /**
      * Returns a Collection of all objects for the given mapper.
      * 
