@@ -352,7 +352,7 @@ function fillPopup(feature) {
         popup.autoSize=true;
         popup.setBackgroundColor('#EBECE3');
         feature.popup=popup; 
-        var linkHTML=building.infoLink!=null?'<p class="moreInfo"> More info: <a href="' +building.infoLink +'"><img class="linkButton" src="img/legend-arrow.png"/></a></p>':'';
+        var linkHTML=(building.infoLink!=null && building.infoLink!='')?'<p class="moreInfo"> More info: <a href="' +building.infoLink +'"><img class="linkButton" src="img/legend-arrow.png"/></a></p>':'';
         
         feature.popup.contentHTML='<h1 class="' + building.category.name + '">' + building.name + 
         '</h1><p class="description">' + building.description 
@@ -437,15 +437,35 @@ function updateIcon(buildingID,category) {
  * the routeTo method. 
  */
 function routeToClick(){
-    console.log('routeDrawnToLocation: '+routeDrawnToLocation + " activepopupID: "+activePopup.id);
+    if(typeof wpid!='undefined')
+        navigator.geolocation.clearWatch(wpid);
+    console.log(routeDrawnToLocation);
     if(routeDrawnToLocation==activePopup.id){
         myRouteVector.destroyFeatures();
         routeDrawnToLocation=-1;
+
     }
     else $.getJSON(server+'/Building?id=' + activePopup.id, function(building) {  
-        routeTo(building.location.longitude, building.location.latitude,building.id);
+        //routeTo(building.location.longitude, building.location.latitude,building.id);
+        
+        wpid = navigator.geolocation.watchPosition(function(){
+            geo_success(building.location.longitude,building.location.latitude,building.id);
+        }, geo_error, {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
+       
         closePopup();
     });
+}
+
+function geo_success(buildinglon,buildinglat,buildingid){
+    navigator.geolocation.getCurrentPosition(function(position) {
+        myLon=position.coords.longitude;
+        myLat=position.coords.latitude;       
+        routeTo(buildinglon,buildinglat,buildingid);
+    });
+         
+}
+function geo_error(){    
+    navigator.geolocation.clearWacth(wpid);    
 }
 
 /**

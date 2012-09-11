@@ -290,7 +290,7 @@ function fillPopup(feature) {
         popup.autoSize=true;
         popup.setBackgroundColor('#EBECE3');
         feature.popup=popup; 
-         var linkHTML=building.infoLink!=null?'<p class="moreInfo"> More info: <a href="' +building.infoLink +'"><img class="linkButton" src="content/images/legend-arrow.png"/></a></p>':'';
+         var linkHTML=(building.infoLink!=null && building.infoLink!='')?'<p class="moreInfo"> More info: <a href="' +building.infoLink +'"><img class="linkButton" src="content/images/legend-arrow.png"/></a></p>':'';
         
         feature.popup.contentHTML='<h1 class="' + building.category.name.toLowerCase() + '">' + building.name + 
         '</h1><p class="description">' + building.description 
