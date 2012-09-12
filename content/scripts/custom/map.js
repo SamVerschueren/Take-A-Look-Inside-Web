@@ -182,7 +182,11 @@ function loadMap(position) {
                     enableKinetic: true
                 }
             }),
-            new OpenLayers.Control.Navigation(),
+            new OpenLayers.Control.Navigation({
+                dragPanOptions: {
+                    enableKinetic: true
+                }
+            }),
             new OpenLayers.Control.Zoom()
         ],
         layers: [mapBoxTiles]                   /* Change this in [openStreetMapTiles] to change the tileset to default */

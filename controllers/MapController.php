@@ -1,7 +1,10 @@
 <?php
 require_once('system/web/mvc/Controller.php');
+require_once('system/web/mvc/Authorizable.php');
 
-class MapController extends Controller {
+require_once('content/libs/MobileDetect.php');
+
+class MapController extends Controller Implements Authorizable {
 
     public function index($token=null) {
         $this->viewData['title'] = 'Map - Take A Look Inside';
@@ -98,6 +101,29 @@ class MapController extends Controller {
         echo $result;
         
         exit();
+    }
+
+    /**
+     * The implemenation tells the framework if the user is authorized.
+     * 
+     * @return  boolean     True if the user is authorized, otherwhise false
+     */
+    public function authorize() {        
+        $mobileDetect = new MobileDetect();
+        
+        return $mobileDetect->isMobile();
+    }
+    
+    /**
+     * The implementation tells the framework what is has to do when authorization fails.
+     * 
+     * @return  result      An action result has to be returned.
+     */
+    public function onAuthenticationError() {
+        $routeValueDictionary = new RouteValueDictionary();
+        $routeValueDictionary->add('controller', 'Desktop');
+        
+        return $this->redirectToAction('Index', $routeValueDictionary);
     }
 }
 ?>

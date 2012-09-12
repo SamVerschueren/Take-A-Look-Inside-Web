@@ -294,7 +294,7 @@ td {
 /**
  * Logon page
  */
-h1 {
+div#logon h1 {
     margin-bottom: 20px;
 }
 div#logon table {
@@ -365,7 +365,7 @@ div#logon table {
     }
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 310px) {
     /**
      * Menu
      */

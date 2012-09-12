@@ -1,0 +1,225 @@
+div#desktop {
+    text-align: left;
+}
+div#desktop header {
+	width: 941px;
+	margin: 0 auto;
+	margin-top:20px;
+}
+
+div#desktop h1 {
+	font-family: 'Quicksandbook', sans-serif;
+	text-transform:uppercase;
+	color: #EF9722;
+	font-size: 2.5em;
+	float:left;
+	margin-left:81px;
+	width: 681px;
+	margin-top: 29px;
+	line-height: 52px;
+}
+
+div#desktop #logo {
+	width:179px;
+	float:left;
+}
+
+div#desktop #backgroundimg {
+	background-image:url(images/desktop/skylinerepeat.png);
+	background-repeat:repeat;
+	height:143px;
+	float:left;
+	width:100%;
+}
+
+div#desktop #backgroundeen {
+	background-color: #D4D3CB;
+	width:100%;
+	float:left;
+	padding-bottom: 80px;
+}
+
+div#desktop .content-desktop {
+	width: 941px;
+	margin: 0 auto;
+}
+
+div#desktop section {
+	width:100%;
+	float:left;
+	margin: 0px;
+}
+
+div#desktop .icon {
+	width: 69px;
+	margin:0 auto;
+}
+
+div#desktop p {
+	font-family: 'Quicksandbook', sans-serif;
+	color: #474646;
+	text-align:justify;
+	margin-top: 20px;
+}
+
+div#desktop aside {
+	font-family: 'Quicksandbold', sans-serif;
+	color: #474646;
+}
+
+div#desktop .orange {
+	font-family: 'Quicksandbold', sans-serif;
+}
+
+div#desktop article {
+	width: 420px;
+	float:left;
+}
+
+div#desktop #withapp {
+	margin-top:5px;
+}
+
+div#desktop #where {
+	float:right;
+}
+
+div#desktop #map {
+	margin-bottom:10px;
+}
+
+div#desktop #zoom {
+	position:relative;
+	margin-top: -51px;
+	margin-left: 18px;
+	float: left;
+}
+
+div#desktop #download {
+	margin-top:60px;
+}
+
+div#desktop .download {
+	width:281px;
+}
+
+div#desktop #left {
+	float:left;
+    width:281px;
+}
+
+div#desktop #midright {
+	width:610px;
+	float:right;
+}
+
+div#desktop #downloadicon {
+	margin-left:427px;
+	
+}
+
+div#desktop #mid {
+	float:left;
+    width:281px;
+	margin-top:35px;
+}
+
+div#desktop #right {
+	float:right;
+    width:281px;
+}
+
+div#desktop #scan_preview {
+	width:104px;
+	margin: 0 auto;
+}
+
+/*_________footer_______*/
+
+div#desktop #backgroundtwee {
+	background-color: #8E9192;
+	width:100%;
+	float:left;
+}
+
+div#desktop .footericon {
+	margin:0 auto;
+	width:70px;
+	margin-top:40px;
+}
+
+div#desktop li {
+    list-style: none;
+	font-family: 'Quicksandbook', sans-serif;
+}
+
+div#desktop .clear{
+    clear: both;
+}
+
+div#desktop .creditsblock {  
+    margin-bottom:20px;
+	color:#ECECE3;    
+}
+
+div#desktop #creditsblockeen {
+	margin-top:30px;
+}
+
+div#desktop .left {
+    float:left;
+    width:50%;
+	margin-top:0;
+	text-align:left;
+	color:#ECECE3;
+}
+
+div#desktop #design {
+	margin-top:20px;
+}
+
+div#desktop .right {
+    float:right;
+    width:50%;
+}
+
+div#desktop #nicolas {
+	margin-top:5px;
+}
+
+div#desktop .full {
+    width:90%;
+    margin:0 auto;
+	color:#ECECE3;
+	text-align:left;
+}
+
+div#desktop #code9000 {
+	float:left;
+}
+
+div#desktop .sponsorlogo {
+    margin-left: 41px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	width:120px;
+}
+
+div#desktop article#sponsor {
+    float: right;
+}
+
+div#desktop #sponsors {
+    margin-bottom: 20px;
+	float:right;
+	background-color:#ECECE3;
+	border-radius: 10px;
+	margin-top: 30px;
+	text-decoration: none;
+}
+
+div.desktop #mapview {
+    bottom: 0px;
+    top: 0px;
+}
+
