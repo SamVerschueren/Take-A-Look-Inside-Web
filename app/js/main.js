@@ -66,7 +66,7 @@ $(function() {
     
     //Don't show information screen if application isn't opened for the first time
     if(localStorage['information'] == 'closed') {
-        $('#informationContainer').hide();   
+        $('#informationOverlay').hide();   
     }
     
     //Eventhandler for clicks in homescreen.
@@ -105,14 +105,14 @@ $(function() {
     $('#closeInformation').click(function(event) {
         localStorage['information'] = 'closed';
         
-        $('#informationContainer').fadeOut('slow');    
+        $('#informationOverlay').fadeOut('slow');    
     });
     
     /**
      * Clicking the question mark button on the home screen
      */
     $('#questionMark').click(function(event) {
-        $('#informationContainer').fadeIn('slow'); 
+        $('#informationOverlay').fadeIn('slow'); 
     });
     
     $('#routeToButton').click(function(event){

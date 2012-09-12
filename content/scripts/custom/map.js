@@ -318,7 +318,8 @@ function fillPopup(feature) {
         popup.autoSize=true;
         popup.setBackgroundColor('#EBECE3');
         feature.popup=popup; 
-         var linkHTML=(building.infoLink!=null && building.infoLink!='')?'<p class="moreInfo"><a href="' +building.infoLink +'" target="_blank"><img class="linkButton" src="content/images/more-info.png"/></a></p>':'';
+
+         var linkHTML=(building.infoLink!=null && building.infoLink!='')?'<p class="moreInfo"><a href="' +building.infoLink +'" target="_newtab"><img class="linkButton" src="content/images/more-info.png"/></a></p>':'';
         
         feature.popup.contentHTML='<h1 class="' + building.category.name.toLowerCase() + '">' + building.name + 
         '</h1><p class="description">' + building.description 
