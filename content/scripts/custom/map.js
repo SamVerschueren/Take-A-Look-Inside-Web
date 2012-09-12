@@ -196,9 +196,9 @@ function loadMap(position) {
     
     var size = new OpenLayers.Size(25,25);
     var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
-    var myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
+    var myLocationIcon = new OpenLayers.Icon('content/images/my-location.png', size, offset);
     myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
-    locationLayer.addMarker(myLocationMarker);
+    locationLayer.addMarker(myLocationMarker);    
     
     if(navigator.geolocation){
         wpid = navigator.geolocation.watchPosition(geo_success, geo_error,
@@ -208,11 +208,8 @@ function loadMap(position) {
     buildingLayer = new OpenLayers.Layer.Markers('BuildingLayer');
     buildingLayer.id = 'BuildingLayer';
     
-    // Adding the markers to the layer
-    var size = new OpenLayers.Size(25,25);
-    var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
-    var icon = new OpenLayers.Icon('content/images/my-location.png', size, offset);
-    locationLayer.addMarker(new OpenLayers.Marker(lonlat,icon));
+    map.addLayer(locationLayer);
+    map.addLayer(buildingLayer);
     $.getJSON(server+'/Building', function(buildings) {
         markerFeatures=new Array();
         $.each(buildings, function(key, building) {
@@ -384,7 +381,7 @@ function geo_success(position){
         lonlat = new OpenLayers.LonLat(myLon, myLat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
         var size = new OpenLayers.Size(25,25);
         var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
-        var myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
+        var myLocationIcon = new OpenLayers.Icon('content/images/my-location.png', size, offset);
         myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
         locationLayer.addMarker(myLocationMarker);
 }
