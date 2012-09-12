@@ -127,7 +127,7 @@ class Controller {
      */
     public function view($model = null) {
         if(isset($_SESSION['viewData'])) {
-            $viewData = unserialize($_SESSION['viewData']);    
+            $viewData = unserialize($_SESSION['viewData']);  
             
             foreach($viewData->getKeys() as $key) {
                 $this->viewData[$key] = $viewData[$key];

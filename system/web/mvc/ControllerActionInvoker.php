@@ -1,4 +1,5 @@
 <?php
+require_once('Authorizable.php');
 require_once('IActionInvoker.php');
 
 /**
@@ -42,6 +43,12 @@ class ControllerActionInvoker implements IActionInvoker {
      * @param   parameters      The parameters used to invoke the action.
      */
     public function invokeActionMethod(Controller $controller, $actionName, array $parameters) {
+        if($controller instanceof Authorizable) {
+            if(!$controller->authorize()) {
+                return $controller->onAuthenticationError();
+            }
+        }
+        
         $this->controller = $controller;
                         
         $actionName = trim($actionName)==''?'Index':trim($actionName); 
