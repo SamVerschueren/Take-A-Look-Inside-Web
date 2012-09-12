@@ -235,6 +235,7 @@ function loadMap(position) {
     locationLayer = new OpenLayers.Layer.Markers('LocationLayer');
     locationLayer.id = 'LocationLayer';
     
+    //create user location marker
     var size = new OpenLayers.Size(25,25);
     var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
     var myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
@@ -253,17 +254,20 @@ function loadMap(position) {
              {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
     }
 
-    
+    //create building layer
     buildingLayer = new OpenLayers.Layer.Markers('BuildingLayer');
     buildingLayer.id = 'BuildingLayer';
     
+    //create routing layer
     var ol = new OpenLayers.Layer.OSM(); 
     myRouteVector = new OpenLayers.Layer.Vector();
-    map.addLayers([ol,myRouteVector]);   
     
+    //add layers to the map
+    map.addLayers([ol,myRouteVector]);    
     map.addLayer(locationLayer);
     map.addLayer(buildingLayer);
 
+    //Add markers for buildings
     $.getJSON(server+'/Building', function(buildings) {
         // var latDestination;
         // var lonDestination;
