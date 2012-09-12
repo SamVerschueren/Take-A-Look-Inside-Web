@@ -21,41 +21,28 @@
 </head>
 
 <body> 
-  
-    
-    <!-- The information overlay at the startup of the application -->
-    
-<!--    <div id="informationContainer">
-        <div id="information">
-            <span id="closeInformation"><img src="img/close.png"></span>
-            
-            <p id="logo" class="center">
-                <img src="img/smartphone/logo.png" alt="Take A Look Inside Logo" />
-          	</p>
-            
-            <p id="experience">
-                AN EXPERIENCE INSIDE BEAUTIFUL BUILDINGS IN GHENT
-            </p>
-            
-            <h6 id="how"> How? </h6>
-            
-            <p id="uitleg">
-                Scan the QR-codes in front of the buildings. You will get a glimps of the atmosphere inside.
-            </p>    
+    <div id="informationOverlay">
+        <div id="informationContainer">
+            <div id="information">
+                <span id="closeInformation"><img src="img/close.png"></span>            
+                <p id="logo" class="center">
+                    <span id="imgLogo" ></span>
+                </p>
+                
+                <p id="experience">
+                    AN EXPERIENCE INSIDE BEAUTIFUL BUILDINGS IN GHENT
+                </p>  
+                <h6 id="how"> How? </h6>
+                    
+                <p id="explanation">
+                    Scan the QR-codes in front of the buildings. You will get a glimps of the atmosphere inside.
+                </p>    
+            </div>
         </div>
-        <div id="infotriangle"><img src="img/triangle.png" width="21" height="21"></div>
-</div>-->
-
-<div id="informationContainer">
-    <div id="information">
-       test
-    </div>
-</div>
-    
+    </div>    
 <!-- Home page -->
     <div data-role="page" id="home">              
-        <div id="content" data-role="content">  
-         	
+        <div id="content" data-role="content">           	
             <span id="creditsicon">
                 <a href="#credits"><img src="img/px.gif" alt="Credits" /></a>
             </span>
@@ -227,14 +214,21 @@
                         <p class="left">Developed by:</p>
                         <div class="right">                
                             <li>Lieven Benoot </li>
-                            <li>Nicolas Dierck </li>
                             <li>Sam verschueren </li>
-                        </div>  
-                        <div class="clear"></div>              
-                    </div>  
+                        </div> 
+                        <div class="clear"></div>
+                     </div>
+                     <div class="creditsblock">      
+                        <p class="left">Designed by:</p>
+                        <div class="right">
+                            <li>Nocolas Dierck</li>
+                        </div>
+                        <div class="clear"></div>   
+                    </div>           
+                      
                     <div class="creditsblock">                        
                         <!--p class="full" id="isoc"> during iRail Summer of Code #iSoc12</p-->                      
-                        <p class="left" id="filmed"> Filmed by: </p>
+                        <p class="left" id="filmed">Concept and director:</p>
                         <div class="right" id="peter"> Peter De Bock </div>
                         <div class="clear"></div>
                     </div>
