@@ -484,9 +484,9 @@ function geo_success(position){
         locationLayer.addMarker(myLocationMarker);
 }
 
+//called when watchposition throws an error
 function geo_error(){       
-    alert('geolocation error');
-    navigator.geolocation.clearWacth(wpid);    
+      
 }
 
 /**
