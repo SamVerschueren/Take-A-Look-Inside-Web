@@ -247,8 +247,9 @@ div#filter li label {
 /**
  * Overlay
  */
+
 div#information {
-    position:relative;
+    /*position:relative;
 	margin: 40px auto 0;
     width: 80%;
     z-index: 100;
@@ -262,7 +263,43 @@ div#information {
 	background-image:url(../img/skylinelicht.png);
 	background-repeat:repeat-x;
 	background-color:#EBECE3;
-	background-position:bottom;
+	background-position:bottom 0px;	
+	border: 1px solid red;*/
+	height: 100%;
+    background:url(../img/skylinelicht.png) repeat-x bottom;
+    border: none;
+    border-radius: 10px;
+    background-color: red;
+}
+#informationContainer{
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 140px;
+    z-index: 1000;
+}
+#informationContainer:after {
+    content: url('../img/triangle.png');
+    display: block;
+    text-align: center;
+}
+#infotriangle {    
+    z-index: 100;
+    position:absolute;    
+    text-align:center;
+    /*margin-top:-2px;*/
+    margin: auto;    
+    left:0; right:0;    
+    bottom:0;
+
+}
+span#closeInformation {
+    position: absolute;
+    right: 5px;
+    clear: both;
+    padding: 5px 7px 5px 7px;
+    color: white;
 }
 
 #logo {
@@ -284,7 +321,7 @@ div#information {
 	margin-top: 15px;
 }
 
-#uitleg {
+#explanation {
 	width: 80%;
 	margin: 11px auto 0;
 }
@@ -292,20 +329,8 @@ div#information {
 .center {
     text-align: center;
 }
-span#closeInformation {
-    position: absolute;
-    right: 5px;
-    clear: both;
-    padding: 5px 7px 5px 7px;
-    color: white;
-}
 
-#triangle {
-	z-index: 100;
-	position:relative;
-	text-align:center;
-	margin-top:-2px;
-}
+
 
 /**
  * Carrousel
@@ -662,6 +687,9 @@ h3 {
     }
     div#mapview {
         bottom: 67px; 
+    }
+    #informationContainer{
+        bottom: 90px;
     }
 }
 	
