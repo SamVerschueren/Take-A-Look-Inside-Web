@@ -150,61 +150,7 @@ div#mapview {
 #mustSeeButton{
     display:block;
 }
-/*#filterSection {
-    list-style-type: none;
-    padding: 0px;
-    margin: 0px;
-    padding-top: 10px;
-    width: 100%;
-}
-#filterSection li {
-    margin-left: 10px;
-    padding: 5px;    
-    cursor:hand;
-}
-#header {
-    position: absolute;
-    z-index: 2000;
-    background: #EDEDE4;
-    color: #484646;
-    width: 100%;
-}
-#filter {
-    background-color: #D4D4CC;
-    border: 1px solid #D4D4CC;
-}
-.filter {
-    border-radius: 10px;
-}
 
-#menu {
-    background: #EDEDE4;
-}
-#menu div {
-    float: left;
-}
-/*iv#fireFilterSection {
-    margin: 5px;
-    font-family: Quicksandbold;
-    font-size: 16pt;
-}
-div#fireFilterSection {
-    padding: 6px;
-    font-family: Quicksandbold;
-    font-size: 16pt;
-    cursor: pointer;
-}
-div#fireFilterSection img {
-    float: left;
-    margin-right: 5px;
-}
-div#filter li {
-    border-radius: 15px;
-    margin-bottom: 10px;
-    color: white;
-    font-family: Quicksandbold;
-    font-size: 14pt;
-}*/
 /**
  * Filter
  */
@@ -448,6 +394,8 @@ ul li.button {
     margin: 0px;
     padding: 0px;
     font-family: Quicksand;
+    padding-bottom: 30px;
+    overflow: hidden;
 }
 /**
  * OpenLayers styling
@@ -468,7 +416,6 @@ span.moreInfo {
     color: #EF9722;
 }
 .olPopupCloseBox{
-    background-color: green;
     background: url('../img/close.png') no-repeat center;  
     margin: 5px;
 }
@@ -511,7 +458,7 @@ span.moreInfo {
 }
 div.olControlZoom {
     position: absolute;
-    top: 40px;
+    top: 8px;
     left: 8px;
     background: #DCDCD4; /*rgba(255,255,255,0.4);*/
     border-radius: 4px;
@@ -602,21 +549,29 @@ header {
 #seen.active {
     background: url('../img/tablet/Seen-orange.png') no-repeat center; 
 }
-#questionMark {
+span#questionMark {
+ 	position: absolute;
+ 	top: 20px;
+ 	right: 50px;
     background: url('../img/About.png') no-repeat center; 
- 	float:right;
-    margin-right: 20px;
-    margin-top: 10px;
-    width: 21px;
-    height: 21px;
+    cursor: pointer;
+}
+span#questionMark img {
+    width: 40px;
+    height: 45px;
 }
 
-#creditsicon {
-	margin-top: 10px;
-	margin-right:20px;
-	float:right;
-	width: 21px;
-    height: 21px;
+span#creditsicon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: url('../img/info.png') no-repeat center;
+    margin: 0px;
+    padding: 0px;
+}
+span#creditsicon img {
+    width: 40px;
+    height: 45px;
 }
 
 .buttonRow {
@@ -649,6 +604,9 @@ h3 {
 /**
  * Menu
  */
+#menu {
+    background-color: #EBECE3;
+}
 #menu .home {
     display: inline-block;
     background: url('../img/tablet/menu/Home.png') no-repeat;
