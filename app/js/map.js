@@ -462,12 +462,9 @@ function routeToClick(){
 }
 
 function geo_success(position){
-   // console.log('success');
-    //navigator.geolocation.getCurrentPosition(function(position) {
-     //   console.log('in success');
+    
         myLon=position.coords.longitude;
         myLat=position.coords.latitude;  
-        //    routeTo(buildinglon,buildinglat,buildingid);
         
         if(myLocationMarker!=undefined)
             locationLayer.removeMarker(myLocationMarker);
@@ -478,11 +475,8 @@ function geo_success(position){
         var myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
         myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
         locationLayer.addMarker(myLocationMarker);
-     //   alert('new geopos: redrew marker: lon:'+myLon+'lat:'+myLat);
-   // });
-         
-         
 }
+
 function geo_error(){       
     alert('geolocation error');
     navigator.geolocation.clearWacth(wpid);    

@@ -184,23 +184,29 @@ function loadMap(position) {
         myLat=51.0546200;
     }
     
+     
     lonlat = new OpenLayers.LonLat(myLon, myLat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+
     
     map.setCenter(lonlat);
     map.zoomTo(16);
     
-    var locationLayer = new OpenLayers.Layer.Markers('LocationLayer');
+    locationLayer = new OpenLayers.Layer.Markers('LocationLayer');
     locationLayer.id = 'LocationLayer';
+    
+    var size = new OpenLayers.Size(25,25);
+    var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
+    var myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
+    myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
+    locationLayer.addMarker(myLocationMarker);
+    
+    if(navigator.geolocation){
+        wpid = navigator.geolocation.watchPosition(geo_success, geo_error,
+             {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
+    }    
     
     buildingLayer = new OpenLayers.Layer.Markers('BuildingLayer');
     buildingLayer.id = 'BuildingLayer';
-    
-    var ol = new OpenLayers.Layer.OSM(); 
-    myRouteVector = new OpenLayers.Layer.Vector();
-    map.addLayers([ol,myRouteVector]);   
-    
-    map.addLayer(locationLayer);
-    map.addLayer(buildingLayer);
     
     // Adding the markers to the layer
     var size = new OpenLayers.Size(25,25);
@@ -362,9 +368,30 @@ function routeToClick(){
         routeDrawnToLocation=-1;
     }
     else $.getJSON(server+'/Building?id=' + activePopup.id, function(building) {  
-        routeTo(building.location.longitude, building.location.latitude,activePopup.id);
+        routeTo(building.location.longitude, building.location.latitude,building.id);         
         closePopup();
     });
+}
+
+function geo_success(position){
+    
+        myLon=position.coords.longitude;
+        myLat=position.coords.latitude;  
+        
+        if(myLocationMarker!=undefined)
+            locationLayer.removeMarker(myLocationMarker);
+
+        lonlat = new OpenLayers.LonLat(myLon, myLat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+        var size = new OpenLayers.Size(25,25);
+        var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
+        var myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
+        myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
+        locationLayer.addMarker(myLocationMarker);
+}
+
+function geo_error(){       
+    alert('geolocation error');
+    navigator.geolocation.clearWacth(wpid);    
 }
 
 /**
