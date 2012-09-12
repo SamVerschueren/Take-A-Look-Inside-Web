@@ -8,6 +8,8 @@ require_once('system/data/common/DbConnection.php');
 
 require_once('config/Config.php');
 
+session_start();
+
 header('Access-Control-Allow-Origin: *');
 
 function __autoload($class) {

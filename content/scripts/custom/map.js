@@ -15,14 +15,10 @@ $(function() {
     if($("div#map").length > 0) {
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
-                alert("Can not load your geolocation. The location is set to Korenmarkt Ghent.");
-                
                 loadMap();
             });    
         }
         else {
-            alert("Geolocation is not supported on your device. The location is set to Korenmarkt Ghent.");
-            
             loadMap();
         }
 
@@ -186,7 +182,11 @@ function loadMap(position) {
                     enableKinetic: true
                 }
             }),
-            new OpenLayers.Control.Navigation(),
+            new OpenLayers.Control.Navigation({
+                dragPanOptions: {
+                    enableKinetic: true
+                }
+            }),
             new OpenLayers.Control.Zoom()
         ],
         layers: [mapBoxTiles]                   /* Change this in [openStreetMapTiles] to change the tileset to default */

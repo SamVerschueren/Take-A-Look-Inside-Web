@@ -601,6 +601,9 @@ span#creditsicon img {
     width: 40px;
     height: 45px;
 }
+div#creditslogo {
+    margin-top: 20px;
+}
 
 .buttonRow {
 	margin-top:40px;
@@ -768,7 +771,7 @@ h3 {
     }
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 310px) {
 	
     /**
      * Menu

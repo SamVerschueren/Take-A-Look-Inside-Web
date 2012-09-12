@@ -1,13 +1,16 @@
 <?php
 require_once('system/web/mvc/Controller.php');
+require_once('system/web/mvc/Authorizable.php');
 
 require_once('models/DAL/BuildingMapper.php');
 require_once('models/DAL/CategoryMapper.php');
 
+require_once('models/domain/User.php');
+
 require_once('viewmodels/BuildingViewModel.php');
 require_once('viewmodels/CategoryViewModel.php');
 
-class AdminController extends Controller {
+class AdminController extends Controller implements Authorizable {
     
     private $buildingMapper;
     private $categoryMapper;
@@ -29,6 +32,10 @@ class AdminController extends Controller {
         foreach($buildings as $building) {
             $buildingViewModels[] = new BuildingViewModel($building);
         }
+        
+        $user = unserialize($_SESSION[Config::$SESSION_NAME]);
+        
+        $this->viewData['user'] = $user->getName();
         
         return $this->view($buildingViewModels);
     }
@@ -179,6 +186,33 @@ class AdminController extends Controller {
         else {
             throw new Exception("There was an error uploading the file, please try again!");
         }
+    }
+
+    /**
+     * The implemenation tells the framework if the user is authorized.
+     * 
+     * @return  boolean     True if the user is authorized, otherwhise false
+     */
+    public function authorize() {        
+        if(isset($_SESSION[Config::$SESSION_NAME])) {
+            $user = unserialize($_SESSION[Config::$SESSION_NAME]);
+            
+            return $user->getIp() == $_SERVER['REMOTE_ADDR'];
+        }
+        
+        return false;
+    }
+    
+    /**
+     * The implementation tells the framework what is has to do when authorization fails.
+     * 
+     * @return  result      An action result has to be returned.
+     */
+    public function onAuthenticationError() {
+        $routeValueDictionary = new RouteValueDictionary();
+        $routeValueDictionary->add('controller', 'Logon');
+        
+        return $this->redirectToAction('Index', $routeValueDictionary);
     }
 }
 ?>

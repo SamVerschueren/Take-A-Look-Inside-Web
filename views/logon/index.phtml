@@ -1,0 +1,26 @@
+<div class="page" id="logon">
+    <h1>Logon</h1>
+    
+    <?php
+        if(isset($viewData['error'])) {
+            echo '<p class="error">' . $viewData['error'] . '</p>';    
+        }
+    ?>
+    
+    <form action="Logon/Logon" method="post">
+        <table class="center">
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" name="username" /></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Logon" /></td>
+        </tr>
+        </table>
+    </form>
+</div>
