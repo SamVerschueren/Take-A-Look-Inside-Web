@@ -15,14 +15,10 @@ $(function() {
     if($("div#map").length > 0) {
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
-                alert("Can not load your geolocation. The location is set to Korenmarkt Ghent.");
-                
                 loadMap();
             });    
         }
         else {
-            alert("Geolocation is not supported on your device. The location is set to Korenmarkt Ghent.");
-            
             loadMap();
         }
 

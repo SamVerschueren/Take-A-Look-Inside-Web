@@ -19,7 +19,7 @@ class UserMapper extends Mapper {
      * @throws  exception   UnsupportedOperationException if method is not overriden
      */
     public function findAllObjects() {
-        $resultset = mysql_query("SELECT id, userName, userRole FROM User");
+        $resultset = mysql_query("SELECT id, userName, userRole FROM user");
         
         if(!$resultset) {
             throw new SQLException('Error while retrieving the users.');
@@ -42,7 +42,7 @@ class UserMapper extends Mapper {
     public function findByNameAndPassword($name, $password) {
         $password = strtoupper(sha1($password));
         
-        $resultset = mysql_query("SELECT id, userName, userRole FROM User WHERE userName='" . mysql_real_escape_string($name) . "' AND userPassword='" . mysql_real_escape_string($password) . "'");
+        $resultset = mysql_query("SELECT id, userName, userRole FROM user WHERE userName='" . mysql_real_escape_string($name) . "' AND userPassword='" . mysql_real_escape_string($password) . "'");
     
         if(!$resultset) {
             throw new SQLException('An error occured when you tried to login. Please try again later.');
