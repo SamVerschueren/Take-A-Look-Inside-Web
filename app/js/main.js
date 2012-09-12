@@ -66,7 +66,7 @@ $(function() {
     
     //Don't show information screen if application isn't opened for the first time
     if(localStorage['information'] == 'closed') {
-        $('#information, #triangle').hide();   
+        $('#informationContainer').hide();   
     }
     
     //Eventhandler for clicks in homescreen.
@@ -105,14 +105,14 @@ $(function() {
     $('#closeInformation').click(function(event) {
         localStorage['information'] = 'closed';
         
-        $('#information, #triangle').fadeOut('slow');    
+        $('#informationContainer').fadeOut('slow');    
     });
     
     /**
      * Clicking the question mark button on the home screen
      */
     $('#questionMark').click(function(event) {
-        $('#information, #triangle').fadeIn('slow'); 
+        $('#informationContainer').fadeIn('slow'); 
     });
     
     $('#routeToButton').click(function(event){
@@ -171,7 +171,7 @@ function onDeviceReady() {
 /**
  * Checks the network state of the phone.
  * 
- * @return  boolean     true if network is OKé, otherwhise false 
+ * @return  boolean     true if network is OKï¿½, otherwhise false 
  */
 function checkNetworkState(){
    return networkState ==
