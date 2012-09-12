@@ -224,12 +224,14 @@ function loadMap(position) {
         myLat=51.0546200;
     }
     
+    //transform lonlat to openlayers coordinates.
     lonlat = new OpenLayers.LonLat(myLon, myLat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
 
-    
+    //set center of the map to user location, zoom level to 16
     map.setCenter(lonlat);
     map.zoomTo(16);
     
+    //create layer for the user's location marker
     locationLayer = new OpenLayers.Layer.Markers('LocationLayer');
     locationLayer.id = 'LocationLayer';
     
@@ -239,6 +241,13 @@ function loadMap(position) {
     myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
     locationLayer.addMarker(myLocationMarker);
     
+    
+    //Add listener to watch the user's position to update his position on the map
+    //geo_success is called when a new position is retrieved
+    //geo_error is called when an error occurs
+    //{enableHighAccuracy:true, maximumAge:30000, timeout:27000}
+    //      sets timeout & maximumAge to force refreshes
+    //      enableHighAcurracy improves accuracy & is mandatory to work on android 2.x devices. 
     if(navigator.geolocation){
         wpid = navigator.geolocation.watchPosition(geo_success, geo_error,
              {enableHighAccuracy:true, maximumAge:30000, timeout:27000});
@@ -254,13 +263,7 @@ function loadMap(position) {
     
     map.addLayer(locationLayer);
     map.addLayer(buildingLayer);
-    
-    // Adding the markers to the layer
-    //var size = new OpenLayers.Size(25,25);
-    //var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
-    //myLocationIcon = new OpenLayers.Icon('img/my-location.png', size, offset);
-    //myLocationMarker= new OpenLayers.Marker(lonlat,myLocationIcon);
-    //locationLayer.addMarker(myLocationMarker);
+
     $.getJSON(server+'/Building', function(buildings) {
         // var latDestination;
         // var lonDestination;
