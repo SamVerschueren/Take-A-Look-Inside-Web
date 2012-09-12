@@ -13,7 +13,7 @@ class DownloadController extends Controller implements Authorizable {
         return $this->view();
     }
     
-        /**
+    /**
      * The implemenation tells the framework if the user is authorized.
      * 
      * @return  boolean     True if the user is authorized, otherwhise false
