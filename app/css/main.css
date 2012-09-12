@@ -140,13 +140,20 @@ span.adresSpan {
     text-align:center;
    
 }
+div#mapview {
+    top: 30px; 
+    left: 0; 
+    bottom: 118px; 
+    right: 0; 
+    position: fixed;
+}
 .rightMapButton {
     margin-bottom: 5px;
 }
 #mustSeeButton{
     display:block;
 }
-#filterSection {
+/*#filterSection {
     list-style-type: none;
     padding: 0px;
     margin: 0px;
@@ -179,10 +186,20 @@ span.adresSpan {
 #menu div {
     float: left;
 }
-div#fireFilterSection {
+/*iv#fireFilterSection {
     margin: 5px;
     font-family: Quicksandbold;
     font-size: 16pt;
+}
+div#fireFilterSection {
+    padding: 6px;
+    font-family: Quicksandbold;
+    font-size: 16pt;
+    cursor: pointer;
+}
+div#fireFilterSection img {
+    float: left;
+    margin-right: 5px;
 }
 div#filter li {
     border-radius: 15px;
@@ -190,6 +207,77 @@ div#filter li {
     color: white;
     font-family: Quicksandbold;
     font-size: 14pt;
+}*/
+/**
+ * Filter
+ */
+#header {
+    background: #EDEDE4;
+    color: #484646;
+    text-align: left;
+    width: 100%;
+}
+#mapButtons{
+    position: absolute;
+    right: 2%;
+    margin-top: 20%;
+    padding:10px 10px 5px 10px;
+    border-radius: 15px;
+    vertical-align:text-top;
+    z-index: 1000;
+    display: none;
+    text-align:center;
+}
+.rightMapButton {
+    margin-bottom: 5px;
+}
+#mustSeeButton {
+    display: block;
+}
+#filterSection {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    padding-top: 10px;
+    width: 100%;
+}
+#filterSection li {
+    margin-left: 10px;
+    padding: 5px;
+    text-align: left;
+    cursor: pointer;
+}
+#filter {
+    background-color: #D4D4CC;
+    border: 1px solid #D4D4CC;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    z-index: 10000;
+}
+.filter {
+    border-radius: 10px;
+}
+div#fireFilterSection {
+    padding: 6px;
+    font-family: Quicksandbold;
+    font-size: 16pt;
+    cursor: pointer;
+}
+div#fireFilterSection img {
+    float: left;
+    margin-right: 5px;
+}
+div#filter li {
+    border-radius: 15px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    color: white;
+    font-family: Quicksandbold;
+    font-size: 14pt;
+}
+div#filter li label {
+    cursor: pointer;
 }
 /**
  * Categori�n
@@ -613,6 +701,9 @@ h3 {
     }
     #menu .map.active {
         background: url('../img/smartphone/menu/normal/map-orange.png') no-repeat;
+    }
+    div#mapview {
+        bottom: 67px; 
     }
 }
 	

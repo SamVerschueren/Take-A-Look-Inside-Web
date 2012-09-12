@@ -90,6 +90,21 @@ p.explanation {
 .screen {
     width: 120px;
 }
+span.google-play {
+    display: inline-block;
+    background: url('images/tablet/google-play.png') no-repeat;
+}
+span.google-play img {
+    width: 250px;
+    height: 82px;
+}
+.rotate {
+    transform:rotate(90deg);
+    -ms-transform:rotate(90deg); /* IE 9 */
+    -moz-transform:rotate(90deg); /* Firefox */
+    -webkit-transform:rotate(90deg); /* Safari and Chrome */
+    -o-transform:rotate(90deg); /* Opera */
+} 
 
 
 /**
@@ -324,6 +339,9 @@ td {
     div#mapview {
         bottom: 67px; 
     }
+    div#whobackground {
+        padding-bottom: 67px;
+    }
 }
 
 @media screen and (max-width: 300px) {
@@ -356,5 +374,12 @@ td {
     }
     div#information, div#download, div#credits {
         margin: 5px auto 67px;
+    }
+    span.google-play {
+        background: url('images/smartphone/google-play.png') no-repeat;
+    }
+    span.google-play img {
+        width: 125px;
+        height: 41px;
     }
 }
