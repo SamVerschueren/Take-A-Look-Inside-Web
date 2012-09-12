@@ -125,9 +125,6 @@ span.adresSpan {
     font-size: 14px;
     margin-top: 5px;
 }
-#map {
-    height: 90%;
-}
 #mapButtons{
     position: absolute;
     right: 2%;
@@ -215,7 +212,6 @@ div#filter li {
     background: #EDEDE4;
     color: #484646;
     text-align: left;
-    width: 100%;
 }
 #mapButtons{
     position: absolute;
@@ -263,6 +259,10 @@ div#fireFilterSection {
     font-family: Quicksandbold;
     font-size: 16pt;
     cursor: pointer;
+    height: 16px;
+}
+div#fireFilterSection h3 {
+    width: 100%;
 }
 div#fireFilterSection img {
     float: left;
