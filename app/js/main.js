@@ -4,18 +4,8 @@ var mapLoaded = false;
 var markerArray = new Array();
 var page = 0;
 
-//Link to the site
-var siteUrl = 'http://tali.irail.be';
-
 //Link to the webservice
 var server = 'http://tali.irail.be';
-
-/*
- * TODO: map -> route berekenen (zou moeten werken, gosmore werkt momenteel niet)
- * 
- * Remove deviceUUID hieronder
- */
-deviceUUID = 'lievenANDROID';
 
 /**
  * Extension to arrays:
@@ -158,14 +148,53 @@ $(function() {
      * Fill the different categories with content 
      */
     initHomeContent(true);
+    
+    onDeviceReady();
 });
 
 /**
  * Posts the device id to the server when the device is ready.
  */
 function onDeviceReady() {
-    deviceUUID=device.uuid;
-    $.post(server + "/Device", {device: deviceUUID});     
+    // If the device has no deviceUUID, generate a new deviceUUID
+    if(localStorage['device'] == null) {
+        saveGenerate(); 
+    }
+    else {
+        deviceUUID=localStorage['device'];
+    }
+}
+
+/**
+ * This method safely generates a unique id. As long is the id exists, he will generate a new one.
+ * Normally, a double generated id will not occur because it is based on the timestamp and a random number. 
+ */
+function saveGenerate() {
+    var generated = generateId();
+    
+    $.get(server+'/Device?id=' + generated, function(data) {
+        if(data.exists) {
+            saveGenerate();
+        }
+        else {
+            deviceUUID=generated;
+                    
+            localStorage['device']=deviceUUID;
+            
+            $.post(server + "/Device", {device: deviceUUID});    
+        }
+    });
+}
+
+/**
+ * Generates a random deviceUUID
+ * 
+ * @return  string      a randomly generated deviceUUID 
+ */
+function generateId() {
+    var time = new Date().getTime();
+    
+    return time + '' + parseInt(Math.random()*100000);
 }
 
 /**
