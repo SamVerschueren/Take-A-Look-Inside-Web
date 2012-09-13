@@ -398,7 +398,8 @@ function fillPopup(feature) {
         popup.autoSize=true;
         popup.setBackgroundColor('#EBECE3');
         feature.popup=popup; 
-        var linkHTML=(building.infoLink!=null && building.infoLink!='')?'<p class="moreInfo"><a href="' +building.infoLink +'"><img class="linkButton" src="img/more-info.png"/></a></p>':'';
+        
+        var linkHTML=(building.infoLink!=null && building.infoLink!='')?'<p class="moreInfo"></p>':'';
         
         feature.popup.contentHTML='<h1 class="' + building.category.name.toLowerCase() + '">' + building.name + 
         '</h1><p class="description">' + building.description 
@@ -410,7 +411,15 @@ function fillPopup(feature) {
         
         showPopup(feature.popup);
         //array to store all popups in to, stores every popup in the array when they are created.
-        markerFeatures[feature.id]=feature;              
+        markerFeatures[feature.id]=feature;  
+        
+        var a = $(document.createElement("a")).append('<img class="linkButton" src="img/more-info.png" />');
+        
+        $("p.moreInfo").append(a);
+        
+        a.click(function(event) {
+            window.plugins.childBrowser.showWebPage(building.infoLink);
+        });   
     });        
 }
 
