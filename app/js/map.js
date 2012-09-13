@@ -25,32 +25,26 @@ $("div#map").live('pagebeforeshow', function() {
             $.each(categories, function (key, category) {
                 var checkbox = $("<input />").attr({type: 'checkbox', id: 'filter' + category.id, checked: 'checked'});
                 $(checkbox).change(filterClick);             
-                var label = $("<label />").attr('for', 'filter' + category.id).html(category.name);
-                var li = $("<li />").attr('class', category.name.toLowerCase()).append(checkbox).append(' ').append(label);
-                //Make whole label clickable
-                $(li).click(function(evt) {
-                    //find the checkbox
-                    var c=$(this).find('input:first');
-                    //change checked state
-                    c.attr('checked',!c.is(':checked'));
-                    //call the filterclick method
-                    c.trigger('change');                    
-                });                
+                var label = $("<label class='fullWidth' />");
+                //.html(checkbox + ' ' +category.name ); //.attr('for', 'filter' + category.id)
+                label.append(checkbox).append(' '+category.name);
+                var li = $("<li />").attr('class', category.name.toLowerCase()).append(label);         
                 $('ul#filterSection').append(li);                
             });
             var seenCheckbox = $("<input />").attr({type: 'checkbox', id: 'filterSeen', checked: 'checked'});
-                $(seenCheckbox).change(filterClick);             
-                var seenLabel = $("<label />").attr('for', 'filterSeen').html('Seen');
-                var seenLi = $("<li />").attr('class', 'seen').append(seenCheckbox).append(' ').append(seenLabel);
-                //Make whole label clickable
-                $(seenLi).click(function(evt) {
-                    //find the checkbox
-                    var c=$(this).find('input:first');
-                    //change checked state
-                    c.attr('checked',!c.is(':checked'));
-                    //call the filterclick method
-                    c.trigger('change');                    
-                });             
+            $(seenCheckbox).change(filterClick);             
+            var seenLabel = $("<label class='fullWidth' />");
+            seenLabel.append(seenCheckbox).append(' Seen');
+            var seenLi = $("<li />").attr('class', 'seen').append(seenLabel);
+            /*//Make whole li clickable
+            $(seenLi).click(function(evt) {
+                //find the checkbox
+                var c=$(this).find('#filterSeen');
+                //change checked state
+                c.attr('checked',!c.is(':checked'));
+                //call the filterclick method
+                c.trigger('change');                    
+            });  */           
             $('ul#filterSection').append(seenLi);
         });
     }              
@@ -80,26 +74,52 @@ $("div#map").live('pageshow', function() {
     //showMapDirectPopup(); 
 });
 
+counter=0;
 /**
  * Event that is fired after selecting or unselecting a filter in the filter menu. * 
  */
 var filterClick = function(evt) {
     var target = evt.target;
-    var id = target.id.replace('filter', '');
-    //Get all buildings in the category
-    $.getJSON(server+'/Building/Category/' + id, function(buildings) {
-        //for each category        
-        $.each(buildings, function(key, building) {
-            //if it is checked, display it
-            if($(target).is(':checked')) {
-                markerFeatures[building.id].marker.display(true);
-            }
-            //if not checked, don't display
-            else {
-                markerFeatures[building.id].marker.display(false);
-            }       
-        }); 
-    });
+    console.log(counter++);
+    if(target.id=="filterSeen" && localStorage["seen"]!=null ){        
+        for(var i=0;i<markerFeatures.length;i++){
+            if(typeof markerFeatures[i]!='undefined')     
+            {       
+                if($(target).is(':checked')) {
+                    if(checkBuildingInArray(JSON.parse(localStorage["seen"]),i)){             
+                        $.getJSON(server+'/Building?id='+i,function(building){
+                            markerFeatures[building.id].marker.display($('#filter'+building.category.id).is(':checked'));
+                        });
+                    }
+                }                
+                else
+                    if(checkBuildingInArray(JSON.parse(localStorage["seen"]),i))
+                        markerFeatures[i].marker.display(false);
+            }                        
+        }
+    }else {
+        var id = target.id.replace('filter', '');
+        //Get all buildings in the category
+        $.getJSON(server+'/Building/Category/' + id, function(buildings) {
+            //for each building       
+            $.each(buildings, function(key, building) {
+                if($(target).is(':checked')) {
+                    if($("#filterSeen").is(':checked'))
+                        markerFeatures[building.id].marker.display(true);
+                    else
+                        if(localStorage["seen"]!=null)
+                            if(checkBuildingInArray(JSON.parse(localStorage["seen"]),building.id))
+                                markerFeatures[building.id].marker.display(false);                            
+                            else markerFeatures[building.id].marker.display(true);     
+                        else 
+                            markerFeatures[building.id].marker.display(true);        
+                }
+                else {
+                    markerFeatures[building.id].marker.display(false);
+                }       
+            }); 
+        });
+    }
 }
 
 /**
