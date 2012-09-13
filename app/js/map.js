@@ -21,31 +21,27 @@ $("div#map").live('pagebeforeshow', function() {
         if(typeof myRouteVector!='undefined')
             myRouteVector.destroyFeatures();            
     }else{
+        // fill the filter
         $.getJSON(server+'/Category', function(categories){
-            $.each(categories, function (key, category) {
-                var checkbox = $("<input />").attr({type: 'checkbox', id: 'filter' + category.id, checked: 'checked'});
-                $(checkbox).change(filterClick);             
-                var label = $("<label class='fullWidth' />");
-                //.html(checkbox + ' ' +category.name ); //.attr('for', 'filter' + category.id)
-                label.append(checkbox).append(' '+category.name);
-                var li = $("<li />").attr('class', category.name.toLowerCase()).append(label);         
-                $('ul#filterSection').append(li);                
-            });
+            
+            //Add seen checkbox to the filter
             var seenCheckbox = $("<input />").attr({type: 'checkbox', id: 'filterSeen', checked: 'checked'});
             $(seenCheckbox).change(filterClick);             
             var seenLabel = $("<label class='fullWidth' />");
             seenLabel.append(seenCheckbox).append(' Seen');
             var seenLi = $("<li />").attr('class', 'seen').append(seenLabel);
-            /*//Make whole li clickable
-            $(seenLi).click(function(evt) {
-                //find the checkbox
-                var c=$(this).find('#filterSeen');
-                //change checked state
-                c.attr('checked',!c.is(':checked'));
-                //call the filterclick method
-                c.trigger('change');                    
-            });  */           
+            
+            //Add categories to the filter      
             $('ul#filterSection').append(seenLi);
+            $.each(categories, function (key, category) {
+                var checkbox = $("<input />").attr({type: 'checkbox', id: 'filter' + category.id, checked: 'checked'});
+                $(checkbox).change(filterClick);             
+                var label = $("<label class='fullWidth' />");
+                label.append(checkbox).append(' '+category.name);
+                var li = $("<li />").attr('class', category.name.toLowerCase()).append(label);         
+                $('ul#filterSection').append(li);                
+            });
+            
         });
     }              
 });    
@@ -73,13 +69,11 @@ $("div#map").live('pageshow', function() {
     //showMapDirectPopup(); 
 });
 
-counter=0;
 /**
  * Event that is fired after selecting or unselecting a filter in the filter menu. * 
  */
 var filterClick = function(evt) {
     var target = evt.target;
-    console.log(counter++);
     if(target.id=="filterSeen" && localStorage["seen"]!=null ){        
         for(var i=0;i<markerFeatures.length;i++){
             if(typeof markerFeatures[i]!='undefined')     
@@ -131,9 +125,17 @@ var filterClick = function(evt) {
  */
 function showMapDirectPopup(){    
     if(typeof mapDirect!='undefined'){
+        
+        //set all filter elements enabled in order to display all markers (including the one to popup)
+        var chks=$('ul#filterSection input');
+        $.each(chks,function(index,value){
+            if(!$(value).is(':checked'))
+                $(value).click();   
+        })
         //create popup        
         if(markerFeatures[mapDirect].popup==null )
             fillPopup(markerFeatures[mapDirect]);
+        
         //if popup not shown
         if(markerFeatures[mapDirect].popup !=null && !markerFeatures[mapDirect].popup.visible())
             //show it       
