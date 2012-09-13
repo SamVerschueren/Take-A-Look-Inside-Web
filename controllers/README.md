@@ -36,11 +36,37 @@ In the edit page it is possible to edit all atributes of a building including:
  - Using a website to find longitude & latitude of different location.
  
  
-<h3> Getting & manipulation the data - BuildingController, CategoryController & DeviceController </h3>
+<h3> Getting & manipulation the data - BuildingController, CategoryController, MovieController & DeviceController </h3>
 
  - Buildingcontroller: gets & manipulates all data about buildings:
     - top query for top must sees & insert/remove must sees
     - buildings per category 
     - ...
+  - CategoryController: gets all data about buildings
+  - MovieController: gets the movie data & is able to return formats playable by the browser/phonegap plugins
+  - DeviceController: gets & manipulates all data about devices using the app
+  
+<h3> Desktop web version - DesktopController </h3>
+
+This provides the page which can be seen on a desktop PC. It contains general information about the app.
+
+<h3> Authorized downloads - DownloadController </h3>
+
+Checks if the device is authorized to watch a movie: a generated deviceID must be present & the requesting machine should be a mobile device.
+
+<h3> Index - HomeController </h3>
+
+Checks which page should be shown on surfing to the main page (currently: tali.irail.be)
+
+Browsing with a PC: Desktop version.
+Browsing with mobile device: Mobile version.
+Handles page directing (credits, ...)
+
+<h3> Map - MapController </h3>
+
+Provices map features like routing, ...
+
+
+
 
     

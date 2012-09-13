@@ -3,7 +3,7 @@ iRail Summer of Code project
 
 <h1> TakeALookInside </h1>
 
-
+<h2> Project info </h2>
 
 
 Purpose of this project:
@@ -32,10 +32,10 @@ This project consists of 5 major parts:
 - A desktop version of the website. This is used to show general information about the app if you watch the site on a PC.
 - An administration application to add/edit/remove different buildings and movies to the database
     
-In detail information can be found in readme files in the app folder & in the controllers folder.
+In detail information can be found in readme files in the app folder, views folder & in the controllers folder.
 
 
-The structure of the project (except for the app folder) is based on .P, this is an open-source framework made by Sam Verschueren <sam@iRail.be>, it can be found here: https://github.com/SamVerschueren/.P
+The structure of the project (except for the app folder) is based on .P, this is an open-source MVC framework made by Sam Verschueren <sam@iRail.be>, it can be found here: https://github.com/SamVerschueren/.P
 
 
 Developed during #iSoc12 by:
@@ -45,4 +45,8 @@ Code:
 - Verschueren Sam   <sam@iRail.be>              
 
 Design:
-- Dierck Nicolas    <nicolas@iRail.be>          
+- Dierck Nicolas    <nicolas@iRail.be>     
+
+
+
+     

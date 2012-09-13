@@ -44,7 +44,7 @@ class HomeController extends Controller implements Authorizable {
     }
     
     /**
-     * The implementation tells the framework what is has to do when authorization fails.
+     * The implementation tells the framework what it has to do when authorization fails.
      * 
      * @return  result      An action result has to be returned.
      */
