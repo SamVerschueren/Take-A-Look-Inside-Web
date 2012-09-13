@@ -36,8 +36,22 @@ $("div#map").live('pagebeforeshow', function() {
                     //call the filterclick method
                     c.trigger('change');                    
                 });                
-                $('ul#filterSection').append(li);  
+                $('ul#filterSection').append(li);                
             });
+            var seenCheckbox = $("<input />").attr({type: 'checkbox', id: 'filterSeen', checked: 'checked'});
+                $(seenCheckbox).change(filterClick);             
+                var seenLabel = $("<label />").attr('for', 'filterSeen').html('Seen');
+                var seenLi = $("<li />").attr('class', 'seen').append(seenCheckbox).append(' ').append(seenLabel);
+                //Make whole label clickable
+                $(seenLi).click(function(evt) {
+                    //find the checkbox
+                    var c=$(this).find('input:first');
+                    //change checked state
+                    c.attr('checked',!c.is(':checked'));
+                    //call the filterclick method
+                    c.trigger('change');                    
+                });             
+            $('ul#filterSection').append(seenLi);
         });
     }              
 });    
