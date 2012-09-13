@@ -29,7 +29,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
  * JQuery $(document).ready() method
  * The short way! 
  */
-$(function() {
+$(function() {    
     windowWidth = $(window).width();
     
     initCarrousel();
@@ -107,11 +107,11 @@ $(function() {
     
     $('#routeToButton').click(function(event){
         routeToClick();
-    })
+    });
     
     $('#mustSeeButton').click(function(event){
         mustSeeClick();
-    })
+    });
     
     /**
      * Action fired when clicking the 'scan' button 
@@ -248,7 +248,7 @@ var scanCode = function() {
                     
                     var building = new Building(data.building.id, data.building.name, data.token);
                     
-                    if(button==1) {
+                    if(button==1) {                        
                         var array;
                         if(localStorage['lookLater'] == null) {
                             array = new Array();    
@@ -257,6 +257,7 @@ var scanCode = function() {
                             array = JSON.parse(localStorage['lookLater']);
                         }
                         
+                        array.remove(building);
                         array.push(building);
                         
                         localStorage['lookLater'] = JSON.stringify(array);
