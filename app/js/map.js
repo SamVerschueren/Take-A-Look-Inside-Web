@@ -123,9 +123,17 @@ var filterClick = function(evt) {
  */
 function showMapDirectPopup(){    
     if(typeof mapDirect!='undefined'){
+        
+        //set all filter elements enabled in order to display all markers (including the one to popup)
+        var chks=$('ul#filterSection input');
+        $.each(chks,function(index,value){
+            if(!$(value).is(':checked'))
+                $(value).click();   
+        })
         //create popup        
         if(markerFeatures[mapDirect].popup==null )
             fillPopup(markerFeatures[mapDirect]);
+        
         //if popup not shown
         if(markerFeatures[mapDirect].popup !=null && !markerFeatures[mapDirect].popup.visible())
             //show it       
