@@ -51,7 +51,7 @@ try {
 }
 catch(Exception $ex) {
     //fail
-    exit($ex->getMessage());
+    header('Location: /Home');
 }
 
 $viewEngine = ViewEngine::getInstance();

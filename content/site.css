@@ -15,6 +15,9 @@ footer {
     font-size: 12px;
     background-color: #EDEDE4;
 }
+em {
+    font-family: 'Quicksandbold', sans-serif;
+}
 span#creditsicon {
     position: absolute;
     top: 20px;
