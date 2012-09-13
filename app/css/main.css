@@ -228,6 +228,10 @@ div#filter li label {
 /**
  * Categori�n
  */
+.fullWidth{
+    width:auto;
+    display:block;
+}
 .cultuur {
     background-color: #107FA1;
 }
@@ -238,7 +242,7 @@ div#filter li label {
     background-color: #350F94;
 }
 .seen{
-    background-color: #F2C43D;
+    border: solid #A3A3A3 3px;
 }
 .sport {
     background-color: #A15810;

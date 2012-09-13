@@ -50,18 +50,19 @@ $(function() {
     
         // Adding some localstorage dummy data
         /*var buildings = new Array();
-        buildings[0] = new Building(2, 'Stadhuis');
+        buildings[0] = new Building(2, 'Stadhuis');*/
         
-        localStorage['favorites'] = JSON.stringify(buildings);*/
+        //localStorage['favorites'] = JSON.stringify(buildings);*/
         
         
         /*var lookLaters = new Array();
         lookLaters[0] = new Building(3, 'Belfort');
-        localStorage['lookLater'] = JSON.stringify(lookLaters);
+        localStorage['lookLater'] = JSON.stringify(lookLaters);*/
      
         var seen = new Array();
         seen[0] = new Building(2, 'Stadhuis');
-        localStorage['seen'] = JSON.stringify(seen);*/
+        seen[1]=new Building(5,'Hotel Clemmen');
+        localStorage['seen'] = JSON.stringify(seen);
 		
     
     //Don't show information screen if application isn't opened for the first time
