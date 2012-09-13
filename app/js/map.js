@@ -22,6 +22,13 @@ $("div#map").live('pagebeforeshow', function() {
             myRouteVector.destroyFeatures();            
     }else{
         $.getJSON(server+'/Category', function(categories){
+            var seenCheckbox = $("<input />").attr({type: 'checkbox', id: 'filterSeen', checked: 'checked'});
+            $(seenCheckbox).change(filterClick);             
+            var seenLabel = $("<label class='fullWidth' />");
+            seenLabel.append(seenCheckbox).append(' Seen');
+            var seenLi = $("<li />").attr('class', 'seen').append(seenLabel);
+                  
+            $('ul#filterSection').append(seenLi);
             $.each(categories, function (key, category) {
                 var checkbox = $("<input />").attr({type: 'checkbox', id: 'filter' + category.id, checked: 'checked'});
                 $(checkbox).change(filterClick);             
@@ -31,21 +38,7 @@ $("div#map").live('pagebeforeshow', function() {
                 var li = $("<li />").attr('class', category.name.toLowerCase()).append(label);         
                 $('ul#filterSection').append(li);                
             });
-            var seenCheckbox = $("<input />").attr({type: 'checkbox', id: 'filterSeen', checked: 'checked'});
-            $(seenCheckbox).change(filterClick);             
-            var seenLabel = $("<label class='fullWidth' />");
-            seenLabel.append(seenCheckbox).append(' Seen');
-            var seenLi = $("<li />").attr('class', 'seen').append(seenLabel);
-            /*//Make whole li clickable
-            $(seenLi).click(function(evt) {
-                //find the checkbox
-                var c=$(this).find('#filterSeen');
-                //change checked state
-                c.attr('checked',!c.is(':checked'));
-                //call the filterclick method
-                c.trigger('change');                    
-            });  */           
-            $('ul#filterSection').append(seenLi);
+            
         });
     }              
 });    
@@ -74,13 +67,11 @@ $("div#map").live('pageshow', function() {
     //showMapDirectPopup(); 
 });
 
-counter=0;
 /**
  * Event that is fired after selecting or unselecting a filter in the filter menu. * 
  */
 var filterClick = function(evt) {
     var target = evt.target;
-    console.log(counter++);
     if(target.id=="filterSeen" && localStorage["seen"]!=null ){        
         for(var i=0;i<markerFeatures.length;i++){
             if(typeof markerFeatures[i]!='undefined')     

@@ -49,10 +49,10 @@ $(function() {
         lookLaters[0] = new Building(3, 'Belfort');
         localStorage['lookLater'] = JSON.stringify(lookLaters);*/
      
-        var seen = new Array();
+        /*var seen = new Array();
         seen[0] = new Building(2, 'Stadhuis');
         seen[1]=new Building(5,'Hotel Clemmen');
-        localStorage['seen'] = JSON.stringify(seen);
+        localStorage['seen'] = JSON.stringify(seen);*/
 		
     
     //Don't show information screen if application isn't opened for the first time
