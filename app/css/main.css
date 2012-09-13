@@ -237,6 +237,9 @@ div#filter li label {
 .wifi {
     background-color: #350F94;
 }
+.seen{
+    background-color: #F2C43D;
+}
 .sport {
     background-color: #A15810;
 }
