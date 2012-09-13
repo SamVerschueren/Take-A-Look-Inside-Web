@@ -36,6 +36,7 @@ class AdminController extends Controller implements Authorizable {
         $user = unserialize($_SESSION[Config::$SESSION_NAME]);
         
         $this->viewData['user'] = $user->getName();
+        $this->viewData['menu'] = 'hide';
         
         return $this->view($buildingViewModels);
     }
@@ -58,6 +59,7 @@ class AdminController extends Controller implements Authorizable {
             return $this->redirectToAction('Index');
         }
         else {
+            $this->viewData['menu'] = 'hide';
             return $this->view(new BuildingViewModel($building));
         }
     }
@@ -92,7 +94,6 @@ class AdminController extends Controller implements Authorizable {
                     $this->buildingMapper->create($building);
                 }
             }
-            
             return $this->redirectToAction('Index');    
         }
         else {
@@ -114,7 +115,7 @@ class AdminController extends Controller implements Authorizable {
             catch(SQLException $ex) {
 
             }
- 
+            $this->viewData['menu'] = 'hide';
             return $this->view($editViewModel);            
         }
     }
@@ -149,7 +150,7 @@ class AdminController extends Controller implements Authorizable {
         }
         else {
             $this->viewData['id'] = $id;
-            
+            $this->viewData['menu'] = 'hide';
             return $this->view();
         }
     }
@@ -196,7 +197,7 @@ class AdminController extends Controller implements Authorizable {
     public function authorize() {        
         if(isset($_SESSION[Config::$SESSION_NAME])) {
             $user = unserialize($_SESSION[Config::$SESSION_NAME]);
-            
+                        
             return $user->getIp() == $_SERVER['REMOTE_ADDR'];
         }
         
