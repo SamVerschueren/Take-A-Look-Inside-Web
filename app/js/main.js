@@ -114,6 +114,8 @@ $(function() {
         mustSeeClick();
     });
     
+
+    
     /**
      * Action fired when clicking the 'scan' button 
      */

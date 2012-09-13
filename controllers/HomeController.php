@@ -5,12 +5,21 @@ require_once('system/web/routing/RouteValueDictionary.php');
 require_once('content/libs/MobileDetect.php');
 
 /**
- * Controller that handles all the incomming requests of the homepage.
+ * Controller that handles all the incomming requests of the homepage. The Controller implements Authorizable. This means that it can only
+ * be accessed if the user is authorized for it. In this case, the user has to be on a mobile device to watch this.
  * 
- * @author Sam Verschueren <sam@iRail.be>
+ * @package controllers
+ * @since 2012-09-08
+ * @author Sam Verschueren  <sam.verschueren@gmail.com>
  */
 class HomeController extends Controller implements Authorizable {
 
+    /**
+     * Handles the call to Home/Index
+     * 
+     * @param   token       If the token is not null, redirect to the map.
+     * @return  view        The view can be found in views/home/index.phtml
+     */
     public function index($token) {
         $this->viewData['title'] = 'Home - Take A Look Inside';
         $this->viewData['menu'] = 'home';
@@ -27,8 +36,14 @@ class HomeController extends Controller implements Authorizable {
         return $this->view();
     }
     
+    /**
+     * Handles the call to Home/Credits
+     * 
+     * @return  view        The view can be found in views/home/credits.phtml
+     */
     public function credits(){
-        $this->viewData['title'] = 'Credits - Take A Look Inside';        
+        $this->viewData['title'] = 'Credits - Take A Look Inside';
+             
         return $this->view();
     }
 

@@ -4,8 +4,21 @@ require_once('system/web/mvc/Authorizable.php');
 
 require_once('content/libs/MobileDetect.php');
 
+/**
+ * This Controller handles all the calls to /Download. The Controller implements Authorizable. This means that it can only
+ * be accessed if the user is authorized for it. In this case, the user has to be on a mobile device to watch this.
+ * 
+ * @package controllers
+ * @since 2012-09-08
+ * @author Sam Verschueren  <sam.verschueren@gmail.com>
+ */
 class DownloadController extends Controller implements Authorizable {
 
+    /**
+     * Handles the call to Download/Index
+     * 
+     * @return  viewResult  The view can be found in views/download/index.phtml
+     */
     public function index() {
         $this->viewData['title'] = 'Download - Take A Look Inside';
         $this->viewData['menu'] = 'download';

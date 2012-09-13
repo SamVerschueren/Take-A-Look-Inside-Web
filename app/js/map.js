@@ -59,12 +59,11 @@ $("div#map").live('pageshow', function() {
     if(!mapLoaded) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(loadMap, function() {
-                navigator.notification.alert("Your position cannot be determined, the korenmarkt is used as your location now.", null, "No geolocation", "OK");  
-                
+                loadMap();
             });        
                           
         }else{
-            navigator.notification.alert("Your position cannot be determined, the korenmarkt is used as your location now.", null, "No geolocation", "OK");  
+            loadMap();
         }
     }
     else {
@@ -206,6 +205,15 @@ function updateRightSideButtons(buildingID){
  * @param       position        The position of the device
  */
 function loadMap(position) {
+    if(position===undefined) {
+        myLon=3.7219830;
+        myLat=51.0546200;
+    }
+    else {
+        myLon=position.coords.longitude;
+        myLat=position.coords.latitude;
+    }
+    
     /**
      * This is the mapbox tileset, this one is used. 
      */
@@ -408,7 +416,7 @@ function fillPopup(feature) {
         popup.setBackgroundColor('#EBECE3');
         feature.popup=popup; 
         
-        var linkHTML=(building.infoLink!=null && building.infoLink!='')?'<p class="moreInfo"></p>':'';
+        var linkHTML=(building.infoLink!=null && building.infoLink!='')?'<p class="moreInfo"><a href="' + building.infoLink + '"><img class="linkButton" src="img/more-info.png" /></a></p>':'';
         
         feature.popup.contentHTML='<h1 class="' + building.category.name.toLowerCase() + '">' + building.name + 
         '</h1><p class="description">' + building.description 
@@ -422,13 +430,13 @@ function fillPopup(feature) {
         //array to store all popups in to, stores every popup in the array when they are created.
         markerFeatures[feature.id]=feature;  
         
-        var a = $(document.createElement("a")).append('<img class="linkButton" src="img/more-info.png" />');
+        /**
+         * This is necessary for ipad 
+         */
         
-        $("p.moreInfo").append(a);
-        
-        a.click(function(event) {
+        /*a.click(function(event) {
             window.plugins.childBrowser.showWebPage(building.infoLink);
-        });   
+        });*/  
     });        
 }
 

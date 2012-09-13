@@ -4,8 +4,22 @@ require_once('system/web/mvc/Authorizable.php');
 
 require_once('content/libs/MobileDetect.php');
 
+/**
+ * This controller is used to logon to the adminpanel. he Controller implements Authorizable. This means that it can only
+ * be accessed if the user is authorized for it. In this case, the user has to be on a mobile device to watch this.
+ * 
+ * @package controllers
+ * @since 2012-09-13
+ * @author Sam Verschueren  <sam.verschueren@gmail.com>
+ */
 class MapController extends Controller Implements Authorizable {
 
+    /**
+     * The call to Map/Index
+     * 
+     * @param   token       The QR token of the movie.
+     * @return  viewResult  The view can be found in views/map/index.phtml
+     */
     public function index($token=null) {
         $this->viewData['title'] = 'Map - Take A Look Inside';
         $this->viewData['menu'] = 'map';
@@ -17,13 +31,16 @@ class MapController extends Controller Implements Authorizable {
         return $this->view();
     }
     
+    /**
+     * Function that can calculate a route between multiple points.
+     */
     public function route() {
         // The domains we're allowed to contact
         $allowedDomains = array('http://gazetteer.openstreetmap.org/', 
-                            'http://nominatim.openstreetmap.org/', 
-                            'http://dev.openstreetmap.nl/', 
-                            'http://www.yournavigation.org/',
-                            'http://yournavigation.org/');
+                                'http://nominatim.openstreetmap.org/', 
+                                'http://dev.openstreetmap.nl/', 
+                                'http://www.yournavigation.org/',
+                                'http://yournavigation.org/');
         
         // The actual form action
         $action = $_GET['url'];
