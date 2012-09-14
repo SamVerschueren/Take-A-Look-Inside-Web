@@ -5,6 +5,13 @@ require_once('system/web/mvc/Controller.php');
 require_once('models/DAL/BuildingMapper.php');
 require_once('models/DAL/DeviceMapper.php');
 
+/**
+ * This controller handles every action that has something to do with the building.
+ * 
+ * @package controllers
+ * @since 2012-09-8
+ * @author Sam Verschueren  <sam.verschueren@gmail.com>
+ */
 class BuildingController extends Controller {
 
     private $buildingMapper;
@@ -17,6 +24,13 @@ class BuildingController extends Controller {
         $this->deviceMapper = new DeviceMapper();
     }
     
+    /**
+     * The index method returns a json string of a building or of all the buildings.
+     * 
+     * @param   id      If the id is set, this method will return a json string of the building with that id.
+     * @param   token   If the token is set, this method will return the building that belongs to the QRToken.
+     * @return  json    A JsonResult that can be executed and that will display the json.
+     */
     public function index($id=null, $token=null) {
         if($id == null) {
             if($token == null) {
@@ -47,6 +61,12 @@ class BuildingController extends Controller {
         return $json;
     }
     
+    /**
+     * This method returns the top elements of the buildings.
+     * 
+     * @param   id      It returns the top number of elements specified by this number.
+     * @return  json    A JsonResult that can be executed and that will display the json.
+     */
     public function top($id) {
         $buildings = $this->buildingMapper->findAllObjects();
         
@@ -63,6 +83,12 @@ class BuildingController extends Controller {
         return $json;
     }
     
+    /**
+     * This method returns every building with the categoryid equals to the specified id.
+     * 
+     * @param   id      The categoryID.
+     * @return  json    A JsonResult that can be executed and that will display the json.
+     */
     public function category($id) {
         $buildings = $this->buildingMapper->findByCategoryId($id);
         
@@ -78,6 +104,11 @@ class BuildingController extends Controller {
         return $json;
     }
     
+    /**
+     * This method can be used to favorite a building.
+     * 
+     * @param   method          This is like or unlike. If it's like, the data will be added to the database, otherwhise it will be removed.
+     */
     public function favorite($method) {        
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             try {
@@ -101,7 +132,13 @@ class BuildingController extends Controller {
         
         exit();
     }
-    
+
+    /**
+     * This method returns an array of an object. It uses reflection to retrieve all the properties.
+     * 
+     * @param   object      The object that should be transformed.
+     * @return  array       The array with key-value pairs depending on the object.
+     */    
     private function objectToArray($object) {
         if(!is_object($object)) {
             // throw exception

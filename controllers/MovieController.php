@@ -5,6 +5,13 @@ require_once('models/DAL/MovieMapper.php');
 require_once('models/DAL/DeviceMapper.php');
 require_once('models/DAL/BuildingMapper.php');
 
+/**
+ * This Controller is used to retrieve data about the movie. It can also play the movie.
+ * 
+ * @package controllers
+ * @since 2012-09-16
+ * @author Sam Verschueren  <sam.verschueren@gmail.com>
+ */
 class MovieController extends Controller {
     
     private $movieMapper;
@@ -19,6 +26,13 @@ class MovieController extends Controller {
         $this->buildingMapper = new BuildingMapper();
     }
     
+    /**
+     * Plays the movie with that corresponds to the movieID.
+     * 
+     * @param   id              The id of the movie.
+     * @param   device          The deviceID of the user.
+     * @return  streamResult    The movie that will be streamed.
+     */
     public function play($id, $device) {
         try {
             $this->deviceMapper->findByDeviceId($device);
@@ -34,6 +48,13 @@ class MovieController extends Controller {
         }
     }
     
+    /**
+     * Outputs information about the movie.
+     * 
+     * @param   id          The id of the movie.
+     * @param   device      The deviceID of the user that wishes information about the movie.
+     * @return  json        Information about the movie in jsonformat.
+     */
     public function size($id, $device) {
         try {
             $this->deviceMapper->findByDeviceId($device);

@@ -4,6 +4,13 @@ require_once('system/web/mvc/Controller.php');
 
 require_once('models/DAL/CategoryMapper.php');
 
+/**
+ * This controller handles every action that has something to do with the categories.
+ * 
+ * @package controllers
+ * @since 2012-09-8
+ * @author Sam Verschueren  <sam.verschueren@gmail.com>
+ */
 class CategoryController extends Controller {
 
     private $categoryMapper;
@@ -14,6 +21,12 @@ class CategoryController extends Controller {
         $this->categoryMapper = new CategoryMapper();
     }
     
+    /**
+     * Returns all the categories, or the category specified with an id.
+     * 
+     * @param   id          The id of the category.
+     * @return  json        A JsonResult that can be executed and that will display the json.
+     */
     public function index($id=null) {
         if($id == null) {
             $categories = $this->categoryMapper->findAllObjects();
@@ -39,6 +52,12 @@ class CategoryController extends Controller {
         return $json;
     }
 
+    /**
+     * This method returns an array of an object. It uses reflection to retrieve all the properties.
+     * 
+     * @param   object      The object that should be transformed.
+     * @return  array       The array with key-value pairs depending on the object.
+     */
     private function objectToArray($object) {
         if(!is_object($object)) {
             // throw exception
