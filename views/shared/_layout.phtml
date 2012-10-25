@@ -7,7 +7,7 @@
   
     <title><?php echo $viewData['title']; ?></title>
 
-    <base href="<?php echo Config::$SERVER ?>" />
+    <base href="<?php echo trim(Config::$SERVER, '/') . '/' . trim(Config::$SUBDIR, '/') . '/'; ?>" />
     <!--base href="http://tali.irail.be" /-->
     
     <link rel="icon" type="image/png" href="content/images/favicon.png" />
