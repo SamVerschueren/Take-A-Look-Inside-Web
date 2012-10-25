@@ -82,12 +82,9 @@ class AdminController extends Controller implements Authorizable {
             return $this->redirectToAction('Index');
         }
         else {
-<<<<<<< HEAD
             $this->viewData['title'] = 'Admin - Take A Look Inside';
-            
-=======
             $this->viewData['menu'] = 'hide';
->>>>>>> e119fb37afdc48edb3d118180d0a954cb183e437
+
             return $this->view(new BuildingViewModel($building));
         }
     }
@@ -159,13 +156,10 @@ class AdminController extends Controller implements Authorizable {
             catch(SQLException $ex) {
 
             }
-<<<<<<< HEAD
- 
+
             $this->viewData['title'] = 'Admin - Take A Look Inside';
- 
-=======
             $this->viewData['menu'] = 'hide';
->>>>>>> e119fb37afdc48edb3d118180d0a954cb183e437
+            
             return $this->view($editViewModel);            
         }
     }
